@@ -12,7 +12,7 @@
 </div><!---small_side_top--->
 
 <div class="small_side_result fil_app">
-    <u></u>
+    <u>No </u>
     Filter Applied
 </div><!---small_side_result--->
 <br /> <br />

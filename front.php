@@ -619,7 +619,7 @@
                         $cc_name = $cc_row['name'];
                         $cc_slug = $cc_row['slug'];
                         ?>
-                            <li class="coupon_category_<?php echo $cc_id; ?>"> <a href="<?php echo path_url('/retail_pro'); ?>/coupons/<?php echo $cc_slug;?>" title="<?php echo $cc_slug;?>" targe="_blank"><?php echo $cc_name;?></a> </li> 
+                            <li class="coupon_category_<?php echo $cc_id; ?>"> <a href="<?php echo path_url('/retail_pro'); ?>/coupons-category/<?php echo $cc_slug;?>" title="<?php echo $cc_slug;?>" targe="_blank"><?php echo $cc_name;?></a> </li> 
                         <?php
                         }
                         ?>

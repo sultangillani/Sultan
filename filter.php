@@ -1413,7 +1413,7 @@ function populer(){
                 $.ajax({
                     method: 'POST',
                     url: pathname,
-                    data: {action: 'populer', page_id: page_id, usp:us, total_posts: total_posts},
+                    data: {action: 'populer', page_id: page_id, usp:us, total_posts: total_posts, checked: ct, dt: dt, cat: cat},
                     success: function(result){
                         $('.top-offers').html(result);
                     }

@@ -226,7 +226,7 @@ function path_url($folder){
     $path_pos = strpos($path,$folder);
     return substr($path,0,$path_pos) . $folder;
 }
-
+echo $path = $_SERVER['REQUEST_URI'];
 ?>
 
 

@@ -4,9 +4,9 @@ global $url;
 if($url[0] == '' || $url[0] == 'index'){
     include_once 'front.php';
 }
-else if($url[0] == 'coupons'){
+else if($url[0] == 'coupons-category'){
     
-    include_once 'coupons.php';
+    include_once 'coupons-category.php';
     
 }else if($url[0] == 'stores'){
     
