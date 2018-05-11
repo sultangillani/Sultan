@@ -255,7 +255,7 @@
                                         //Second condition
                                         if(!empty($to_featured)){
                                             ?>
-                                                <a href="<?php echo $to_guid;?>" target="_blank"><img src="<?php echo $to_featured;?>" alt="4" class="img-responsive" data-toggle="modal" data-target="#copon_<?php echo $to_id;?>" /></a>
+                                                <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $sql_post_name;?>" target="_blank"><img src="<?php echo $to_featured;?>" alt="4" class="img-responsive"/></a>
                                             <?php
                                         }else{
                                             $sub_sql = "SELECT `all_posts`.* FROM `all_posts` WHERE `all_posts`.`post_status` IN ('publish','inherit') AND `all_posts`.`ID` = $to_meta";
@@ -263,7 +263,7 @@
                                             $sub_sql_row = mysqli_fetch_array($sub_sql_query);
                                             $store_img_url = $sub_sql_row['guid'];
                                             ?>
-                                                <a href="<?php echo $to_guid;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive" data-toggle="modal" data-target="#copon_<?php echo $to_id;?>" /></a>
+                                                <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $sql_post_name;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive"/></a>
                                             <?php
                                         }
                                         
@@ -273,7 +273,7 @@
                                         $sub_sql_row = mysqli_fetch_array($sub_sql_query);
                                         $store_img_url = $sub_sql_row['guid'];
                                         ?>
-                                            <a href="<?php echo $to_guid;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive" data-toggle="modal" data-target="#copon_<?php echo $to_id;?>"/></a>
+                                            <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $sql_post_name;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive"/></a>
                                         <?php
                                     }
                                 ?>
@@ -314,8 +314,8 @@
                                 
                                 <div class="row post-mid-one">
                                     <div class="col-xs-8 t">
-                                        <h3 data-toggle="modal" data-target="#copon_<?php echo $to_id;?>">
-                                            <a href="<?php echo $to_guid;?>" target="_blank"class="post-one-title"><?php echo $to_title?></a>
+                                        <h3>
+                                            <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $sql_post_name;?>" target="_blank" class="post-one-title"><?php echo $to_title?></a>
                                         </h3>
                                         <br />
                                         

@@ -8,6 +8,10 @@ else if($url[0] == 'coupons-category'){
     
     include_once 'coupons-category.php';
     
+}else if($url[0] == 'coupon'){
+    
+    include_once 'coupon.php';
+    
 }else if($url[0] == 'stores'){
     
     include_once 'stores.php';
