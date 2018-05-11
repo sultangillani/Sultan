@@ -2860,4 +2860,10 @@ footer {
   .show_btn:hover {
     text-decoration: underline; }
 
+.fil_app u {
+  text-decoration: none;
+  font-size: 13.5px;
+  display: inline-block;
+  vertical-align: top; }
+
 /*# sourceMappingURL=style.css.map */

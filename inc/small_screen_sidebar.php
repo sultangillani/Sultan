@@ -11,9 +11,9 @@
     </div>
 </div><!---small_side_top--->
 
-<div class="small_side_result">
-    <span>20,569</span>
-    Offers Available
+<div class="small_side_result fil_app">
+    <u></u>
+    Filter Applied
 </div><!---small_side_result--->
 <br /> <br />
 

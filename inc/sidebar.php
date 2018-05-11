@@ -29,7 +29,7 @@
 }
 ?>
 <h4>32 Offers Available</h4>
-<span>1 Filter Applied</span>
+<span class="fil_app"><u></u> Filter Applied</span>
 <a href="" class="reset">Reset All</a>
 <br /><br /><br />
 

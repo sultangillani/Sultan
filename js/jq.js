@@ -810,6 +810,17 @@ $(document).ready(function(){
     });
     
     $('.ct').each(function(){
+        
+        $(this).children('span').click(function(){
+            var ct_len_input = $('.ct').find('input[type="checkbox"]:checked').length;
+            ct_len_input = (ct_len_input / 2);
+            if (ct_len_input < 1) {
+                $('.fil_app > u').text('No ');
+            }else{
+                $('.fil_app > u').text(ct_len_input);
+            }
+        });
+        
         var ct_len_span = $(this).find('span').length;
         if (ct_len_span > 5) {
             if ($(this).hasClass('cta')) {
@@ -832,4 +843,6 @@ $(document).ready(function(){
             $(this).prev('.show_all').show();
         });
     });
+    
+    
 });
