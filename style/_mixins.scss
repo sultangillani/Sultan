@@ -1,0 +1,75 @@
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin background-linear($col1,$col2){
+  background: linear-gradient($col1,$col2);
+  background: -o-linear-gradient($col1,$col2);
+  background: -moz-linear-gradient($col1,$col2);
+  background: -webkit-linear-gradient($col1,$col2);
+}
+
+@mixin appearance($val){
+  -webkit-appearance: $val;
+  -moz-appearance: $val;
+  appearance: $val;
+}
+
+@mixin box-shadow($hor,$ver,$blur,$color){
+  -webkit-box-shadow: $hor $ver $blur $color;
+  -moz-box-shadow: $hor $ver $blur $color;
+  box-shadow: $hor $ver $blur $color;
+}
+
+@mixin panel($bg,$col,$bgh){
+  background: $bg;
+  color: $col;
+  a{
+    color: $bg;
+    
+    &:hover{
+      color: $bgh;
+    }
+  }
+}
+
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}  
+}
+
+@mixin color_stroke($fill,$wid,$st_color){
+  -ms-text-fill-color: $fill; /* Will override color (regardless of order) */
+  -ms-text-stroke-width: $wid;
+  -ms-text-stroke-color: $st_color;
+  -moz-text-fill-color: $fill; /* Will override color (regardless of order) */
+  -moz-text-stroke-width: $wid;
+  -moz-text-stroke-color: $st_color;
+  -webkit-text-fill-color: $fill; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: $wid;
+  -webkit-text-stroke-color: $st_color;
+}
+
+@mixin mQ($arg...){
+  @if length($arg) == 1{
+    @media only screen and (max-width: nth($arg, 1)){
+      @content;
+    }
+  }
+  
+  @elseif length($arg) == 2{
+    @media only screen and (max-width: nth($arg, 1)) and (min-width: nth($arg, 2)){
+      @content;
+    }
+  }
+}
+@mixin miQ($arg...){
+  @media only screen and (min-width: nth($arg, 1)){
+    @content;
+  }
+}
