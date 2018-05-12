@@ -1426,10 +1426,50 @@ function populer(){
 }
 
 
+function store_subscribtion(){
+    global $conn;
+    $store_subs_email = mysqli_real_escape_string($conn,htmlentities($_POST['store_subs_email']));
+    $store_subs_id = $_POST['store_subs_id'];
+    
+    $store_subs_sel = "SELECT * FROM `add_favourite` WHERE `email` = '$store_subs_email' AND `store_id` = $store_subs_id";
+    $store_subs_sel_query = mysqli_query($conn,$store_subs_sel);
+    if(mysqli_num_rows($store_subs_sel_query) > 0){
+        ?>
+            <div class="alert alert-info alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                Your email already exists.
+            </div>
+        <?php
+    }else{
+        $ip_address = get_client_ip();
+        $store_subs_ins = "INSERT INTO `add_favourite`(`store_id`, `email`, `ip_address`) VALUES ($store_subs_id,'$store_subs_email','$ip_address')";
+        if(empty($store_subs_email)){
+            ?>
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                Please Fill the email field!
+            </div>
+            <?php
+        }else{
+            mysqli_query($conn,$store_subs_ins);
+            ?>
+            <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                Your email has heen successfully submitted.
+            </div>
+            <?php
+        }
+    }
+}
+
 $func = $_POST['action'];
     switch ($func) {
         case "populer":
         populer();
+        break;
+        
+        case "store_subscribtion":
+        store_subscribtion();
         break;
     }
 

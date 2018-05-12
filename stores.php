@@ -50,23 +50,48 @@
                                             <img src="<?php echo $store_modal_guid; ?>" alt="store_modal_<?php echo $store_modal_row['ID']; ?>" class="img-responsive"/>
                                         </div>
                                         <div class="col-xs-9 store_modal_cont">
+                                            <div class="subs_msg">
+                                                
+                                            </div>
                                             <?php echo $store_des; ?>
                                             <i class="fa fa-arrow-circle-down"></i><br />
                                             <b>For latest updates and info of this store please Subscribe this store.</b><br />
                                             <div class="input-group">
                                                 <span class="input-group-addon" id="email-addon1"><i class="fa fa-envelope"></i></span>
-                                                <input type="text" class="form-control email" placeholder="Email" aria-describedby="email-addon1">
+                                                <input type="email" class="form-control store_subs_email" placeholder="Email" aria-describedby="email-addon1">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Send</button>
+                                    <button type="button" class="btn btn-primary store_subs">Send</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    <script type="text/javascript">
+                        /*<div class="alert alert-success alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Success!</strong> Indicates a successful or positive action.
+                        </div>*/
+                        $(document).ready(function(){
+                            $('.store_subs').click(function(){
+                                var store_subs_email = $('.store_subs_email').val();
+                                var store_subs_id = <?php echo $store_id; ?>;
+                                var pathname = $('.kbc_uri').val();
+                                pathname = pathname + '/filter.php';
+                                $.ajax({
+                                    method: 'POST',
+                                    url: pathname,
+                                    data: {action: 'store_subscribtion', store_subs_email: store_subs_email, store_subs_id: store_subs_id},
+                                    success: function(result){
+                                        $('.subs_msg').html(result);
+                                        $('.store_subs_email').val('');
+                                    }
+                                });
+                            });    
+                        });
+                    </script>
                     
                     
                     <?php
