@@ -6,6 +6,7 @@
     $stre_img = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.`taxonomy`, `wp_clpr_storesmeta`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships`,`wp_clpr_storesmeta` WHERE `wp_term_taxonomy`.`taxonomy` = 'stores' AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_clpr_storesmeta`.`meta_key`= 'clpr_store_image_id' AND `wp_clpr_storesmeta`.`stores_id` = `wp_terms`.`term_id` AND `wp_clpr_storesmeta`.`meta_value` = `all_posts`.`ID` AND `wp_terms`.`term_id` = $store_id GROUP BY `wp_terms`.`term_id`";
     $stre_query = mysqli_query($conn,$stre_img);
     $stre_row = mysqli_fetch_array($stre_query);
+    $stre_term_id = $stre_row['term_id'];
     $stre_guid = $stre_row['guid'];
     
     //store_img_url
@@ -15,13 +16,14 @@
     $stre_permalink = $stre_url_row['meta_value'];
     
 ?>
+
 <div class="filter">
     <div class="store_imgz">
         <div class="st_img">
             <a href="<?php echo $stre_permalink;?>"><img src="<?php echo $stre_guid;?>" alt="<?php echo $store_name; ?>" class="img-responsive"/></a>
         </div>
         <div class="st_fav">
-            <a href=""><i class="fa fa-heart-o"></i> <span>Add Favorite</span></a>
+            <a href="" data-toggle="modal" data-target="#store_modal_<?php echo $stre_term_id; ?>" ><i class="fa fa-heart-o"></i> <span>Add Favorite</span></a>
         </div>
     </div>
 </div> <br /><br />

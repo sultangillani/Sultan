@@ -29,6 +29,39 @@
             <div class="col-sm-9 main-cont main-containerrr">
                 <section class="top-offers">
                     
+                    <!-- Modal -->
+                    <div class="modal fade" id="store_modal_<?php echo $store_id; ?>" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel"><?php echo $store_name; ?></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <?php
+                                            $store_modal_img = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.`taxonomy`, `wp_clpr_storesmeta`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships`,`wp_clpr_storesmeta` WHERE `wp_term_taxonomy`.`taxonomy` = 'stores' AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_clpr_storesmeta`.`meta_key`= 'clpr_store_image_id' AND `wp_clpr_storesmeta`.`stores_id` = `wp_terms`.`term_id` AND `wp_clpr_storesmeta`.`meta_value` = `all_posts`.`ID` AND `wp_terms`.`term_id` = $store_id GROUP BY `wp_terms`.`term_id`";
+                                            $store_modal_query = mysqli_query($conn,$store_modal_img);
+                                            $store_modal_row = mysqli_fetch_assoc($store_modal_query);
+                                            $store_modal_guid = $store_modal_row['guid'];
+                                            $store_modal_id = $store_modal_row['ID'];
+                                        ?>
+                                        <div class="col-xs-3 store_modal_img">
+                                            <img src="<?php echo $store_modal_guid; ?>" alt="store_modal_<?php echo $store_modal_row['ID']; ?>" class="img-responsive"/>
+                                        </div>
+                                        <div class="col-xs-9 store_modal_cont">
+                                            <?php echo $store_des; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     
                     
                     <?php
@@ -57,7 +90,7 @@
                         </div>
                         <div class="st_fav">
                             <h3 class="store_title"><?php echo $store_name;?></h3>
-                            <a href=""><i class="fa fa-heart"></i> <span>Add Favorite</span></a>
+                            <a href="" data-toggle="modal" data-target="#store_modal_<?php echo $store_id; ?>"><i class="fa fa-heart"></i> <span>Add Favorite</span></a>
                         </div>
                     </div>
                     

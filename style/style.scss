@@ -4180,4 +4180,35 @@ footer{
     vertical-align: top;
   }
 }
+
+.store_modal_img{
+  padding: 7px 0;
+  
+  @include mQ(550px){
+    width: 100%;
+    padding: 0px 0px;
+  }
+  img{
+    
+    @include mQ(550px){
+      width: 150px;
+      margin: 0 auto;
+      margin-bottom: 10px;
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #e5e5e5;
+    }
+    
+  }
+}
+
+.store_modal_cont{
+  line-height: 1.3;
+  font-size: 15px;
+  
+  @include mQ(550px){
+    width: 100%;
+    text-align: center;
+  }
+}
 //03346537306
