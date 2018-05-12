@@ -2940,6 +2940,7 @@ footer{
           width: 100%;
           margin-top: 5px;
         }
+        
       a{
         border: 1px solid #d3d3d3;
         background: #fff;
@@ -4228,6 +4229,19 @@ footer{
     margin-left: 5px;
     position: absolute;
     margin-top: 0px;
+    
+    @include mQ(550px){
+      font-size: 30px;
+      margin-left: 0px;
+      width: 100%;
+      position: relative;
+      margin-top: 10px;
+    }
+  }
+  
+  b{
+    margin: 10px 0px;
+    display: inline-block;
   }
 }
 //03346537306

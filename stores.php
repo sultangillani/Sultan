@@ -50,13 +50,18 @@
                                             <img src="<?php echo $store_modal_guid; ?>" alt="store_modal_<?php echo $store_modal_row['ID']; ?>" class="img-responsive"/>
                                         </div>
                                         <div class="col-xs-9 store_modal_cont">
-                                            <?php echo $store_des; ?><i class="fa fa-arrow-circle-down"></i>
+                                            <?php echo $store_des; ?>
+                                            <i class="fa fa-arrow-circle-down"></i><br />
+                                            <b>For latest updates and info of this store please Subscribe this store.</b><br />
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="email-addon1"><i class="fa fa-envelope"></i></span>
+                                                <input type="text" class="form-control email" placeholder="Email" aria-describedby="email-addon1">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-primary">Send</button>
                                 </div>
                             </div>
                         </div>

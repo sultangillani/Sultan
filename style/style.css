@@ -2903,5 +2903,15 @@ footer {
     margin-left: 5px;
     position: absolute;
     margin-top: 0px; }
+    @media only screen and (max-width: 550px) {
+      .store_modal_cont .fa-arrow-circle-down {
+        font-size: 30px;
+        margin-left: 0px;
+        width: 100%;
+        position: relative;
+        margin-top: 10px; } }
+  .store_modal_cont b {
+    margin: 10px 0px;
+    display: inline-block; }
 
 /*# sourceMappingURL=style.css.map */
