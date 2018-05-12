@@ -2904,6 +2904,7 @@ footer{
   
   .big_post{
     border-bottom: 0px solid #ddd;
+    text-align: center;
     
     li.sort{
       padding: 5px 20px;
@@ -2928,6 +2929,17 @@ footer{
     li{
         text-align: center;
         cursor: pointer;
+        
+        @include mQ(499px){
+          float: none;
+          width: 30%;
+          display: inline-block;
+        }
+        
+        @include mQ(319px){
+          width: 100%;
+          margin-top: 5px;
+        }
       a{
         border: 1px solid #d3d3d3;
         background: #fff;
@@ -4209,6 +4221,13 @@ footer{
   @include mQ(550px){
     width: 100%;
     text-align: center;
+  }
+  
+  .fa-arrow-circle-down{
+    font-size: 20px;
+    margin-left: 5px;
+    position: absolute;
+    margin-top: 0px;
   }
 }
 //03346537306

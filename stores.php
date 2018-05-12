@@ -50,7 +50,7 @@
                                             <img src="<?php echo $store_modal_guid; ?>" alt="store_modal_<?php echo $store_modal_row['ID']; ?>" class="img-responsive"/>
                                         </div>
                                         <div class="col-xs-9 store_modal_cont">
-                                            <?php echo $store_des; ?>
+                                            <?php echo $store_des; ?><i class="fa fa-arrow-circle-down"></i>
                                         </div>
                                     </div>
                                 </div>
