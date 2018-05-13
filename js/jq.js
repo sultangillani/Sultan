@@ -747,6 +747,15 @@ $(document).ready(function(){
     var us = $('.kbc_uri').attr('placeholder');
     var store_id = $('.kbc_uri').attr('title');
     
+    var gd_arr = [];
+    $('.gd').click(function(){
+        var data_text = $(this).attr('data');
+        var gd_id = '#' + $(this).attr('id');
+        gd_arr.push(gd_id);
+        $(this).text(data_text);
+        $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
+    });
+    
     $('.ct input[type="checkbox"]').each(function(){
         
        
@@ -781,7 +790,7 @@ $(document).ready(function(){
             $.ajax({
                 method: 'POST',
                 url: pathname,
-                data: {action: 'populer', checked: ct, dt: dt,cat: cat, check_id: check_id, usp: us, store_id:store_id},
+                data: {action: 'populer', checked: ct, dt: dt,cat: cat, check_id: check_id, usp: us, store_id:store_id, gd_arr: gd_arr},
                 success: function(result){
                     $('.top-offers').html(result);
                 }
@@ -844,9 +853,7 @@ $(document).ready(function(){
         });
     });
     
-    $('.gd').click(function(){
-        var data_text = $(this).attr('data');
-        $(this).text(data_text);
-        $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
-    });
+    
+    
+    
 });

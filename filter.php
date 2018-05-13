@@ -15,7 +15,7 @@ function populer(){
     $checked = array_unique($_POST['checked']);
     $discount = array_unique($_POST['dt']);
     $categories = array_unique($_POST['cat']);
-    
+    $gd_arr = array_unique($_POST['gd_arr']);
     
     $number_of_posts = 10;
     $page_id = $_POST['page_id'];
@@ -1506,9 +1506,60 @@ function populer(){
                 });
             });
             
+            
+            //Code in button
+            var gd_arr = [];
+            
+            $('.gd').click(function(){
+                var data_text = $(this).attr('data');
+                var gd_id = '#' + $(this).attr('id');
+                gd_arr.push(gd_id);
+                $(this).text(data_text);
+                $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
+            });
+            
+            var pathname = $('.kbc_uri').val();
+            pathname = pathname + '/filter.php';
+            var us = $('.kbc_uri').attr('placeholder');
+            var store_id = $('.kbc_uri').attr('title');
+            
+            $('.fil-options span').click(function(){
+                
+                $.ajax({
+                    method: 'POST',
+                    url: pathname,
+                    data: {action: 'populer', gd_arr: gd_arr, checked: ct, dt: dt, cat: cat,usp: us, store_id:store_id},
+                    success: function(result){
+                        $('.top-offers').html(result);
+                    }
+                });
+            });
+            
+            <?php
+                $gd_arr = array_unique($_POST['gd_arr']);
+                foreach($gd_arr as $gd_id){
+                    ?>
+                    gd_arr.push('<?php echo $gd_id; ?>');
+                    <?php
+                }
+            ?>
+            
+            for(var v = 0; v < gd_arr.length; v++){
+                var data_txt = $(gd_arr[v]).attr('data');
+                $(gd_arr[v]).text(data_txt);
+                $(gd_arr[v]).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
+            }
+            
+            
         });
+        
+        
+        
+        
+        
     </script>
     <?php
+    
 }
 
 
