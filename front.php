@@ -342,7 +342,7 @@
                                         <?php } ?>
                                     </div>
                                     <div class="col-xs-4 text-right">
-                                        <span data-toggle="modal" data-target="#copon_<?php echo $to_id;?>" style="display:block;"><a href="<?php echo $to_guid;?>" target="_blank" class="btn btn-primary gd"><?php echo $button_name; ?></a></span>
+                                        <span data-toggle="modal" data-target="#copon_<?php echo $to_id;?>" style="display:block;"><a href="<?php echo $to_guid;?>" target="_blank" class="btn btn-primary gd" id="gd_<?php echo $to_id; ?>" data="<?php echo $to_code; ?>"><?php echo $button_name; ?></a></span>
                                     </div>
                                 </div>
                             </div>

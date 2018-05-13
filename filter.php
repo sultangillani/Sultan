@@ -317,7 +317,7 @@ function populer(){
                                         <?php } ?>
                                     </div>
                                     <div class="col-xs-4 text-right">
-                                        <span data-toggle="modal" data-target="#copon_<?php echo $scq_id;?>" style="display:block;"><a href="<?php echo $scq_guid;?>" target="_blank" class="btn btn-primary gd"><?php echo $button_name;?></a></span>
+                                        <span data-toggle="modal" data-target="#copon_<?php echo $scq_id;?>" style="display:block;"><a href="<?php echo $scq_guid;?>" target="_blank" class="btn btn-primary gd" id="gd_<?php echo $scq_id; ?>" data="<?php echo $scq_code; ?>" ><?php echo $button_name;?></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -712,7 +712,7 @@ function populer(){
                                         <?php } ?>
                                     </div>
                                     <div class="col-xs-4 text-right">
-                                        <span data-toggle="modal" data-target="#copone_<?php echo $scq_id;?>" style="display:block;"><a href="<?php echo $scq_guid;?>" target="_blank" class="btn btn-primary gd"><?php echo $button_name;?></a></span>
+                                        <span data-toggle="modal" data-target="#copone_<?php echo $scq_id;?>" style="display:block;"><a href="<?php echo $scq_guid;?>" target="_blank" class="btn btn-primary gd" id="gd_<?php echo $scq_id; ?>" data="<?php echo $scq_code; ?>" ><?php echo $button_name;?></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -1107,7 +1107,7 @@ function populer(){
                                                 <?php } ?>
                                             </div>
                                             <div class="col-xs-4 text-right">
-                                                <span data-toggle="modal" data-target="#coponer_<?php echo $scq_id;?>" style="display:block;"><a href="<?php echo $scq_guid;?>" target="_blank" class="btn btn-primary gd"><?php echo $button_name;?></a></span>
+                                                <span data-toggle="modal" data-target="#coponer_<?php echo $scq_id;?>" style="display:block;"><a href="<?php echo $scq_guid;?>" target="_blank" class="btn btn-primary gd" id="gd_<?php echo $scq_id; ?>" data="<?php echo $scq_code; ?>" ><?php echo $button_name;?></a></span>
                                             </div>
                                         </div>
                                     </div>

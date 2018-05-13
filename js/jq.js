@@ -844,5 +844,9 @@ $(document).ready(function(){
         });
     });
     
-    
+    $('.gd').click(function(){
+        var data_text = $(this).attr('data');
+        $(this).text(data_text);
+        $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
+    });
 });
