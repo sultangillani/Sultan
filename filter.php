@@ -102,7 +102,7 @@ function populer(){
                 }
                 
                 setTimeout(function(){
-                    $('.subs_msg .alert').hide();
+                    $('.subs_msg .alert').fadeOut(); 
                 },2000);
             });    
         });
@@ -1543,6 +1543,10 @@ function store_subscribtion(){
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 Your email has heen successfully submitted.
             </div>
+            <script type="text/javascript">
+                $('.st_fav a').children('i').addClass('heart');
+                $('.st_fav a').children('span').text('Faved!');
+            </script>
             <?php
         }
     }

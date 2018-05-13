@@ -319,7 +319,7 @@ $(document).ready(function(){
     });
     
     
-    $('.st_fav a').click(function(){
+    /*$('.st_fav a').click(function(){
         $(this).children('i').toggleClass('heart');
         if ($(this).children('i').hasClass('heart')) {
             $(this).children('span').text('Faved!');
@@ -327,7 +327,7 @@ $(document).ready(function(){
             $(this).children('span').text('Add Favorite!');
         }
         
-    });
+    });*/
     
     
     //Responsive All Options

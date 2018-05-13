@@ -70,6 +70,10 @@
                         </div>
                     </div>
                     <script type="text/javascript">
+                        /*<div class="alert alert-success alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Success!</strong> Indicates a successful or positive action.
+                        </div>*/
                         $(document).ready(function(){
                             function validateEmail(email) {
                                 var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
@@ -96,9 +100,8 @@
                                     var invalid_error = '<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Your email is Incorrect.</div>';
                                     $('.subs_msg').html(invalid_error);
                                 }
-                                
                                 setTimeout(function(){
-                                    $('.subs_msg .alert').fadeOut();
+                                    $('.subs_msg .alert').fadeOut();    
                                 },2000);
                             });    
                         });
