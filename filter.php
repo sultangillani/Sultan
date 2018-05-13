@@ -22,7 +22,93 @@ function populer(){
     if($page_id <= 0){
         $page_id = 1;
     }
+    ?>
     
+    <!-- Modal -->
+    <div class="modal fade" id="store_modal_<?php echo $store_id; ?>" role="dialog" aria-labelledby="myModalLabel">
+        <?php
+            $store_page = "SELECT `wp_terms`.*,`wp_term_taxonomy`.*,`wp_term_relationships`.* FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` IN('stores') AND `wp_terms`.`slug` = '$url'";
+            $store_page_query = mysqli_query($conn,$store_page);
+            $store_page_row = mysqli_fetch_array($store_page_query);
+            $store_name = $store_page_row['name'];
+            $store_id = $store_page_row['term_id'];
+            $store_des = $store_page_row['description'];
+        ?>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><?php echo $store_name; ?></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <?php
+                            $store_modal_img = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.`taxonomy`, `wp_clpr_storesmeta`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships`,`wp_clpr_storesmeta` WHERE `wp_term_taxonomy`.`taxonomy` = 'stores' AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_clpr_storesmeta`.`meta_key`= 'clpr_store_image_id' AND `wp_clpr_storesmeta`.`stores_id` = `wp_terms`.`term_id` AND `wp_clpr_storesmeta`.`meta_value` = `all_posts`.`ID` AND `wp_terms`.`term_id` = $store_id GROUP BY `wp_terms`.`term_id`";
+                            $store_modal_query = mysqli_query($conn,$store_modal_img);
+                            $store_modal_row = mysqli_fetch_assoc($store_modal_query);
+                            $store_modal_guid = $store_modal_row['guid'];
+                            $store_modal_id = $store_modal_row['ID'];
+                        ?>
+                        <div class="col-xs-3 store_modal_img">
+                            <img src="<?php echo $store_modal_guid; ?>" alt="store_modal_<?php echo $store_modal_row['ID']; ?>" class="img-responsive"/>
+                        </div>
+                        <div class="col-xs-9 store_modal_cont">
+                            <div class="subs_msg">
+                                
+                            </div>
+                            <?php echo $store_des; ?>
+                            <i class="fa fa-arrow-circle-down"></i><br />
+                            <b>For latest updates and info of this store please Subscribe this store.</b><br />
+                            <div class="input-group">
+                                <span class="input-group-addon" id="email-addon1"><i class="fa fa-envelope"></i></span>
+                                <input type="email" class="form-control store_subs_email" placeholder="Email" aria-describedby="email-addon1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary store_subs">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        
+        $(document).ready(function(){
+            function validateEmail(email) {
+                var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+                return emailReg.test(email);
+            }
+            
+            
+            $('.store_subs').click(function(){
+                var store_subs_email = $('.store_subs_email').val();
+                var store_subs_id = <?php echo $store_id; ?>;
+                var pathname = $('.kbc_uri').val();
+                pathname = pathname + '/filter.php';
+                if (validateEmail(store_subs_email)) {
+                    $.ajax({
+                        method: 'POST',
+                        url: pathname,
+                        data: {action: 'store_subscribtion', store_subs_email: store_subs_email, store_subs_id: store_subs_id},
+                        success: function(result){
+                            $('.subs_msg').html(result);
+                            $('.store_subs_email').val('');
+                        }
+                    });
+                }else{
+                    var invalid_error = '<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Your email is Incorrect.</div>';
+                    $('.subs_msg').html(invalid_error);
+                }
+                
+                setTimeout(function(){
+                    $('.subs_msg .alert').hide();
+                },2000);
+            });    
+        });
+    </script>
+    
+    <?php
     //$all_posts_query = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.*, `wp_clpr_storesmeta`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships`,`wp_clpr_storesmeta` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`taxonomy` = 'stores' AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_clpr_storesmeta`.`meta_key`= 'clpr_store_image_id' AND `wp_clpr_storesmeta`.`stores_id` = `wp_terms`.`term_id` AND `wp_terms`.`slug` IN('$url')";
     
     

@@ -70,25 +70,36 @@
                         </div>
                     </div>
                     <script type="text/javascript">
-                        /*<div class="alert alert-success alert-dismissible">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>Success!</strong> Indicates a successful or positive action.
-                        </div>*/
                         $(document).ready(function(){
+                            function validateEmail(email) {
+                                var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+                                return emailReg.test(email);
+                            }
+                            
+                            
                             $('.store_subs').click(function(){
                                 var store_subs_email = $('.store_subs_email').val();
                                 var store_subs_id = <?php echo $store_id; ?>;
                                 var pathname = $('.kbc_uri').val();
                                 pathname = pathname + '/filter.php';
-                                $.ajax({
-                                    method: 'POST',
-                                    url: pathname,
-                                    data: {action: 'store_subscribtion', store_subs_email: store_subs_email, store_subs_id: store_subs_id},
-                                    success: function(result){
-                                        $('.subs_msg').html(result);
-                                        $('.store_subs_email').val('');
-                                    }
-                                });
+                                if (validateEmail(store_subs_email)) {
+                                    $.ajax({
+                                        method: 'POST',
+                                        url: pathname,
+                                        data: {action: 'store_subscribtion', store_subs_email: store_subs_email, store_subs_id: store_subs_id},
+                                        success: function(result){
+                                            $('.subs_msg').html(result);
+                                            $('.store_subs_email').val('');
+                                        }
+                                    });
+                                }else{
+                                    var invalid_error = '<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Your email is Incorrect.</div>';
+                                    $('.subs_msg').html(invalid_error);
+                                }
+                                
+                                setTimeout(function(){
+                                    $('.subs_msg .alert').fadeOut();
+                                },2000);
                             });    
                         });
                     </script>
