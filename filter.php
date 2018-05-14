@@ -16,6 +16,10 @@ function populer(){
     $discount = array_unique($_POST['dt']);
     $categories = array_unique($_POST['cat']);
     $gd_arr = array_unique($_POST['gd_arr']);
+    $gd_arr_id = array_unique($_POST['gd_arr_id']);
+    
+    var_dump($gd_arr_id);
+    
     
     $number_of_posts = 10;
     $page_id = $_POST['page_id'];
@@ -1452,6 +1456,8 @@ function populer(){
             var ct = [];
             var dt = [];
             var cat = [];
+            var gd_arr = [];
+            
             <?php
             foreach($checked as $check){
                 ?>
@@ -1476,41 +1482,10 @@ function populer(){
             }
             ?>
             
-            $('.next_btn').click(function(){
-                var page_id = <?php echo $page_id; ?>;
-                var total_posts = <?php echo $all_posts; ?>;
-                page_id = page_id + 1;
-                pathname = pathname + '/filter.php';
-                $.ajax({
-                    method: 'POST',
-                    url: pathname,
-                    data: {action: 'populer', page_id: page_id, usp:us, total_posts: total_posts, checked: ct, dt: dt, cat: cat},
-                    success: function(result){
-                        $('.top-offers').html(result);
-                    }
-                });
-            });
-            
-            $('.prev_btn').click(function(){
-                var page_id = <?php echo $page_id; ?>;
-                var total_posts = <?php echo $all_posts; ?>;
-                page_id = page_id - 1;
-                pathname = pathname + '/filter.php';
-                $.ajax({
-                    method: 'POST',
-                    url: pathname,
-                    data: {action: 'populer', page_id: page_id, usp:us, total_posts: total_posts, checked: ct, dt: dt, cat: cat},
-                    success: function(result){
-                        $('.top-offers').html(result);
-                    }
-                });
-            });
             
             
             //Code in button
             
-            
-            var gd_arr = [];
             <?php
                 $gd_arr = array_unique($_POST['gd_arr']);
                 foreach($gd_arr as $gd_id){
@@ -1522,8 +1497,10 @@ function populer(){
             
             for(var v = 0; v < gd_arr.length; v++){
                 var data_txt = $(gd_arr[v]).attr('data');
-                $(gd_arr[v]).text(data_txt);
-                $(gd_arr[v]).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
+                $('#popularity,#newest,#ending').find(gd_arr[v]).each(function(){
+                    $(this).text(data_txt);
+                    $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
+                });
             }
             
             var pathname = $('.kbc_uri').val();
@@ -1536,26 +1513,49 @@ function populer(){
                 var data_text = $(this).attr('data');
                 var gd_id = '#' + $(this).attr('id');
                 gd_arr_id.push(gd_id);
-                $(this).text(data_text);
-                $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
-                
+                gd_arr.push(gd_id);
+                $('#popularity,#newest,#ending').find(gd_id).each(function(){
+                    $(this).text(data_text);
+                    $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
+                });
+            });
+            
+            $('.next_btn').click(function(){
+                var page_id = <?php echo $page_id; ?>;
+                var total_posts = <?php echo $all_posts; ?>;
+                page_id = page_id + 1;
+                pathname = pathname + '/filter.php';
                 $.ajax({
                     method: 'POST',
                     url: pathname,
-                    data: {action: 'new_func',gd_arr_id: gd_arr_id},
+                    data: {action: 'populer', page_id: page_id, usp:us, total_posts: total_posts, checked: ct, dt: dt, cat: cat, gd_arr: gd_arr},
                     success: function(result){
-                        $('.errorno').html(result);
+                        $('.top-offers').html(result);
                     }
                 });
                 
             });
             
+            $('.prev_btn').click(function(){
+                var page_id = <?php echo $page_id; ?>;
+                var total_posts = <?php echo $all_posts; ?>;
+                page_id = page_id - 1;
+                pathname = pathname + '/filter.php';
+                $.ajax({
+                    method: 'POST',
+                    url: pathname,
+                    data: {action: 'populer', page_id: page_id, usp:us, total_posts: total_posts, checked: ct, dt: dt, cat: cat, gd_arr: gd_arr},
+                    success: function(result){
+                        $('.top-offers').html(result);
+                    }
+                });
+                
+            });
             
         });
         
     </script>
     <?php
-    var_dump($gd_arr);
 }
 
 
@@ -1599,29 +1599,6 @@ function store_subscribtion(){
     }
 }
 
-function new_func(){
-    $gd_arr_id = array_unique($_POST['gd_arr_id']);
-    $gd_arr_id = implode(',', $gd_arr_id);
-    
-    ?>
-    <script type="text/javascript">
-       
-        $('.ct input[type="checkbox"]').click(function(){
-            var gd_arr_id = '<?php echo $gd_arr_id; ?>';
-            
-            setTimeout(function(){
-                $('.top-offers').find(gd_arr_id).each(function(){
-                    var data_text = $(this).attr('data');
-                    $(this).text(data_text);
-                    $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
-                });
-                
-            },1000);
-        });
-    </script>
-    <?php
-}
-
 $func = $_POST['action'];
     switch ($func) {
         case "populer":
@@ -1632,9 +1609,6 @@ $func = $_POST['action'];
         store_subscribtion();
         break;
         
-        case "new_func":
-        new_func();
-        break;
     }
 
 
