@@ -1508,33 +1508,9 @@ function populer(){
             
             
             //Code in button
+            
+            
             var gd_arr = [];
-            
-            $('.gd').click(function(){
-                var data_text = $(this).attr('data');
-                var gd_id = '#' + $(this).attr('id');
-                gd_arr.push(gd_id);
-                $(this).text(data_text);
-                $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
-            });
-            
-            var pathname = $('.kbc_uri').val();
-            pathname = pathname + '/filter.php';
-            var us = $('.kbc_uri').attr('placeholder');
-            var store_id = $('.kbc_uri').attr('title');
-            
-            $('.fil-options span').click(function(){
-                
-                $.ajax({
-                    method: 'POST',
-                    url: pathname,
-                    data: {action: 'populer', gd_arr: gd_arr, checked: ct, dt: dt, cat: cat,usp: us, store_id:store_id},
-                    success: function(result){
-                        $('.top-offers').html(result);
-                    }
-                });
-            });
-            
             <?php
                 $gd_arr = array_unique($_POST['gd_arr']);
                 foreach($gd_arr as $gd_id){
@@ -1550,16 +1526,36 @@ function populer(){
                 $(gd_arr[v]).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
             }
             
+            var pathname = $('.kbc_uri').val();
+            pathname = pathname + '/filter.php';
+            var us = $('.kbc_uri').attr('placeholder');
+            var store_id = $('.kbc_uri').attr('title');
+            var gd_arr_id = [];
+            
+            $('.gd').click(function(){
+                var data_text = $(this).attr('data');
+                var gd_id = '#' + $(this).attr('id');
+                gd_arr_id.push(gd_id);
+                $(this).text(data_text);
+                $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
+                
+                $.ajax({
+                    method: 'POST',
+                    url: pathname,
+                    data: {action: 'new_func',gd_arr_id: gd_arr_id},
+                    success: function(result){
+                        $('.errorno').html(result);
+                    }
+                });
+                
+            });
+            
             
         });
         
-        
-        
-        
-        
     </script>
     <?php
-    
+    var_dump($gd_arr);
 }
 
 
@@ -1603,6 +1599,29 @@ function store_subscribtion(){
     }
 }
 
+function new_func(){
+    $gd_arr_id = array_unique($_POST['gd_arr_id']);
+    $gd_arr_id = implode(',', $gd_arr_id);
+    
+    ?>
+    <script type="text/javascript">
+       
+        $('.ct input[type="checkbox"]').click(function(){
+            var gd_arr_id = '<?php echo $gd_arr_id; ?>';
+            
+            setTimeout(function(){
+                $('.top-offers').find(gd_arr_id).each(function(){
+                    var data_text = $(this).attr('data');
+                    $(this).text(data_text);
+                    $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
+                });
+                
+            },1000);
+        });
+    </script>
+    <?php
+}
+
 $func = $_POST['action'];
     switch ($func) {
         case "populer":
@@ -1611,6 +1630,10 @@ $func = $_POST['action'];
         
         case "store_subscribtion":
         store_subscribtion();
+        break;
+        
+        case "new_func":
+        new_func();
         break;
     }
 

@@ -749,11 +749,18 @@ $(document).ready(function(){
     
     var gd_arr = [];
     $('.gd').click(function(){
+        
         var data_text = $(this).attr('data');
         var gd_id = '#' + $(this).attr('id');
         gd_arr.push(gd_id);
         $(this).text(data_text);
         $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
+        $.ajax({
+            method: 'POST',
+            url: pathname,
+            data: {action: 'populer',gd_id: gd_id}
+        });
+        
     });
     
     $('.ct input[type="checkbox"]').each(function(){
