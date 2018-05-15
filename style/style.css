@@ -2866,7 +2866,8 @@ footer {
   display: none;
   background: none;
   border: none;
-  color: #24b7e3; }
+  color: #24b7e3;
+  margin: 15px 0px; }
   .show_btn:hover {
     text-decoration: underline; }
 
