@@ -15,8 +15,9 @@
                 $store_name = $store_page_row['name'];
                 $store_id = $store_page_row['term_id'];
                 $store_des = $store_page_row['description'];
+                $store_count = $store_page_row['count'];
             ?>
-            <button class="act_sm_sidebar">Filter 20,575 Offers</button>
+            <button class="act_sm_sidebar"><?php echo $store_count; ?> Offers</button>
             
             <div class="col-sm-3 sidebar">
                 <?php include_once 'inc/sidebar.php'; ?>

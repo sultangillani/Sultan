@@ -30,7 +30,7 @@
 <?php
 }
 ?>
-<h4>32 Offers Available</h4>
+<h4><?php echo $store_count; ?> Offers Available</h4>
 <span class="fil_app"><u>No</u> Filter Applied</span>
 <a href="" class="reset">Reset All</a>
 <br /><br /><br />
@@ -57,10 +57,11 @@
             if(mysqli_num_rows($coupon_store_query) > 0){
         ?>
                 <h5>Top Stores</h5>
-                <div class="input-group">
+                
+                <!--<div class="input-group">
                     <span class="input-group-addon fa fa-search"></span>
                     <input type="text" class="form-control" name="store" id="store" placeholder="Type Store Name" />
-                </div>
+                </div>-->
                 
                 <div class="fil-options ct cta stre">
                    <?php
@@ -176,12 +177,16 @@
         }
     }
     ?>
-    
-    <div class="cat_des">
-        <h5><?php echo $store_name; ?></h5>
-        <p><?php echo $store_des; ?></p>
-    </div>
-    <br /><br />
-    
+    <?php
+        if(!empty($store_des)){
+            ?>
+            <div class="cat_des">
+                <h5><?php echo $store_name; ?></h5>
+                <p><?php echo $store_des; ?></p>
+            </div>
+            <br /><br />
+            <?php
+        }
+    ?>
 </div>
 

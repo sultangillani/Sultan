@@ -4,8 +4,16 @@
     <div id="conte" class="container">
         <h3>Accessories</h3>
         <div class="row">
-            
-            <button class="act_sm_sidebar">Filter 20,575 Offers</button>
+            <?php
+                $coup_cat_page = "SELECT `wp_terms`.*,`wp_term_taxonomy`.*,`wp_term_relationships`.* FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` IN('stores','coupon_category') AND `wp_terms`.`slug` = '$url[1]'";
+                $coup_cat_query = mysqli_query($conn,$coup_cat_page);
+                $coup_cat_row = mysqli_fetch_array($coup_cat_query);
+                $store_name = $coup_cat_row['name'];
+                $coup_cat_id = $coup_cat_row['term_id'];
+                $store_des = $coup_cat_row['description'];
+                $store_count = $coup_cat_row['count'];
+            ?>
+            <button class="act_sm_sidebar"><?php echo $store_count; ?> Offers</button>
             
             <div class="col-sm-3 sidebar">
                 <?php include_once 'inc/sidebar.php'; ?>
