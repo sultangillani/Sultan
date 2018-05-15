@@ -22,39 +22,61 @@
     if($url[0] == 'stores.php' || $url[0] == 'stores'){
         
     }else{
-    ?>
-    <div class="small_filter small_stores ">
-        <div class="pan row">
-            <h5 class="col-xs-7">Top Stores</h5>
-            <div class="col-xs-5 text-right">
-                <i class="fa fa-chevron-down"></i>
-            </div>
-        </div>
-        <div class="pan_body">
-            <div class="input-group">
-                <span class="input-group-addon fa fa-search"></span>
-                <input type="text" class="form-control" name="store" id="store" placeholder="Type Store Name" />
-            </div>
-            <div class="fil-options ct">
-                <span><input type="checkbox" name="stores[]" value="forever21" id="leb-1" ng-model="leb1" ng-checked="leb1"/> <label for="leb-1">Forever21</label></span><br/>
-                <span><input type="checkbox" name="stores[]" value="forever21" id="leb-2" ng-model="leb2" ng-checked="leb2"/> <label for="leb-2">Forever21</label></span><br/>
-                <span><input type="checkbox" name="stores[]" value="forever21" id="leb-3" ng-model="leb3" ng-checked="leb3"/> <label for="leb-3">Forever21</label></span><br/>
-                <span><input type="checkbox" name="stores[]" value="forever21" id="leb-4" ng-model="leb4" ng-checked="leb4"/> <label for="leb-4">Forever21</label></span><br/>
-                <span><input type="checkbox" name="stores[]" value="forever21" id="leb-5" ng-model="leb5" ng-checked="leb5"/> <label for="leb-5">Forever21</label></span><br/>
-            </div>
-            <button class="show_all show_btn">Show all</button>
-            <button class="show_less show_btn">Show less</button>
-            <br /><br />
-        </div>
-        
-    </div>
-    <?php
+        $coupon_cat_stores_arr = [];
+        $coupon_cat_stores = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_terms`.`slug` = '$url[1]' AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_category' ORDER BY `all_posts`.`ID` DESC";
+        $coupon_cat_stores_query = mysqli_query($conn,$coupon_cat_stores);
+        if(mysqli_num_rows($coupon_cat_stores_query) > 0){
+            while($coupon_cat_stores_row = mysqli_fetch_assoc($coupon_cat_stores_query)){
+                $coupon_cat_id = $coupon_cat_stores_row['ID'];
+                array_push($coupon_cat_stores_arr, $coupon_cat_id);
+            }
+        }
+        if(!empty($coupon_cat_stores_arr)){
+            $coupon_store_ids = array_unique($coupon_cat_stores_arr);
+            $coupon_store_ids = implode(',',$coupon_store_ids);
+            $coupon_store_sql = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` = 'stores' AND `wp_term_relationships`.`object_id` IN ($coupon_store_ids) GROUP BY `wp_terms`.`slug` ORDER BY `all_posts`.`ID` DESC";
+            $coupon_store_query = mysqli_query($conn,$coupon_store_sql);
+            if(mysqli_num_rows($coupon_store_query) > 0){
+        ?>
+                <div class="small_filter small_stores ">
+                    <div class="pan row">
+                        <h5 class="col-xs-7">Top Stores</h5>
+                        <div class="col-xs-5 text-right">
+                            <i class="fa fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="pan_body">
+                        <!--<div class="input-group">
+                            <span class="input-group-addon fa fa-search"></span>
+                            <input type="text" class="form-control" name="store" id="store" placeholder="Type Store Name" />
+                        </div>-->
+                        
+                        <div class="fil-options ct">
+                            <?php
+                                while($coupon_store_row = mysqli_fetch_array($coupon_store_query)){
+                                    $coupon_store_slug = $coupon_store_row['slug'];
+                                    $coupon_store_name = str_ireplace('-',' ',ucwords($coupon_store_slug));
+                                ?>
+                                    <span><input type="checkbox" name="cat" value="<?php echo $coupon_store_slug; ?>" id="dis-<?php echo $coupon_store_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$coupon_store_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$coupon_store_slug); ?>" title="<?php echo $coupon_store_slug; ?>"/> <label for="dis-<?php echo $coupon_store_slug; ?>"><?php echo $coupon_store_name; ?></label></span><br/>
+                                <?php
+                                }
+                            ?>
+                        </div>
+                        <button class="show_all show_btn">Show all</button>
+                        <button class="show_less show_btn">Show less</button>
+                        <br /><br />
+                    </div>
+                    
+                </div>
+        <?php
+            }
+        }
     }
     ?>
     
     
     <?php
-        $coupty_sql = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_terms`.`slug` = '$url[1]' AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` = 'stores' GROUP BY `all_posts`.`coupon_type` ORDER BY `all_posts`.`ID` DESC";
+        $coupty_sql = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_terms`.`slug` = '$url[1]' AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` IN('stores','coupon_category') GROUP BY `all_posts`.`coupon_type` ORDER BY `all_posts`.`ID` DESC";
         $coupty_query = mysqli_query($conn,$coupty_sql);
         if(mysqli_num_rows($coupty_query) > 0){
     ?>
@@ -93,7 +115,7 @@
     <!--Discount Type-->
     
     <?php
-        $discty_sql = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_terms`.`slug` = '$url[1]' AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` = 'stores' GROUP BY `all_posts`.`discount_type` ORDER BY `all_posts`.`ID` DESC";
+        $discty_sql = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_terms`.`slug` = '$url[1]' AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` IN('stores','coupon_category') GROUP BY `all_posts`.`discount_type` ORDER BY `all_posts`.`ID` DESC";
         $discy_query = mysqli_query($conn,$discty_sql);
         if(mysqli_num_rows($discy_query) > 0){
     ?>
