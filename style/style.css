@@ -1361,25 +1361,27 @@ input, select {
           height: 112px;
           clear: both;
           margin-bottom: 20px; }
-        .coupons_section_one .main-cont .coupon .thumbnail .caption span {
-          font-size: 13px;
-          line-height: 1.6;
-          margin-bottom: 8px;
-          display: block; }
-        .coupons_section_one .main-cont .coupon .thumbnail .caption b {
-          line-height: 1.6;
-          margin-bottom: 10px;
-          display: block;
-          height: 60px; }
-          .coupons_section_one .main-cont .coupon .thumbnail .caption b a {
-            color: #929292; }
-        .coupons_section_one .main-cont .coupon .thumbnail .caption u {
-          color: #d3d3d3;
-          text-decoration: none;
-          font-size: 13px;
-          display: block;
-          height: 20px;
-          overflow: hidden; }
+        .coupons_section_one .main-cont .coupon .thumbnail .caption {
+          text-align: center; }
+          .coupons_section_one .main-cont .coupon .thumbnail .caption span {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            display: block; }
+          .coupons_section_one .main-cont .coupon .thumbnail .caption b {
+            line-height: 1.6;
+            margin-bottom: 10px;
+            display: block;
+            height: 60px; }
+            .coupons_section_one .main-cont .coupon .thumbnail .caption b a {
+              color: #929292; }
+          .coupons_section_one .main-cont .coupon .thumbnail .caption u {
+            color: #d3d3d3;
+            text-decoration: none;
+            font-size: 13px;
+            display: block;
+            height: 20px;
+            overflow: hidden; }
         .coupons_section_one .main-cont .coupon .thumbnail span {
           display: block; }
           .coupons_section_one .main-cont .coupon .thumbnail span a {

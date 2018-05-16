@@ -47,7 +47,25 @@
                                 $scq_title = $store_coupons_row['post_title'];
                                 $scq_post_name = $store_coupons_row['post_name'];
                                 $scq_content = $store_coupons_row['post_content'];
-                                $scq_meta = $store_coupons_row['meta_value'];
+                                
+                                
+                                //Meta Value
+                                $cat_meta_query = "SELECT `wp_term_relationships`.*,`wp_term_taxonomy`.*,`wp_clpr_storesmeta`.* FROM `wp_term_relationships`,`wp_term_taxonomy`,`wp_clpr_storesmeta` WHERE `object_id` = $scq_id AND `wp_term_taxonomy`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'stores' AND `wp_clpr_storesmeta`.`stores_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_clpr_storesmeta`.`meta_key` = 'clpr_store_image_id'";
+                                $cat_meta_result = mysqli_query($conn,$cat_meta_query);
+                                if(mysqli_num_rows($cat_meta_result) > 0){
+                                    $cat_meta_row = mysqli_fetch_assoc($cat_meta_result);
+                                    $scq_meta = $cat_meta_row['meta_value'];
+                                    /*$post_image_query = "SELECT * FROM `all_posts` WHERE `ID` = $cat_meta_value";
+                                    $post_image_result = mysqli_query($conn,$post_image_query);
+                                    if(mysqli_num_rows($post_image_result) > 0){
+                                        $post_image_row = mysqli_fetch_assoc($post_image_result);
+                                        $post_image_id = $post_image_row['ID'];
+                                        $scq_meta = $post_image_row['meta_value'];
+                                    }*/
+                                }
+                                
+                                
+                                
                                 $scq_sel_image = $store_coupons_row['select_img'];
                                 $scq_guid = $store_coupons_row['guid'];
                                 $scq_featured = $store_coupons_row['post_featured_image'];
@@ -68,7 +86,33 @@
                                     <div class="col-xs-4 coupon">
                                         <div class="thumbnail">
                                             <span class="rate"><i class="fa fa-star-o" aria-hidden="true"></i></span>
-                                            <img src="https://www.retailmenot.com/thumbs/logos/l/forever21.com-coupons.jpg?versionId=CIXaEUmIoDQI2fZeVzkgZp_TH5Upj5PU" alt="forever21">
+                                            <?php
+                                                /**/if($scq_sel_image == 'featured_image'){
+                                                    //Second condition
+                                                    if(!empty($scq_featured)){
+                                                        ?>
+                                                            <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $scq_post_name;?>" target="_blank"><img src="<?php echo $scq_featured;?>" alt="4" class="img-responsive"/></a>
+                                                        <?php
+                                                    }else{
+                                                        $sub_sql = "SELECT `all_posts`.* FROM `all_posts` WHERE `all_posts`.`post_status` IN ('publish','inherit') AND `all_posts`.`ID` = $scq_meta";
+                                                        $sub_sql_query = mysqli_query($conn,$sub_sql);
+                                                        $sub_sql_row = mysqli_fetch_array($sub_sql_query);
+                                                        $store_img_url = $sub_sql_row['guid'];
+                                                        ?>
+                                                            <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $scq_post_name;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive"/></a>
+                                                        <?php
+                                                    }
+                                                    
+                                                }else if($scq_sel_image == 'store_image'){
+                                                    $sub_sql = "SELECT `all_posts`.* FROM `all_posts` WHERE `all_posts`.`post_status` IN ('publish','inherit') AND `all_posts`.`ID` = $scq_meta";
+                                                    $sub_sql_query = mysqli_query($conn,$sub_sql);
+                                                    $sub_sql_row = mysqli_fetch_array($sub_sql_query);
+                                                    $store_img_url = $sub_sql_row['guid'];
+                                                    ?>
+                                                        <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $scq_post_name;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive"/></a>
+                                                    <?php
+                                                }
+                                            ?>
                                             <div class="caption">
                                                 <span style="color: <?php echo $scq_coupon_type_color; ?>; font-weight:600;"><?php echo $scq_coupon_type;?></span>
                                                 <b><a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $scq_post_name;?>"><?php echo excerpt($scq_title, 6); ?></a></b>
