@@ -12,6 +12,16 @@
                 $coup_cat_id = $coup_cat_row['term_id'];
                 $store_des = $coup_cat_row['description'];
                 $store_count = $coup_cat_row['count'];
+                
+                
+                //Pagination
+                $number_of_posts = 24;
+                $page_id = 1;
+                $all_posts_query = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`taxonomy` = 'coupon_category' AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_terms`.`slug` IN('$url[1]')";
+                $all_posts_run = mysqli_query($conn,$all_posts_query);
+                $all_posts = mysqli_num_rows($all_posts_run);
+                $total_pages = ceil($all_posts / $number_of_posts);
+                $posts_starts_from = ($page_id - 1) * $number_of_posts;
             ?>
             <button class="act_sm_sidebar"><?php echo $store_count; ?> Offers</button>
             
@@ -25,21 +35,61 @@
             
             <div class="col-sm-9 main-cont">
                 <div class="row">
-                    <div class="col-xs-4 coupon">
+                    
+                        <?php
+                            //$store_coupons = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.*, `wp_clpr_storesmeta`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships`,`wp_clpr_storesmeta` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`taxonomy` = 'stores' AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_clpr_storesmeta`.`meta_key`= 'clpr_store_image_id' AND `wp_clpr_storesmeta`.`stores_id` = `wp_terms`.`term_id` AND `wp_terms`.`slug` IN('walmart-coupons') ORDER BY `wp_term_taxonomy`.`count` DESC LIMIT 0,10";
+                            $store_coupons = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`taxonomy` = 'coupon_category' AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_terms`.`slug` IN('$url[1]') ORDER BY `all_posts`.`hits` DESC LIMIT $posts_starts_from,$number_of_posts";
+                            $store_coupons_query = mysqli_query($conn,$store_coupons);
+                            $store_coupons_count = mysqli_num_rows($store_coupons_query);
+                            if(mysqli_num_rows($store_coupons_query) > 0){
+                                while($store_coupons_row = mysqli_fetch_array($store_coupons_query)){
+                                $scq_id = $store_coupons_row['ID'];
+                                $scq_title = $store_coupons_row['post_title'];
+                                $scq_post_name = $store_coupons_row['post_name'];
+                                $scq_content = $store_coupons_row['post_content'];
+                                $scq_meta = $store_coupons_row['meta_value'];
+                                $scq_sel_image = $store_coupons_row['select_img'];
+                                $scq_guid = $store_coupons_row['guid'];
+                                $scq_featured = $store_coupons_row['post_featured_image'];
+                                $scq_hits = $store_coupons_row['hits'];
+                                $scq_expire = $store_coupons_row['expire_date'];
+                                $scq_code = $store_coupons_row['coupon_code'];
+                                $scq_code_type = $store_coupons_row['coupon_code_type'];
+                                $scq_coupon_type = ucwords(str_ireplace(array('-'),array(' '),$store_coupons_row['coupon_type']));
+                                $scq_coupon_type_color = $store_coupons_row['coupon_type_color'];
+                                $scq_btn = $store_coupons_row['btn_name'];
+                                
+                                if($scq_btn == ''){
+                                    $button_name = 'Get Deal';
+                                }else{
+                                    $button_name = $scq_btn;
+                                }
+                                ?>
+                                    <div class="col-xs-4 coupon">
+                                        <div class="thumbnail">
+                                            <span class="rate"><i class="fa fa-star-o" aria-hidden="true"></i></span>
+                                            <img src="https://www.retailmenot.com/thumbs/logos/l/forever21.com-coupons.jpg?versionId=CIXaEUmIoDQI2fZeVzkgZp_TH5Upj5PU" alt="forever21">
+                                            <div class="caption">
+                                                <span style="color: <?php echo $scq_coupon_type_color; ?>; font-weight:600;"><?php echo $scq_coupon_type;?></span>
+                                                <b><a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $scq_post_name;?>"><?php echo excerpt($scq_title, 6); ?></a></b>
+                                                <u><?php if($scq_hits > 0){ ?>
+                                                    <?php echo $scq_hits; ?> uses today
+                                                <?php } ?></u>
+                                                
+                                            </div>
+                                            <div class="text-left">
+                                                <span><a href="<?php echo $scq_guid;?>" target="_blank" class="btn btn-primary gd"  id="gd_<?php echo $scq_id; ?>" data="<?php echo $scq_code; ?>" ><?php echo $button_name;?></a></span>
+                                            </div>
+                                        </div>
+                                    </div><!--coupon-->
+                                <?php
+                                }
+                            }
+                        ?>
                         
-                        <div class="thumbnail">
-                            <span class="rate"><i class="fa fa-star-o" aria-hidden="true"></i></span>
-                            <img src="https://www.retailmenot.com/thumbs/logos/l/forever21.com-coupons.jpg?versionId=CIXaEUmIoDQI2fZeVzkgZp_TH5Upj5PU" alt="forever21">
-                            <div class="caption">
-                                <span style="color: #10b48a; font-weight:500;">Code</span>
-                                <p>Extra 10% Off Sitewide Extra 10% Off Sitewide Extra 10% Off Sitewide</p>
-                                <u>9.0k uses today</u>
-                            </div>
-                        </div>
-                        
-                    </div><!--coupon-->
                     
-                    <div class="col-xs-4 coupon">
+                    
+                    <!--<div class="col-xs-4 coupon">
                         <div class="thumbnail">
                             <span class="rate"><i class="fa fa-star-o" aria-hidden="true"></i></span>
                             <img src="https://www.retailmenot.com/thumbs/logos/l/forever21.com-coupons.jpg?versionId=CIXaEUmIoDQI2fZeVzkgZp_TH5Upj5PU" alt="forever21">
@@ -49,55 +99,9 @@
                                 <u>9.0k uses today</u>
                             </div>
                         </div>
-                    </div><!--coupon-->
+                    </div>coupon-->
                     
-                    <div class="col-xs-4 coupon">
-                        <div class="thumbnail">
-                            <span class="rate"><i class="fa fa-star-o" aria-hidden="true"></i></span>
-                            <img src="https://www.retailmenot.com/thumbs/logos/l/forever21.com-coupons.jpg?versionId=CIXaEUmIoDQI2fZeVzkgZp_TH5Upj5PU" alt="forever21">
-                            <div class="caption">
-                                <span style="color: #10b48a; font-weight:500;">Code</span>
-                                <p>Extra 10% Off Sitewide</p>
-                                <u>9.0k uses today</u>
-                            </div>
-                        </div>
-                    </div><!--coupon-->
                     
-                    <div class="col-xs-4 coupon">
-                        <div class="thumbnail">
-                            <span class="rate"><i class="fa fa-star-o" aria-hidden="true"></i></span>
-                            <img src="https://www.retailmenot.com/thumbs/logos/l/forever21.com-coupons.jpg?versionId=CIXaEUmIoDQI2fZeVzkgZp_TH5Upj5PU" alt="forever21">
-                            <div class="caption">
-                                <span style="color: #10b48a; font-weight:500;">Code</span>
-                                <p>Extra 10% Off Sitewide</p>
-                                <u>9.0k uses today</u>
-                            </div>
-                        </div>
-                    </div><!--coupon-->
-                    
-                    <div class="col-xs-4 coupon">
-                        <div class="thumbnail">
-                            <span class="rate"><i class="fa fa-star-o" aria-hidden="true"></i></span>
-                            <img src="https://www.retailmenot.com/thumbs/logos/l/forever21.com-coupons.jpg?versionId=CIXaEUmIoDQI2fZeVzkgZp_TH5Upj5PU" alt="forever21">
-                            <div class="caption">
-                                <span style="color: #10b48a; font-weight:500;">Code</span>
-                                <p>Extra 10% Off Sitewide</p>
-                                <u>9.0k uses today</u>
-                            </div>
-                        </div>
-                    </div><!--coupon-->
-                    
-                    <div class="col-xs-4 coupon">
-                        <div class="thumbnail">
-                            <span class="rate"><i class="fa fa-star-o" aria-hidden="true"></i></span>
-                            <img src="https://www.retailmenot.com/thumbs/logos/l/forever21.com-coupons.jpg?versionId=CIXaEUmIoDQI2fZeVzkgZp_TH5Upj5PU" alt="forever21">
-                            <div class="caption">
-                                <span style="color: #10b48a; font-weight:500;">Code</span>
-                                <p>Extra 10% Off Sitewide</p>
-                                <u>9.0k uses today</u>
-                            </div>
-                        </div>
-                    </div><!--coupon-->
                     
                     
                     <div class="post-contain-one">

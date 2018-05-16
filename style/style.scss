@@ -1940,17 +1940,56 @@ $background_color_1: #cfcfcf;
             margin-bottom: 8px;
             display: block;
           }
-          p{
+          b{
             line-height: 1.6;
             margin-bottom: 10px;
+            display: block;
+            height: 60px;
+            
+            a{
+              color: #929292;
+            }
           }
           
           u{
             color: #d3d3d3;
             text-decoration: none;
             font-size: 13px;
+            display: block;
+            height: 20px;
+            overflow: hidden;
           }
         }//caption
+        
+        span{
+          display: block;
+          
+          a{
+            width: 100%;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1;
+            text-align: center;
+            cursor: pointer;
+            -webkit-appearance: none;
+            -webkit-font-smoothing: antialiased;
+            padding: 1.1em 0.75em;
+            transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, fill 0.5s ease;
+            background: #24b7e3;
+            text-decoration: none;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #24b7e3;
+            border-image: initial;
+            @include border-radius(2px);
+            margin-top: 5px;
+            
+            &:hover{
+              background: transparent;
+              color: #24b7e3;
+            }
+          }
+        }
         
       }//thumbnail 
     }//coupon
