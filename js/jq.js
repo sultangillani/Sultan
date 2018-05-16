@@ -757,18 +757,21 @@ $(document).ready(function(){
                 $(this).css({'height': '200px','overflow-y': 'scroll'});
             }
             $(this).find('span:eq(4)').nextAll('span').hide();
+            $(this).find('br:eq(4)').nextAll('br.smethng').hide();
             $(this).next('.show_all').show();
         }else{
             $(this).css({'height': 'auto','overflow-y': 'hidden'});
         }
         $('.show_all').click(function(){
             $(this).prev('.ct').find('span:eq(4)').nextAll('span').show();
+            $(this).prev('.ct').find('br:eq(4)').nextAll('br.smethng').show();
             $(this).hide();
             $(this).next('.show_less').show();
         });
         
         $('.show_less').click(function(){
             $(this).prev('.show_all').prev('.ct').find('span:eq(4)').nextAll('span').hide();
+            $(this).prev('.show_all').prev('.ct').find('br:eq(4)').nextAll('br.smethng').hide();
             $(this).hide();
             $(this).prev('.show_all').show();
         });
