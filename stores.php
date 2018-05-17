@@ -1321,6 +1321,7 @@
                                         data: {action: 'populer', checked: ct, dt: dt,cat: cat, check_id: check_id, usp: us, store_id:store_id, gd_arr: gd_arr},
                                         success: function(result){
                                             $('.top-offers').html(result);
+                                            $('.fil_app > u').text('No ');
                                         }
                                     });
                                 });

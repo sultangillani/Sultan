@@ -1679,6 +1679,7 @@ function coupons_category(){
         $posts_starts_from = ($page_id - 1) * $number_of_posts;
         
         $store_coupons .= "ORDER BY `all_posts`.`hits` DESC, `all_posts`.`ID` DESC LIMIT $posts_starts_from,$number_of_posts";
+        
         $store_coupons_query = mysqli_query($conn,$store_coupons);
         if(mysqli_num_rows($store_coupons_query) > 0){
             while($store_coupons_row = mysqli_fetch_array($store_coupons_query)){
@@ -1747,7 +1748,7 @@ function coupons_category(){
                         ?>
                         <div class="caption">
                             <span style="color: <?php echo $scq_coupon_type_color; ?>; font-weight:600;"><?php echo $scq_coupon_type;?></span>
-                            <b><a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $scq_post_name;?>"><?php echo excerpt($scq_title, 6); ?></a></b>
+                            <b><a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $scq_post_name;?>" target="_blank"><?php echo excerpt($scq_title, 6); ?></a></b>
                             <?php
                             if ($scq_hits > 999 && $scq_hits <= 999999) {
                                 $result = floor($scq_hits / 1000) . 'K';
@@ -2081,116 +2082,144 @@ function coupons_category(){
                         </div>
                     </div>
                 </div><!---pos_conatain_one-->
+                
             <?php
             }
         }
     ?>
     
     <script type="text/javascript">
-        $(ducument).ready(function(){
-            var pathname = $('.kbc_uri').val();
-            var us = $('.kbc_uri').attr('placeholder');
-            var ct = [];
-            var dt = [];
-            var cat = [];
-            var gd_arr = [];
-            
+        var pathname = $('.kbc_uri').val();
+        var us = $('.kbc_uri').attr('placeholder');
+        var ct = [];
+        var dt = [];
+        var cat = [];
+        var gd_arr = [];
+        
+        <?php
+        foreach($checked as $check){
+            ?>
+            ct.push('<?php echo $check;?>');
             <?php
-            foreach($checked as $check){
+        }
+        ?>
+        
+        <?php
+        foreach($discount as $dt){
+            ?>
+            dt.push('<?php echo $dt;?>');
+            <?php
+        }
+        ?>
+        
+        <?php
+        foreach($categories as $cat){
+            ?>
+            cat.push('<?php echo $cat;?>');
+            <?php
+        }
+        ?>
+        
+        //Code in button
+        
+        <?php
+            $gd_arr = array_unique($_POST['gd_arr']);
+            foreach($gd_arr as $gd_id){
                 ?>
-                ct.push('<?php echo $check;?>');
+                gd_arr.push('<?php echo $gd_id; ?>');
                 <?php
             }
-            ?>
-            
-            <?php
-            foreach($discount as $dt){
-                ?>
-                dt.push('<?php echo $dt;?>');
-                <?php
-            }
-            ?>
-            
-            <?php
-            foreach($categories as $cat){
-                ?>
-                cat.push('<?php echo $cat;?>');
-                <?php
-            }
-            ?>
-            
-            //Code in button
-            
-            <?php
-                $gd_arr = array_unique($_POST['gd_arr']);
-                foreach($gd_arr as $gd_id){
-                    ?>
-                    gd_arr.push('<?php echo $gd_id; ?>');
-                    <?php
-                }
-            ?>
-            
-            for(var v = 0; v < gd_arr.length; v++){
-                var data_txt = $(gd_arr[v]).attr('data');
-                $('.main-cont').find(gd_arr[v]).each(function(){
-                    $(this).text(data_txt);
-                    $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
-                });
-            }
-            
-            var pathname = $('.kbc_uri').val();
+        ?>
+        
+        for(var v = 0; v < gd_arr.length; v++){
+            var data_txt = $(gd_arr[v]).attr('data');
+            $('.main-cont').find(gd_arr[v]).each(function(){
+                $(this).text(data_txt);
+                $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
+            });
+        }
+        
+        var pathname = $('.kbc_uri').val();
+        pathname = pathname + '/filter.php';
+        var us = $('.kbc_uri').attr('placeholder');
+        var store_id = $('.kbc_uri').attr('title');
+        var gd_arr_id = [];
+        
+        $('.gd').click(function(){
+            var data_text = $(this).attr('data');
+            var gd_id = '#' + $(this).attr('id');
+            gd_arr_id.push(gd_id);
+            gd_arr.push(gd_id);
+            $('.main-cont').find(gd_id).each(function(){
+                $(this).text(data_text);
+                $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
+            });
+        });
+        
+        $('.next_btn').click(function(){
+            var page_id = <?php echo $page_id; ?>;
+            var total_posts = <?php echo $all_posts; ?>;
+            page_id = page_id + 1;
             pathname = pathname + '/filter.php';
-            var us = $('.kbc_uri').attr('placeholder');
-            var store_id = $('.kbc_uri').attr('title');
-            var gd_arr_id = [];
-            
-            $('.gd').click(function(){
-                var data_text = $(this).attr('data');
-                var gd_id = '#' + $(this).attr('id');
-                gd_arr_id.push(gd_id);
-                gd_arr.push(gd_id);
-                $('.main-cont').find(gd_id).each(function(){
-                    $(this).text(data_text);
-                    $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
-                });
-            });
-            
-            $('.next_btn').click(function(){
-                var page_id = <?php echo $page_id; ?>;
-                var total_posts = <?php echo $all_posts; ?>;
-                page_id = page_id + 1;
-                pathname = pathname + '/filter.php';
-                $.ajax({
-                    method: 'POST',
-                    url: pathname,
-                    data: {action: 'coupons_category', page_id: page_id, usp:us, total_posts: total_posts, checked: ct, dt: dt, cat: cat, gd_arr: gd_arr},
-                    success: function(result){
-                        $('.main-cont').html(result);
-                    }
-                });
-                
-            });
-            
-            $('.prev_btn').click(function(){
-                var page_id = <?php echo $page_id; ?>;
-                var total_posts = <?php echo $all_posts; ?>;
-                page_id = page_id - 1;
-                pathname = pathname + '/filter.php';
-                $.ajax({
-                    method: 'POST',
-                    url: pathname,
-                    data: {action: 'coupons_category', page_id: page_id, usp:us, total_posts: total_posts, checked: ct, dt: dt, cat: cat, gd_arr: gd_arr},
-                    success: function(result){
-                        $('.main-cont').html(result);
-                    }
-                });
-                
+            $.ajax({
+                method: 'POST',
+                url: pathname,
+                data: {action: 'coupons_category', page_id: page_id, usp:us, total_posts: total_posts, checked: ct, dt: dt, cat: cat, gd_arr: gd_arr},
+                success: function(result){
+                    $('.main-cont').html(result);
+                }
             });
             
         });
         
-        
+        $('.prev_btn').click(function(){
+            var page_id = <?php echo $page_id; ?>;
+            var total_posts = <?php echo $all_posts; ?>;
+            page_id = page_id - 1;
+            pathname = pathname + '/filter.php';
+            $.ajax({
+                method: 'POST',
+                url: pathname,
+                data: {action: 'coupons_category', page_id: page_id, usp:us, total_posts: total_posts, checked: ct, dt: dt, cat: cat, gd_arr: gd_arr},
+                success: function(result){
+                    $('.main-cont').html(result);
+                }
+            });
+            
+        });
     </script>
+    
+    <div class="row pagin">
+        <div class="col-xs-12 text-center">
+            
+            <?php
+            if($page_id <= 1){
+                ?>
+                <u><i class="fa fa-chevron-left"></i></u>
+                <?php
+            }else{
+            ?>
+                <button class="prev_btn"><i class="fa fa-chevron-left"></i></button>
+            <?php
+            }
+            ?>
+            <span><?php echo $page_id; ?>/<?php echo $total_pages; ?></span>
+            
+            <?php
+            if($page_id >= $total_pages){
+                ?>
+                <u><i class="fa fa-chevron-right"></i></u>
+                <?php
+            }else{
+            ?>
+                <button class="next_btn"><i class="fa fa-chevron-right"></i></button>
+            <?php
+            }
+            ?>
+            <br />
+            <p><?php echo $all_posts; ?> results</p>
+        </div>
+    </div>
     <?php
 }
 

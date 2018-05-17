@@ -108,7 +108,7 @@
                                             ?>
                                             <div class="caption">
                                                 <span style="color: <?php echo $scq_coupon_type_color; ?>; font-weight:600;"><?php echo $scq_coupon_type;?></span>
-                                                <b><a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $scq_post_name;?>"><?php echo excerpt($scq_title, 6); ?></a></b>
+                                                <b><a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $scq_post_name;?>" target="_blank" ><?php echo excerpt($scq_title, 6); ?></a></b>
                                                 <?php
                                                 if ($scq_hits > 999 && $scq_hits <= 999999) {
                                                     $result = floor($scq_hits / 1000) . 'K';
@@ -283,7 +283,7 @@
                                                 <div class="row post-mid-one">
                                                     <div class="col-xs-8 t">
                                                         <h3>
-                                                            <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $scq_post_name;?>" target="_blank"class="post-one-title"><?php echo $scq_title?></a>
+                                                            <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $scq_post_name;?>" target="_blank" class="post-one-title"><?php echo $scq_title?></a>
                                                         </h3>
                                                         <br />
                                                         
@@ -578,6 +578,7 @@
                                     data: {action: 'coupons_category', checked: ct, dt: dt,cat: cat, check_id: check_id, usp: us, store_id:store_id, gd_arr: gd_arr},
                                     success: function(result){
                                         $('.main-cont').html(result);
+                                        $('.fil_app > u').text('No ');
                                     }
                                 });
                             });
