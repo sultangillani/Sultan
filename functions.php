@@ -220,12 +220,23 @@ if(isset($_GET['url'])){
     $url = explode('/',$url);
 }
 
-
 function path_url($folder){
     $path = $_SERVER['REQUEST_URI'];
     $path_pos = strpos($path,$folder);
     return substr($path,0,$path_pos) . $folder;
 }
+
+//Return To Home Urls
+function split_url($name){
+    $home_url = path_url('/retail_pro');
+    $path_url = $_SERVER['REQUEST_URI'];
+    if (strpos($path_url, $name) !== false) {
+        header('Location: '.$home_url);
+    }
+}
+
+split_url('search.php');
+
 ?>
 
 

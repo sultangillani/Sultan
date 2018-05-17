@@ -28,7 +28,18 @@ else if($url[0] == 'coupons-category'){
     
     include_once 'blog-category.php';
     
+}else if($url[0] == 'search'){
+    if($url[1] == ''){
+        $home_url = path_url('/retail_pro');
+        header('Location: '.$home_url);
+    }else{
+        include_once 'search.php';
+    }
 }
+
+
+
+
 ?>
 
 
