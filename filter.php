@@ -1599,6 +1599,10 @@ function store_subscribtion(){
     }
 }
 
+function coupons_category(){
+    
+}
+
 $func = $_POST['action'];
     switch ($func) {
         case "populer":
@@ -1609,6 +1613,9 @@ $func = $_POST['action'];
         store_subscribtion();
         break;
         
+        case "coupons_category":
+        coupons_category();
+        break;
     }
 
 

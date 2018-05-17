@@ -57,7 +57,7 @@
                                     $coupon_store_slug = $coupon_store_row['slug'];
                                     $coupon_store_name = str_ireplace('-',' ',ucwords($coupon_store_slug));
                                 ?>
-                                    <span><input type="checkbox" name="cat" value="<?php echo $coupon_store_slug; ?>" id="dis-<?php echo $coupon_store_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$coupon_store_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$coupon_store_slug); ?>" title="<?php echo $coupon_store_slug; ?>"/> <label for="dis-<?php echo $coupon_store_slug; ?>"><?php echo $coupon_store_name; ?></label></span><br class="smethng" />
+                                    <span><input type="checkbox" name="store" value="<?php echo $coupon_store_slug; ?>" id="dis-<?php echo $coupon_store_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$coupon_store_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$coupon_store_slug); ?>" title="<?php echo $coupon_store_slug; ?>"/> <label for="dis-<?php echo $coupon_store_slug; ?>"><?php echo $coupon_store_name; ?></label></span><br class="smethng" />
                                 <?php
                                 }
                             ?>
