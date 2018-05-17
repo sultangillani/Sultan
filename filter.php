@@ -1648,7 +1648,7 @@ function coupons_category(){
                     array_push($stor_john_arr,$stor_john_id);
                 }
             }
-            echo '<br />';
+            
             //$stor_john_arr_id = implode(',',$stor_john_arr);
             $cat_coupons = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` = 'stores' AND `wp_terms`.`slug` IN('$cat')";
             $cat_john = mysqli_query($conn,$cat_coupons);
