@@ -236,7 +236,8 @@ function split_url($name){
 }
 
 split_url('search.php');
-
+split_url('stores.php');
+split_url('coupons-category.php');
 ?>
 
 

@@ -6,7 +6,12 @@ if($url[0] == '' || $url[0] == 'index'){
 }
 else if($url[0] == 'coupons-category'){
     
-    include_once 'coupons-category.php';
+    if($url[1] == ''){
+        $home_url = path_url('/retail_pro');
+        header('Location: '.$home_url);
+    }else{
+        include_once 'coupons-category.php';
+    }
     
 }else if($url[0] == 'coupon'){
     
@@ -14,7 +19,12 @@ else if($url[0] == 'coupons-category'){
     
 }else if($url[0] == 'stores'){
     
-    include_once 'stores.php';
+    if($url[1] == ''){
+        $home_url = path_url('/retail_pro');
+        header('Location: '.$home_url);
+    }else{
+        include_once 'stores.php';
+    }
     
 }else if($url[0] == 'blog'){
     
