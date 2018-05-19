@@ -3,6 +3,7 @@
         <div id="conte" class="container">   
             <?php
                 $search_page_arr = [];
+                $search_postss_arr = [];
                 $search_page_query = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.*, `wp_clpr_storesmeta`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships`,`wp_clpr_storesmeta` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`taxonomy` = 'stores' AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_clpr_storesmeta`.`meta_key`= 'clpr_store_image_id' AND `wp_clpr_storesmeta`.`stores_id` = `wp_terms`.`term_id` AND `all_posts`.`post_title` LIKE '%$url[1]%' GROUP BY `all_posts`.`post_title`";
                 $search_page_result = mysqli_query($conn,$search_page_query);
                 
@@ -11,8 +12,14 @@
                         $search_page_id = $search_page_row['ID'];
                         $search_page_term_id = $search_page_row['term_id'];
                         $search_page_term_taxonomy = $search_page_row['taxonomy'];
+                        
+                        //terms
                         array_push($search_page_arr,$search_page_term_id);
                         $search_page_arr = array_unique($search_page_arr);
+                        
+                        //Posts
+                        array_push($search_postss_arr,$search_page_id);
+                        $search_postss_arr = array_unique($search_postss_arr);
                         
                     }
                 }

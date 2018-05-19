@@ -4,6 +4,8 @@ $store_ids = implode(',',$search_page_arr);
 $store_query = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` = 'stores' AND `wp_terms`.`term_id` IN ($store_ids) GROUP BY `wp_terms`.`slug` ORDER BY `all_posts`.`ID` DESC";
 $store_result = mysqli_query($conn,$store_query);
 
+$search_posts_id = implode(',',$search_postss_arr);
+
 ?>
 <div class="filter stores">
     
@@ -33,7 +35,7 @@ $store_result = mysqli_query($conn,$store_query);
     
     
     <?php
-        $coupty_sql = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_terms`.`term_id` IN ($store_ids) AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` IN('stores','coupon_category') GROUP BY `all_posts`.`coupon_type` ORDER BY `all_posts`.`ID` DESC";
+        $coupty_sql = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `all_posts`.`ID` IN ($search_posts_id) AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` IN('stores','coupon_category') GROUP BY `all_posts`.`coupon_type` ORDER BY `all_posts`.`ID` DESC";
         $coupty_query = mysqli_query($conn,$coupty_sql);
         if(mysqli_num_rows($coupty_query) > 0){
     ?>
@@ -57,4 +59,57 @@ $store_result = mysqli_query($conn,$store_query);
         }
     ?>
     
+    
+    <!--Discount Type-->
+    
+    <?php
+        $discty_sql = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `all_posts`.`ID` IN ($search_posts_id) AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` IN('stores','coupon_category') GROUP BY `all_posts`.`discount_type` ORDER BY `all_posts`.`ID` DESC";
+        $discy_query = mysqli_query($conn,$discty_sql);
+        if(mysqli_num_rows($discy_query) > 0){
+    ?>
+    <h5>Discount Type</h5>
+    <div class="fil-options ct cta">
+        <?php
+        while($discy_row = mysqli_fetch_array($discy_query)){
+            $discy_slug = $discy_row['discount_type'];
+            $discy_name = str_ireplace('-',' ',ucwords($discy_slug));
+        ?>
+            <span><input type="checkbox" name="dt" value="<?php echo $discy_slug; ?>" id="dis-<?php echo $discy_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$discy_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$discy_slug); ?>" title="<?php echo $discy_slug; ?>"/> <label for="dis-<?php echo $discy_slug; ?>"><?php echo $discy_name; ?></label></span><br class="smethng" />
+        <?php
+        }
+        ?>
+    </div>
+    <button class="show_all show_btn">Show all</button>
+    <button class="show_less show_btn">Show less</button>
+    <br /><br />
+    <?php
+        }
+    ?>
+    
+    <?php
+        $category_query = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_category' AND `all_posts`.`ID` IN ($search_posts_id) GROUP BY `wp_terms`.`slug` ORDER BY `all_posts`.`ID` DESC";
+        $category_result = mysqli_query($conn,$category_query);
+    ?>
+    <h5>Categories</h5>
+    <?php
+        if(mysqli_num_rows($category_result) > 0){
+            ?>
+                <div class="fil-options ct cta stre">
+                    <?php
+                        while($category_row = mysqli_fetch_assoc($category_result)){
+                                $category_id = $category_row['ID'];
+                                $category_name = $category_row['name'];
+                                $category_slug = $category_row['slug'];
+                            ?>
+                                <span><input type="checkbox" name="store" value="<?php echo $category_slug; ?>" id="dis-<?php echo $category_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$category_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$category_slug); ?>" title="<?php echo $category_slug; ?>"/> <label for="dis-<?php echo $category_slug; ?>"><?php echo $category_name; ?></label></span><br class="smethng" />
+                            <?php
+                        }
+                    ?>
+                </div>
+                <button class="show_all show_btn">Show all</button>
+                <button class="show_less show_btn">Show less</button>
+                <br /><br />
+            <?php
+        }
+    ?>
 </div>
