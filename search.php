@@ -23,7 +23,7 @@
             </div>
             
             <div class="small-screen-sidebar col-xs-12">
-                
+                <?php include_once 'inc/small_screen_search_sidebar.php'; ?>
             </div>
             <div class="col-sm-9 main-cont main-containerrr">
                 <section class="top-offers">
