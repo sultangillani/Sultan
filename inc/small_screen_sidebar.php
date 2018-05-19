@@ -201,7 +201,7 @@
             <?php
             }
         }
-            ?>
+    ?>
 </div><!---small_side_opt--->
 
 <div class="row small_clepp">

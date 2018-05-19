@@ -101,7 +101,7 @@ $search_posts_id = implode(',',$search_postss_arr);
                                 $category_name = $category_row['name'];
                                 $category_slug = $category_row['slug'];
                             ?>
-                                <span><input type="checkbox" name="store" value="<?php echo $category_slug; ?>" id="dis-<?php echo $category_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$category_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$category_slug); ?>" title="<?php echo $category_slug; ?>"/> <label for="dis-<?php echo $category_slug; ?>"><?php echo $category_name; ?></label></span><br class="smethng" />
+                                <span><input type="checkbox" name="cat" value="<?php echo $category_slug; ?>" id="dis-<?php echo $category_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$category_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$category_slug); ?>" title="<?php echo $category_slug; ?>"/> <label for="dis-<?php echo $category_slug; ?>"><?php echo $category_name; ?></label></span><br class="smethng" />
                             <?php
                         }
                     ?>
@@ -112,4 +112,5 @@ $search_posts_id = implode(',',$search_postss_arr);
             <?php
         }
     ?>
+    
 </div>

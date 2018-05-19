@@ -131,4 +131,39 @@
         }
     ?>
     
+    <?php
+        $category_query = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_category' AND `all_posts`.`ID` IN ($search_posts_id) GROUP BY `wp_terms`.`slug` ORDER BY `all_posts`.`ID` DESC";
+        $category_result = mysqli_query($conn,$category_query);
+        if(mysqli_num_rows($category_result) > 0){
+            ?>
+                <div class="small_filter small_stores ">
+                    <div class="pan row">
+                        <h5 class="col-xs-7">Categories</h5>
+                        <div class="col-xs-5 text-right">
+                            <i class="fa fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="pan_body">
+                        <div class="fil-options ct">
+                            <?php
+                                while($category_row = mysqli_fetch_assoc($category_result)){
+                                        $category_id = $category_row['ID'];
+                                        $category_name = $category_row['name'];
+                                        $category_slug = $category_row['slug'];
+                                    ?>
+                                        <span><input type="checkbox" name="cat" value="<?php echo $category_slug; ?>" id="dis-<?php echo $category_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$category_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$category_slug); ?>" title="<?php echo $category_slug; ?>"/> <label for="dis-<?php echo $category_slug; ?>"><?php echo $category_name; ?></label></span><br class="smethng" />
+                                    <?php
+                                }
+                            ?>
+                        </div>
+                        <button class="show_all show_btn">Show all</button>
+                        <button class="show_less show_btn">Show less</button>
+                        <br /><br />
+                    </div>
+                    
+                </div>
+            <?php
+        }
+    ?>
 </div>

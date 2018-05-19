@@ -387,6 +387,162 @@
                             }
                         }
                     ?>
+                    
+                    
+                    <div class="row pagin">
+                        <div class="col-xs-12 text-center">
+                            
+                            <?php
+                            if($page_id <= 1){
+                                ?>
+                                <u><i class="fa fa-chevron-left"></i></u>
+                                <?php
+                            }else{
+                            ?>
+                                <button class="prev_btn"><i class="fa fa-chevron-left"></i></button>
+                            <?php
+                            }
+                            ?>
+                            <span><?php echo $page_id; ?>/<?php echo $total_pages; ?></span>
+                            
+                            <?php
+                            if($page_id >= $total_pages){
+                                ?>
+                                <u><i class="fa fa-chevron-right"></i></u>
+                                <?php
+                            }else{
+                            ?>
+                                <button class="next_btn"><i class="fa fa-chevron-right"></i></button>
+                            <?php
+                            }
+                            ?>
+                            <br />
+                            <p><?php echo $all_posts; ?> results</p>
+                        </div>
+                        
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                
+                                //Filters
+                                var ct = [];
+                                var dt = [];
+                                var cat = [];
+                                var check_id = [0];
+                                var pathname = $('.kbc_uri').val();
+                                var us = $('.kbc_uri').attr('placeholder');
+                                var store_id = $('.kbc_uri').attr('title');
+                                
+                                var gd_arr = [];
+                                
+                                $('.gd').click(function(){
+                                    
+                                    var data_text = $(this).attr('data');
+                                    var gd_id = '#' + $(this).attr('id');
+                                    gd_arr.push(gd_id);
+                                    $('#popularity,#newest,#ending').find(gd_id).each(function(){
+                                        $(this).text(data_text);
+                                        $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
+                                    });
+                                });
+                                
+                                $('.ct input[type="checkbox"]').each(function(){
+                                    
+                                   
+                                    $(this).click(function(){
+                                        
+                                        if ($(this).attr('name') == 'ct') { //CT
+                                            var ri = $(this).val();
+                                            var ind = ct.indexOf(ri);
+                                            if ($(this).prop("checked")) {
+                                                ct.push(ri);
+                                            }else{
+                                                ct.splice(ind,1);
+                                            }
+                                        }else if ($(this).attr('name') == 'dt') { //DT
+                                            var ri = $(this).val();
+                                            var ind = dt.indexOf(ri);
+                                            if ($(this).prop("checked")) {
+                                                dt.push(ri);
+                                            }else{
+                                                dt.splice(ind,1);
+                                            }
+                                        }else if ($(this).attr('name') == 'cat') { //Cat
+                                            var ri = $(this).val();
+                                            var ind = cat.indexOf(ri);
+                                            if ($(this).prop("checked")) {
+                                                cat.push(ri);
+                                            }else{
+                                                cat.splice(ind,1);
+                                            }
+                                        }
+                                            
+                                        pathname = pathname + '/filter.php';
+                                        $.ajax({
+                                            method: 'POST',
+                                            url: pathname,
+                                            data: {action: 'populer', checked: ct, dt: dt,cat: cat, check_id: check_id, usp: us, store_id:store_id, gd_arr: gd_arr},
+                                            success: function(result){
+                                                $('.top-offers').html(result);
+                                            }
+                                        });
+                                        
+                                    });
+                                    
+                                });
+                                
+                                $('.reset').click(function(){
+                                    ct = [];
+                                    dt= [];
+                                    cat = [];
+                                    $('.ct input[type="checkbox"]').each(function(){
+                                        $(this).prop("checked",false);
+                                    });
+                                    pathname = pathname + '/filter.php';
+                                    $.ajax({
+                                        method: 'POST',
+                                        url: pathname,
+                                        data: {action: 'populer', checked: ct, dt: dt,cat: cat, check_id: check_id, usp: us, store_id:store_id, gd_arr: gd_arr},
+                                        success: function(result){
+                                            $('.top-offers').html(result);
+                                            $('.fil_app > u').text('No ');
+                                        }
+                                    });
+                                });
+                                
+                                $('.next_btn').click(function(){
+                                    var page_id = <?php echo $page_id; ?>;
+                                    var total_posts = <?php echo $all_posts; ?>;
+                                    page_id = page_id + 1;
+                                    pathname = pathname + '/filter.php';
+                                    $.ajax({
+                                        method: 'POST',
+                                        url: pathname,
+                                        data: {action: 'populer', page_id: page_id, usp:us, total_posts: total_posts, gd_arr: gd_arr},
+                                        success: function(result){
+                                            $('.top-offers').html(result);
+                                        }
+                                    });
+                                });
+                                
+                                $('.prev_btn').click(function(){
+                                    var page_id = <?php echo $page_id; ?>;
+                                    var total_posts = <?php echo $all_posts; ?>;
+                                    page_id = page_id - 1;
+                                    pathname = pathname + '/filter.php';
+                                    $.ajax({
+                                        method: 'POST',
+                                        url: pathname,
+                                        data: {action: 'populer', page_id: page_id, usp: us, total_posts: total_posts, gd_arr: gd_arr},
+                                        success: function(result){
+                                            $('.top-offers').html(result);
+                                        }
+                                    });
+                                });
+                                
+                            });
+                        </script>
+                        
+                    </div>
                 </section>
             </div>
         </div>
