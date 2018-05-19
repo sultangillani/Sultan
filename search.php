@@ -9,13 +9,17 @@
                 if(mysqli_num_rows($search_page_result) > 0){
                     while($search_page_row = mysqli_fetch_assoc($search_page_result)){
                         $search_page_id = $search_page_row['ID'];
-                        array_push($search_page_arr,$search_page_id);
+                        $search_page_term_id = $search_page_row['term_id'];
+                        $search_page_term_taxonomy = $search_page_row['taxonomy'];
+                        array_push($search_page_arr,$search_page_term_id);
+                        $search_page_arr = array_unique($search_page_arr);
+                        
                     }
                 }
             ?>
             <button class="act_sm_sidebar">Hell No</button>
             <div class="col-sm-3 sidebar">
-                
+                <?php include_once 'inc/search_sidebar.php'; ?>
             </div>
             
             <div class="small-screen-sidebar col-xs-12">
@@ -23,6 +27,8 @@
             </div>
             <div class="col-sm-9 main-cont main-containerrr">
                 <section class="top-offers">
+                    
+                    <h3 class="store_title">You are Searching for "<?php echo str_ireplace('-',' ',$url[1]);?>"</h3>
                     <?php
                         
                         $number_of_posts = 10;
