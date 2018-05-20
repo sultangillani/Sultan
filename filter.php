@@ -2315,6 +2315,10 @@ function search_page(){
     $store_coupons .= "ORDER BY `all_posts`.`hits` DESC, `all_posts`.`ID` DESC LIMIT $posts_starts_from, $number_of_posts";
     
     $store_coupons_query = mysqli_query($conn,$store_coupons);
+    
+    ?>
+    <h3 class="store_title">You are Searching for "<?php echo str_ireplace('-',' ',$url);?>"</h3>
+    <?php
     if(mysqli_num_rows($store_coupons_query) > 0){
         while($search_post_row = mysqli_fetch_array($store_coupons_query)){
             $search_post_id = $search_post_row['ID'];
@@ -2656,6 +2660,81 @@ function search_page(){
         }
         ?>
         <script type="text/javascript">
+            
+            $('.tabsi_tog').click(function(){
+                $(this).next('.tabsi').stop().slideToggle();
+                $(this).children('i').toggleClass("chvrn");
+            });
+            
+            $('.nav-tabs').each(function(){
+                $(this).children('li').first().addClass('active');    
+            });
+            $('.tab-content').each(function(){
+                $(this).children('.tab-pane').first().addClass('active');    
+            });
+            
+            
+            //Comment Data
+            $(".com-sub").click(function(){
+                var com_post_id = $(this).parent().children('.com_post_id').val();
+                var firstname = $(this).parent().children().children('.firstname').val();
+                var add_comment = $(this).parent().children().children('.add_comment').val();
+                if (firstname == '') {
+                    $(this).parent().children().children('.firstname').next().text('Please enter your first name');
+                }else{
+                    $(this).parent().children().children('.firstname').next().text('');
+                }
+                
+                if (add_comment == '') {
+                    $(this).parent().children().children('.add_comment').next().text('Please fill out comment box');
+                }else{
+                    $(this).parent().children().children('.add_comment').next().text('');
+                }
+                
+                if (add_comment != '' && firstname != '') {
+                    var pathname = $(this).parent().children('.com_post_id').attr('id'); // Returns path only
+                    pathname = pathname + '/comment.php';
+                    
+                    $.ajax({
+                        method: 'POST',
+                        url: pathname,
+                        data: {action: 'comment',com_post_id: com_post_id, firstname:firstname, add_comment:add_comment},
+                        success: function(result){
+                            $('.msg').html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> Your Comment is successfully posted and waiting for an approval');
+                            $('.msg').addClass('alert alert-success alert-dismissible');
+                        }
+                    });
+                    $(this).parent().children().children('.firstname').val('');
+                    $(this).parent().children().children('.add_comment').val('');
+                }
+                
+            });
+            
+            $('.post-one-details').each(function(){
+                var com_len = $(this).find('.comm').length;
+                $(this).find('.comm:eq(4)').nextAll('.comm').hide();
+                $(this).find('#hide_comm').hide();
+                if (com_len > 5) {
+                    $(this).find('#show_comm').show();
+                }else{
+                    $(this).find('#show_comm').hide();
+                }
+                $(this).find('#show_comm').click(function(){
+                    $(this).hide();
+                    $(this).parent().children('.client-comments').find('.comm:eq(4)').nextAll('.comm').show();
+                    $(this).parent().find('#hide_comm').show();
+                    $(this).parent().children('.client-comments').css({'height':'500px','overflow-y':'scroll'});
+                });
+                $(this).find('#hide_comm').click(function(){
+                    $(this).hide();
+                    $(this).parent().children('.client-comments').find('.comm:eq(4)').nextAll('.comm').hide();
+                    $(this).parent().find('#show_comm').show();
+                    $(this).parent().children('.client-comments').css({'height':'auto','overflow-y':'hidden'});
+                });
+                
+            });
+            
+            
             var pathname = $('.kbc_uri').val();
             var us = $('.kbc_uri').attr('placeholder');
             var store = [];

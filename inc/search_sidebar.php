@@ -3,10 +3,14 @@
 $store_ids = implode(',',$search_page_arr);
 $store_query = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` = 'stores' AND `wp_terms`.`term_id` IN ($store_ids) GROUP BY `wp_terms`.`slug` ORDER BY `all_posts`.`ID` DESC";
 $store_result = mysqli_query($conn,$store_query);
-
 $search_posts_id = implode(',',$search_postss_arr);
-
 ?>
+
+<h4><?php echo $store_count; ?> Offers Available</h4>
+<span class="fil_app"><u>No</u> Filter Applied</span>
+<a href="" class="reset">Reset All</a>
+<br /><br /><br />
+
 <div class="filter stores">
     
 
