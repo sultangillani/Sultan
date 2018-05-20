@@ -2219,6 +2219,109 @@ function coupons_category(){
     <?php
 }
 
+
+
+function search_page(){
+    
+    error_reporting(0);
+    global $conn;
+    $url = mysqli_real_escape_string($conn,htmlentities($_POST['usp'])); //Store Name
+    $store_id = mysqli_real_escape_string($conn,htmlentities($_POST['store_id'])); //Store Id
+    //For id
+    $check_id = array_unique($_POST['check_id']);
+    unset($check_id[0]);
+    array_push($check_id,$store_id);
+    
+    $checked = array_unique($_POST['checked']);
+    $discount = array_unique($_POST['dt']);
+    $categories = array_unique($_POST['cat']);
+    $store = array_unique($_POST['store']);
+    $gd_arr = array_unique($_POST['gd_arr']);
+    $gd_arr_id = array_unique($_POST['gd_arr_id']);
+    
+    $number_of_posts = 10;
+    $page_id = $_POST['page_id'];
+    if($page_id <= 0){
+        $page_id = 1;
+    }
+    
+    
+    $dt = implode(',',$discount);
+    $dt = str_ireplace(',',"','",$dt);
+    
+    //Ct
+    $ct = implode(',',$checked);
+    $ct = str_ireplace(',',"','",$ct);
+    
+    //Cat
+    $cat = implode(',',$categories);
+    $cat = str_ireplace(',',"','",$cat);
+    
+    //store
+    $str = implode(',',$store);
+    $str = str_ireplace(',',"','",$str);
+    
+
+    $store_coupons = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.*, `wp_clpr_storesmeta`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships`,`wp_clpr_storesmeta` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`taxonomy` IN('stores') AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_clpr_storesmeta`.`meta_key`= 'clpr_store_image_id' AND `wp_clpr_storesmeta`.`stores_id` = `wp_terms`.`term_id` AND `all_posts`.`post_title` LIKE '%$url%'";
+    if(!empty($categories) || !empty($store) || (!empty($categories) && !empty($store)) ){
+        $stor_john_arr = [];
+        $cat_john_arr = [];
+        echo $stor_coupons = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.*, `wp_clpr_storesmeta`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships`,`wp_clpr_storesmeta` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`taxonomy` IN('stores') AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_clpr_storesmeta`.`meta_key`= 'clpr_store_image_id' AND `wp_clpr_storesmeta`.`stores_id` = `wp_terms`.`term_id` AND `all_posts`.`post_title` LIKE '%$url%' AND `wp_terms`.`slug` IN('$str')";
+        $stor_john = mysqli_query($conn,$stor_coupons);
+        if(mysqli_num_rows($stor_john) > 0){
+            while($stor_john_row = mysqli_fetch_assoc($stor_john)){
+                $stor_john_id = $stor_john_row['ID'];
+                array_push($stor_john_arr,$stor_john_id);
+            }
+        }
+        echo '<br />';
+        //$stor_john_arr_id = implode(',',$stor_john_arr);
+        echo $cat_coupons = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_category' AND `wp_terms`.`slug` IN('$cat') AND `all_posts`.`post_title` LIKE '%$url%'";
+        $cat_john = mysqli_query($conn,$cat_coupons);
+        if(mysqli_num_rows($cat_john) > 0){
+            while($cat_john_row = mysqli_fetch_assoc($cat_john)){
+                $cat_john_id = $cat_john_row['ID'];
+                array_push($cat_john_arr,$cat_john_id);
+            }
+        }
+        
+        if(!empty($categories) && !empty($store)){
+            $store_coupons_arr = array_intersect($stor_john_arr,$cat_john_arr);
+            $store_coupons_arr_imp = implode(',', $store_coupons_arr);   
+        }else if(!empty($categories)){
+            $store_coupons_arr = $cat_john_arr;
+            $store_coupons_arr_imp = implode(',', $store_coupons_arr);   
+        }else if(!empty($store)){
+            $store_coupons_arr = $stor_john_arr;
+            $store_coupons_arr_imp = implode(',', $store_coupons_arr);
+        }
+        
+        echo '<br />';
+        echo $store_coupons = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.*, `wp_clpr_storesmeta`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships`,`wp_clpr_storesmeta` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`taxonomy` IN('stores') AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_clpr_storesmeta`.`meta_key`= 'clpr_store_image_id' AND `wp_clpr_storesmeta`.`stores_id` = `wp_terms`.`term_id` AND `all_posts`.`post_title` LIKE '%$url%' AND `all_posts`.`ID` IN($store_coupons_arr_imp)";
+    }
+    
+    if(count($checked) > 0){
+        
+        $store_coupons .= "AND `all_posts`.`coupon_type` IN('".$ct."')";            
+    }
+    if(count($discount) > 0){
+        $store_coupons .= "AND `all_posts`.`discount_type` IN('".$dt."')";
+    }
+    
+    $all_posts_run = mysqli_query($conn,$store_coupons);
+    $all_posts = mysqli_num_rows($all_posts_run);
+    $total_pages = ceil($all_posts / $number_of_posts);
+    $posts_starts_from = ($page_id - 1) * $number_of_posts;
+    
+    $store_coupons .= "ORDER BY `all_posts`.`hits` DESC, `all_posts`.`ID` DESC LIMIT $posts_starts_from,$number_of_posts";
+    
+    $store_coupons_query = mysqli_query($conn,$store_coupons);
+    if(mysqli_num_rows($store_coupons_query) > 0){
+        while($store_coupons_row = mysqli_fetch_array($store_coupons_query)){
+            //echo $store_coupons_row['post_title'];
+        }
+    }
+}
 $func = $_POST['action'];
     switch ($func) {
         case "populer":
@@ -2231,6 +2334,10 @@ $func = $_POST['action'];
         
         case "coupons_category":
         coupons_category();
+        break;
+        
+        case "search_page":
+        search_page();
         break;
     }
 

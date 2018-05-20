@@ -424,6 +424,7 @@
                             $(document).ready(function(){
                                 
                                 //Filters
+                                var store = [];
                                 var ct = [];
                                 var dt = [];
                                 var cat = [];
@@ -439,7 +440,7 @@
                                     var data_text = $(this).attr('data');
                                     var gd_id = '#' + $(this).attr('id');
                                     gd_arr.push(gd_id);
-                                    $('#popularity,#newest,#ending').find(gd_id).each(function(){
+                                    $('.top-offers').find(gd_id).each(function(){
                                         $(this).text(data_text);
                                         $(this).css({'color': '#4a4a4a', 'background': '#f5f4f4', 'border': '1px solid #e5e5e5'});
                                     });
@@ -474,13 +475,21 @@
                                             }else{
                                                 cat.splice(ind,1);
                                             }
+                                        }else if ($(this).attr('name') == 'store') { //Cat
+                                            var ri = $(this).val();
+                                            var ind = store.indexOf(ri);
+                                            if ($(this).prop("checked")) {
+                                                store.push(ri);
+                                            }else{
+                                                store.splice(ind,1);
+                                            }
                                         }
                                             
                                         pathname = pathname + '/filter.php';
                                         $.ajax({
                                             method: 'POST',
                                             url: pathname,
-                                            data: {action: 'populer', checked: ct, dt: dt,cat: cat, check_id: check_id, usp: us, store_id:store_id, gd_arr: gd_arr},
+                                            data: {action: 'search_page', checked: ct, dt: dt,cat: cat, store: store, check_id: check_id, usp: us, store_id:store_id, gd_arr: gd_arr},
                                             success: function(result){
                                                 $('.top-offers').html(result);
                                             }
@@ -501,7 +510,7 @@
                                     $.ajax({
                                         method: 'POST',
                                         url: pathname,
-                                        data: {action: 'populer', checked: ct, dt: dt,cat: cat, check_id: check_id, usp: us, store_id:store_id, gd_arr: gd_arr},
+                                        data: {action: 'search_page', checked: ct, dt: dt,cat: cat, store: store, check_id: check_id, usp: us, store_id:store_id, gd_arr: gd_arr},
                                         success: function(result){
                                             $('.top-offers').html(result);
                                             $('.fil_app > u').text('No ');
@@ -517,7 +526,7 @@
                                     $.ajax({
                                         method: 'POST',
                                         url: pathname,
-                                        data: {action: 'populer', page_id: page_id, usp:us, total_posts: total_posts, gd_arr: gd_arr},
+                                        data: {action: 'search_page', page_id: page_id, usp:us, total_posts: total_posts, gd_arr: gd_arr},
                                         success: function(result){
                                             $('.top-offers').html(result);
                                         }
@@ -532,7 +541,7 @@
                                     $.ajax({
                                         method: 'POST',
                                         url: pathname,
-                                        data: {action: 'populer', page_id: page_id, usp: us, total_posts: total_posts, gd_arr: gd_arr},
+                                        data: {action: 'search_page', page_id: page_id, usp: us, total_posts: total_posts, gd_arr: gd_arr},
                                         success: function(result){
                                             $('.top-offers').html(result);
                                         }
