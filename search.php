@@ -390,6 +390,9 @@
                                 </div><!---pos_conatain_one-->
                                 <?php
                             }
+                        }else{
+                            $location_path = path_url('/retail_pro') . '/404.php';
+                            header('Location: '. $location_path);
                         }
                     ?>
                     
@@ -505,6 +508,7 @@
                                 });
                                 
                                 $('.reset').click(function(){
+                                    store = [];
                                     ct = [];
                                     dt= [];
                                     cat = [];
