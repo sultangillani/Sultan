@@ -2317,7 +2317,7 @@ function search_page(){
     $store_coupons_query = mysqli_query($conn,$store_coupons);
     
     ?>
-    <h3 class="store_title">You are Searching for "<?php echo str_ireplace('-',' ',$url);?>"</h3>
+    <h3 class="store_title">You are Searching for "<?php echo str_ireplace('-',' ',$url);?>" </h3>
     <?php
     if(mysqli_num_rows($store_coupons_query) > 0){
         while($search_post_row = mysqli_fetch_array($store_coupons_query)){
@@ -2878,6 +2878,45 @@ function search_page(){
         
         <?php
     }
+    
+    function filter_changes($query){
+        global $conn;
+        $arr_store_id = [];
+        $arr_cat_id = [];
+        $result = mysqli_query($conn,$query);
+        if(mysqli_num_rows($result) > 0){
+            while($row = mysqli_fetch_assoc($result)){
+                $id = $row['term_id'];
+                $tax = $row['taxonomy'];
+                if($tax == 'stores'){
+                    array_push($arr_store_id,$id);
+                }else if($tax == 'coupon_category'){
+                    array_push($arr_cat_id,$id);
+                }
+            }
+        }
+        $arr_store_id = array_unique($arr_store_id);
+        $arr_cat_id = array_unique($arr_cat_id);
+        return [$arr_store_id,$arr_cat_id];
+        
+    }
+    $filter = filter_changes("SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`taxonomy` IN('stores','coupon_category') AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `all_posts`.`post_title` LIKE '%$url%' AND `all_posts`.`ID` IN($store_coupons_arr_imp)");
+    $arr_store_id = $filter[0];
+    $arr_cat_id = $filter[1];
+    
+    $arr_store_id = implode(',',$arr_store_id);
+    $arr_cat_id = implode(',',$arr_cat_id);
+
+    ?>
+    
+    <script type="text/javascript">
+        var arr_store_id = '<?php echo $arr_store_id;?>';
+        var arr_cat_id = '<?php echo $arr_cat_id; ?>';
+        
+        alert(arr_store_id + ' | ' + arr_cat_id);
+    </script>
+    
+    <?php
 }
 
 $func = $_POST['action'];
