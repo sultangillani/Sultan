@@ -2906,14 +2906,52 @@ function search_page(){
     
     $arr_store_id = implode(',',$arr_store_id);
     $arr_cat_id = implode(',',$arr_cat_id);
-
+    
+    $arr_store_id = '#st' . str_ireplace(',',',#st',$arr_store_id);
+    $arr_cat_id = '#st' . str_ireplace(',',',#st',$arr_cat_id);
     ?>
     
     <script type="text/javascript">
+        
         var arr_store_id = '<?php echo $arr_store_id;?>';
         var arr_cat_id = '<?php echo $arr_cat_id; ?>';
         
-        alert(arr_store_id + ' | ' + arr_cat_id);
+        var filter_count = $('.ct span').find('input[type="checkbox"]:checked').length;
+        filter_count = filter_count / 2;
+        $('.ct span').click(function(){
+            
+            setTimeout(function(){
+                if (filter_count > 0) {
+                    $('.ct span').find('input[type="checkbox"]').css('display','none');
+                    $('.ct span').find('.boxx').css('display','inline-block');
+                    
+                    //Store
+                    $(arr_store_id).find('input[type="checkbox"]').css('display','inline-block');
+                    $(arr_store_id).find('.boxx').css('display','none');
+                    
+                    //cat
+                    $(arr_cat_id).find('input[type="checkbox"]').css('display','inline-block');
+                    $(arr_cat_id).find('.boxx').css('display','none');
+                }else{
+                    $('.ct span').find('input[type="checkbox"]').css('display','inline-block');
+                    $('.ct span').find('.boxx').css('display','none');
+                }
+                
+            },1000);
+            /**/
+            
+            /*
+            setTimeout(function(){
+                if ($('.ct span').find('input[type="checkbox"]:checked').length > 0) {
+                    $('.ct span').find('input[type="checkbox"]').attr('disabled','disabled');
+                    for(var st = 0; st < arr_store_id.length; st++){
+                        $(arr_store_id[st]).find('input[type="checkbox"]').removeAttr('disabled');
+                        alert(arr_store_id[st]);
+                    }
+                }
+                
+            },1000);*/
+        });
     </script>
     
     <?php
