@@ -27,6 +27,7 @@
     error_reporting(0);
 ?>
 <body ng-app="myapp" ng-controller="usercontroller">
+    <div class="overlayyy"></div>
     <?php
         $term_query = "SELECT `wp_terms`.*,`wp_term_taxonomy`.* FROM `wp_terms`,`wp_term_taxonomy` WHERE `wp_terms`.`slug` = '$url[1]' AND `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'stores'";
         $term_result = mysqli_query($conn,$term_query);
