@@ -59,5 +59,6 @@
 <script src="<?php echo path_url('/retail_pro');?>/js/bootstrap.min.js"></script>
 <script src="<?php echo path_url('/retail_pro');?>/js/jq.js"></script>
 <script src="<?php echo path_url('/retail_pro');?>/js/ang.js"></script>
+
 </body>
 </html>
