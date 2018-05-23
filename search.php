@@ -492,7 +492,9 @@
                                                 store.splice(ind,1);
                                             }
                                         }
-                                            
+                                        
+                                        $('.overlayyy').css('display','block');
+                                        
                                         pathname = pathname + '/filter.php';
                                         $.ajax({
                                             method: 'POST',
@@ -508,6 +510,7 @@
                                 });
                                 
                                 $('.reset').click(function(){
+                                    $('.overlayyy').css('display','block');
                                     store = [];
                                     ct = [];
                                     dt= [];
@@ -515,6 +518,10 @@
                                     $('.ct input[type="checkbox"]').each(function(){
                                         $(this).prop("checked",false);
                                     });
+                                    
+                                    $('.ct span').find('input[type="checkbox"]').css('display','inline-block');
+                                    $('.ct span').find('.boxx').css('display','none');
+                                    
                                     pathname = pathname + '/filter.php';
                                     $.ajax({
                                         method: 'POST',

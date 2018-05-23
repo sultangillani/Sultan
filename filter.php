@@ -2315,6 +2315,7 @@ function search_page(){
     //Get all Posts id
     
     $search_page_all_posts = [];
+    $search_page_all_terms = [];
     
     $get_all_posts_id = mysqli_query($conn,$store_coupons);
     if(mysqli_num_rows($get_all_posts_id) > 0){
@@ -2995,41 +2996,47 @@ function search_page(){
     
     $filter_stores_arr = [];
     $filter_cat_arr = [];
+    $coupon_type_arr = [];
     
     if(mysqli_num_rows($filter_result) > 0){
         while($filter_row = mysqli_fetch_assoc($filter_result)){
             $filter_term_id = $filter_row['term_id'];
             $filter_term_tax = $filter_row['taxonomy'];
+            $filter_couptype = $filter_row['coupon_type'];
+            
             if($filter_term_tax == 'coupon_category'){
                 array_push($filter_cat_arr,$filter_term_id);
             }else if($filter_term_tax == 'stores'){
                 array_push($filter_stores_arr,$filter_term_id);
             }
-            
+            array_push($coupon_type_arr,$filter_couptype);
         }
         $filter_cat_arr = array_unique($filter_cat_arr);
         $filter_stores_arr = array_unique($filter_stores_arr);
+        $coupon_type_arr = array_unique($coupon_type_arr);
         
         $filter_cat_arr = implode(',',$filter_cat_arr);
         $filter_stores_arr = implode(',',$filter_stores_arr);
+        $coupon_type_arr = implode(',',$coupon_type_arr);
         
         $filter_stores_arr = '#st' . str_ireplace(',',',#st',$filter_stores_arr);
         $filter_cat_arr = '#st' . str_ireplace(',',',#st',$filter_cat_arr);
+        $coupon_type_arr = '#ct_' . str_ireplace(',',',#ct_',$coupon_type_arr);
         ?>
         
         <script type="text/javascript">
             var arr_store_id = '<?php echo $filter_stores_arr;?>';
             var arr_cat_id = '<?php echo $filter_cat_arr; ?>';
-            //var coupon_type = "<?php echo $coupon_type; ?>";
+            var coupon_type = '<?php echo $coupon_type_arr; ?>';
             
             var filter_count = $('.ct span').find('input[type="checkbox"]:checked').length;
             
-            $('.ct span').click(function(){
-                $('.overlayyy').css('display','block');
+            //$('.ct span').click(function(){
+                
                 filter_count = parseInt(filter_count / 2);
                 setTimeout(function(){
                     $('.overlayyy').css('display','none');
-                },2000);
+                },1500);
                 setTimeout(function(){
                     if (filter_count > 0) {
                         $('.ct span').find('input[type="checkbox"]').css('display','none');
@@ -3044,8 +3051,8 @@ function search_page(){
                         $(arr_cat_id).find('.boxx').css('display','none');
                         
                         //coupon_type
-                        /*$(coupon_type).find('input[type="checkbox"]').css('display','inline-block');
-                        $(coupon_type).find('.boxx').css('display','none');*/
+                        $(coupon_type).find('input[type="checkbox"]').css('display','inline-block');
+                        $(coupon_type).find('.boxx').css('display','none');
                         
                     }else{
                         $('.ct span').find('input[type="checkbox"]').css('display','inline-block');
@@ -3054,12 +3061,12 @@ function search_page(){
                     
                 },1000);
                 
-            });
+            //});
             
-            $('.reset').click(function(){
+            /*$('.reset').click(function(){
                 $('.ct span').find('input[type="checkbox"]').css('display','inline-block');
                 $('.ct span').find('.boxx').css('display','none');
-            });
+            });*/
         </script>
         <?php
     }
