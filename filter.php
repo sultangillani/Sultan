@@ -2997,37 +2997,45 @@ function search_page(){
     $filter_stores_arr = [];
     $filter_cat_arr = [];
     $coupon_type_arr = [];
+    $discount_type_arr = [];
     
     if(mysqli_num_rows($filter_result) > 0){
         while($filter_row = mysqli_fetch_assoc($filter_result)){
             $filter_term_id = $filter_row['term_id'];
             $filter_term_tax = $filter_row['taxonomy'];
             $filter_couptype = $filter_row['coupon_type'];
+            $filter_disctype = $filter_row['discount_type'];
             
             if($filter_term_tax == 'coupon_category'){
                 array_push($filter_cat_arr,$filter_term_id);
             }else if($filter_term_tax == 'stores'){
                 array_push($filter_stores_arr,$filter_term_id);
             }
+            
             array_push($coupon_type_arr,$filter_couptype);
+            array_push($discount_type_arr,$filter_disctype);
         }
         $filter_cat_arr = array_unique($filter_cat_arr);
         $filter_stores_arr = array_unique($filter_stores_arr);
         $coupon_type_arr = array_unique($coupon_type_arr);
+        $discount_type_arr = array_unique($discount_type_arr);
         
         $filter_cat_arr = implode(',',$filter_cat_arr);
         $filter_stores_arr = implode(',',$filter_stores_arr);
         $coupon_type_arr = implode(',',$coupon_type_arr);
+        $discount_type_arr = implode(',',$discount_type_arr);
         
         $filter_stores_arr = '#st' . str_ireplace(',',',#st',$filter_stores_arr);
         $filter_cat_arr = '#st' . str_ireplace(',',',#st',$filter_cat_arr);
         $coupon_type_arr = '#ct_' . str_ireplace(',',',#ct_',$coupon_type_arr);
+        echo $discount_type_arr = '#ct_' . str_ireplace(',',',#ct_',$discount_type_arr);
         ?>
         
         <script type="text/javascript">
             var arr_store_id = '<?php echo $filter_stores_arr;?>';
             var arr_cat_id = '<?php echo $filter_cat_arr; ?>';
             var coupon_type = '<?php echo $coupon_type_arr; ?>';
+            var discount_type = '<?php echo $discount_type_arr; ?>';
             
             var filter_count = $('.ct span').find('input[type="checkbox"]:checked').length;
             
@@ -3053,6 +3061,10 @@ function search_page(){
                         //coupon_type
                         $(coupon_type).find('input[type="checkbox"]').css('display','inline-block');
                         $(coupon_type).find('.boxx').css('display','none');
+                        
+                        //discount_type
+                        $(discount_type).find('input[type="checkbox"]').css('display','inline-block');
+                        $(discount_type).find('.boxx').css('display','none');
                         
                     }else{
                         $('.ct span').find('input[type="checkbox"]').css('display','inline-block');
