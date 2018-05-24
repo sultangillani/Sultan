@@ -1496,21 +1496,6 @@ $background_color_1: #cfcfcf;
             font-weight: 500;
           }
           
-          div.boxx{
-            width: 25px;
-            height: 23px;
-            background-color: #b2b2b2;
-            border: 1px solid #cacece;
-            padding: 9px;
-            border-radius: 2px;
-            display: none;
-            position: relative;
-            outline: none !important;
-            cursor: pointer;
-            margin-right: 4px;
-            vertical-align: -webkit-baseline-middle;
-          }
-          
           input[type="checkbox"]{
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -4311,7 +4296,20 @@ footer{
   display: none;
 }
 
-
+div.boxx{
+  width: 25px;
+  height: 23px;
+  background-color: #b2b2b2;
+  border: 1px solid #cacece;
+  padding: 9px;
+  border-radius: 2px;
+  display: none;
+  position: relative;
+  outline: none !important;
+  cursor: pointer;
+  margin-right: 4px;
+  vertical-align: -webkit-baseline-middle;
+}
 
 
 

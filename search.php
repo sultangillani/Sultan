@@ -511,6 +511,7 @@
                                 
                                 $('.reset').click(function(){
                                     $('.overlayyy').css('display','block');
+                                    
                                     store = [];
                                     ct = [];
                                     dt= [];

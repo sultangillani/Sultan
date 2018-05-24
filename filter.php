@@ -2914,7 +2914,7 @@ function search_page(){
     
     if(mysqli_num_rows($filter_result) > 0){
         while($filter_row = mysqli_fetch_assoc($filter_result)){
-            $filter_term_id = $filter_row['term_id'];
+            $filter_term_id = $filter_row['slug'];
             $filter_term_tax = $filter_row['taxonomy'];
             $filter_couptype = $filter_row['coupon_type'];
             $filter_disctype = $filter_row['discount_type'];
@@ -2938,13 +2938,15 @@ function search_page(){
         $coupon_type_arr = implode(',',$coupon_type_arr);
         $discount_type_arr = implode(',',$discount_type_arr);
         
-        $filter_stores_arr = '#st' . str_ireplace(',',',#st',$filter_stores_arr);
-        $filter_cat_arr = '#st' . str_ireplace(',',',#st',$filter_cat_arr);
-        $coupon_type_arr = '#ct_' . str_ireplace(',',',#ct_',$coupon_type_arr);
-        $discount_type_arr = '#ct_' . str_ireplace(',',',#ct_',$discount_type_arr);
+        $filter_stores_arr = '.st' . str_ireplace(',',',.st',$filter_stores_arr);
+        $filter_cat_arr = '.st' . str_ireplace(',',',.st',$filter_cat_arr);
+        $coupon_type_arr = '.ct_' . str_ireplace(',',',.ct_',$coupon_type_arr);
+        $discount_type_arr = '.ct_' . str_ireplace(',',',.ct_',$discount_type_arr);
         ?>
         
         <script type="text/javascript">
+            
+            
             var arr_store_id = '<?php echo $filter_stores_arr;?>';
             var arr_cat_id = '<?php echo $filter_cat_arr; ?>';
             var coupon_type = '<?php echo $coupon_type_arr; ?>';
@@ -2952,8 +2954,6 @@ function search_page(){
             
             var filter_count = $('.ct span').find('input[type="checkbox"]:checked').length;
             
-            //$('.ct span').click(function(){
-                
                 filter_count = parseInt(filter_count / 2);
                 setTimeout(function(){
                     $('.overlayyy').css('display','none');
@@ -2968,6 +2968,7 @@ function search_page(){
                         $(arr_store_id).find('input[type="checkbox"]').css('display','inline-block');
                         $(arr_store_id).find('.boxx').css('display','none');
                         $(arr_store_id).removeClass('lab_id');
+                        
                         
                         //cat
                         $(arr_cat_id).find('input[type="checkbox"]').css('display','inline-block');
@@ -3000,13 +3001,7 @@ function search_page(){
                         }
                     });
                 },1000);
-                
-            //});
-            
-            /*$('.reset').click(function(){
-                $('.ct span').find('input[type="checkbox"]').css('display','inline-block');
-                $('.ct span').find('.boxx').css('display','none');
-            });*/
+               
         </script>
         <?php
     }
