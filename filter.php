@@ -2831,6 +2831,8 @@ function search_page(){
             });
             
             $('.next_btn').click(function(){
+                $('.overlayyy').css('display','block');
+                
                 var page_id = <?php echo $page_id; ?>;
                 var total_posts = <?php echo $all_posts; ?>;
                 page_id = page_id + 1;
@@ -2847,6 +2849,9 @@ function search_page(){
             });
             
             $('.prev_btn').click(function(){
+                
+                $('.overlayyy').css('display','block');
+                
                 var page_id = <?php echo $page_id; ?>;
                 var total_posts = <?php echo $all_posts; ?>;
                 page_id = page_id - 1;
@@ -2894,100 +2899,8 @@ function search_page(){
                 <p><?php echo $all_posts; ?> results</p>
             </div>
         </div>
-        <?php 
-            
-            /*function filter_changes($query){
-                global $conn;
-                $arr_store_id = [];
-                $arr_cat_id = [];
-                $coupon_type = [];
-                $result = mysqli_query($conn,$query);
-                if(mysqli_num_rows($result) > 0){
-                    while($row = mysqli_fetch_assoc($result)){
-                        $id = $row['term_id'];
-                        $tax = $row['taxonomy'];
-                        $couptype = $row['coupon_type'];
-                        if($tax == 'stores'){
-                            array_push($arr_store_id,$id);
-                        }else if($tax == 'coupon_category'){
-                            array_push($arr_cat_id,$id);
-                        }
-                        array_push($coupon_type,$couptype);
-                    }
-                }
-                $arr_store_id = array_unique($arr_store_id);
-                $arr_cat_id = array_unique($arr_cat_id);
-                $coupon_type = array_unique($coupon_type);
-                return [$arr_store_id,$arr_cat_id,$coupon_type];
-            }
-            
-            if(!empty($checked) && !empty($store_coupons_arr_imp)){
-                $filter = filter_changes("SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`taxonomy` IN('stores','coupon_category') AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `all_posts`.`post_title` LIKE '%$url%' AND `all_posts`.`ID` IN($store_coupons_arr_imp) AND `all_posts`.`coupon_type` IN('$ct')");
-            }else if(!empty($store_coupons_arr_imp)){
-                $filter = filter_changes("SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`taxonomy` IN('stores','coupon_category') AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `all_posts`.`post_title` LIKE '%$url%' AND `all_posts`.`ID` IN($store_coupons_arr_imp)");
-            }else if(!empty($checked)){
-                $filter = filter_changes("SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`taxonomy` IN('stores','coupon_category') AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `all_posts`.`post_title` LIKE '%$url%' AND `all_posts`.`coupon_type` IN('$ct')");
-            }
-            
-            $arr_store_id = $filter[0];
-            $arr_cat_id = $filter[1];
-            $coupon_type = $filter[2];
-            
-            
-            $arr_store_id = implode(',',$arr_store_id);
-            $arr_cat_id = implode(',',$arr_cat_id);
-            $coupon_type = implode(',',$coupon_type);
-            
-            $arr_store_id = '#st' . str_ireplace(',',',#st',$arr_store_id);
-            $arr_cat_id = '#st' . str_ireplace(',',',#st',$arr_cat_id);
-            $coupon_type = '#ct_' . str_ireplace(',',',#ct_',$coupon_type);
-            ?>
-            
-            <script type="text/javascript">
-                
-                var arr_store_id = '<?php echo $arr_store_id;?>';
-                var arr_cat_id = '<?php echo $arr_cat_id; ?>';
-                var coupon_type = "<?php echo $coupon_type; ?>";
-                
-                var filter_count = $('.ct span').find('input[type="checkbox"]:checked').length;
-                filter_count = parseInt(filter_count / 2);
-                $('.ct span').click(function(){
-                    
-                    setTimeout(function(){
-                        if (filter_count > 0) {
-                            $('.ct span').find('input[type="checkbox"]').css('display','none');
-                            $('.ct span').find('.boxx').css('display','inline-block');
-                            
-                            //Store
-                            $(arr_store_id).find('input[type="checkbox"]').css('display','inline-block');
-                            $(arr_store_id).find('.boxx').css('display','none');
-                            
-                            //cat
-                            $(arr_cat_id).find('input[type="checkbox"]').css('display','inline-block');
-                            $(arr_cat_id).find('.boxx').css('display','none');
-                            
-                            //coupon_type
-                            $(coupon_type).find('input[type="checkbox"]').css('display','inline-block');
-                            $(coupon_type).find('.boxx').css('display','none');
-                            
-                        }else{
-                            $('.ct span').find('input[type="checkbox"]').css('display','inline-block');
-                            $('.ct span').find('.boxx').css('display','none');
-                        }
-                        
-                    },1000);
-                    
-                });
-                
-                $('.reset').click(function(){
-                    $('.ct span').find('input[type="checkbox"]').css('display','inline-block');
-                    $('.ct span').find('.boxx').css('display','none');
-                });
-                
-            </script>
-        
         <?php
-        var_dump($store_coupons_arr_imp);*/
+        
     }
     
     $store_coupons_arr_imp = implode(',',$search_page_all_posts);
@@ -3028,7 +2941,7 @@ function search_page(){
         $filter_stores_arr = '#st' . str_ireplace(',',',#st',$filter_stores_arr);
         $filter_cat_arr = '#st' . str_ireplace(',',',#st',$filter_cat_arr);
         $coupon_type_arr = '#ct_' . str_ireplace(',',',#ct_',$coupon_type_arr);
-        echo $discount_type_arr = '#ct_' . str_ireplace(',',',#ct_',$discount_type_arr);
+        $discount_type_arr = '#ct_' . str_ireplace(',',',#ct_',$discount_type_arr);
         ?>
         
         <script type="text/javascript">
@@ -3049,28 +2962,43 @@ function search_page(){
                     if (filter_count > 0) {
                         $('.ct span').find('input[type="checkbox"]').css('display','none');
                         $('.ct span').find('.boxx').css('display','inline-block');
+                        $('.ct span').addClass('lab_id');
                         
                         //Store
                         $(arr_store_id).find('input[type="checkbox"]').css('display','inline-block');
                         $(arr_store_id).find('.boxx').css('display','none');
+                        $(arr_store_id).removeClass('lab_id');
                         
                         //cat
                         $(arr_cat_id).find('input[type="checkbox"]').css('display','inline-block');
                         $(arr_cat_id).find('.boxx').css('display','none');
+                        $(arr_cat_id).removeClass('lab_id');
+                        
                         
                         //coupon_type
                         $(coupon_type).find('input[type="checkbox"]').css('display','inline-block');
                         $(coupon_type).find('.boxx').css('display','none');
+                        $(coupon_type).removeClass('lab_id');
                         
                         //discount_type
                         $(discount_type).find('input[type="checkbox"]').css('display','inline-block');
                         $(discount_type).find('.boxx').css('display','none');
+                        $(discount_type).removeClass('lab_id');
                         
                     }else{
                         $('.ct span').find('input[type="checkbox"]').css('display','inline-block');
                         $('.ct span').find('.boxx').css('display','none');
+                        $('.ct span').removeClass('lab_id');
                     }
                     
+                    $('.ct span').each(function(){
+                        var inp_id = $(this).children('input[type="checkbox"]').attr('id');
+                        if($(this).hasClass('lab_id')){
+                            $(this).children('label').attr('for','');
+                        }else{
+                            $(this).children('label').attr('for', inp_id);
+                        }
+                    });
                 },1000);
                 
             //});
