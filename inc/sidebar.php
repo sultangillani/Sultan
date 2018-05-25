@@ -69,7 +69,7 @@
                             $coupon_store_slug = $coupon_store_row['slug'];
                             $coupon_store_name = str_ireplace('-',' ',ucwords($coupon_store_slug));
                         ?>
-                            <span><input type="checkbox" name="store" value="<?php echo $coupon_store_slug; ?>" id="dis-<?php echo $coupon_store_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$coupon_store_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$coupon_store_slug); ?>" title="<?php echo $coupon_store_slug; ?>"/> <label for="dis-<?php echo $coupon_store_slug; ?>"><?php echo $coupon_store_name; ?></label></span><br class="smethng" />
+                            <span class="st<?php echo $coupon_store_slug; ?>" ><div class="boxx"></div><input type="checkbox" name="store" value="<?php echo $coupon_store_slug; ?>" id="dis-<?php echo $coupon_store_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$coupon_store_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$coupon_store_slug); ?>" title="<?php echo $coupon_store_slug; ?>"/> <label for="dis-<?php echo $coupon_store_slug; ?>"><?php echo $coupon_store_name; ?></label></span><br class="smethng" />
                             
                         <?php
                         }
@@ -98,7 +98,7 @@
                 $coupty_name = str_ireplace('-',' ',ucwords($coupty_slug));
                 
             ?>
-                <span><input type="checkbox" name="ct" value="<?php echo $coupty_slug; ?>" id="coup-<?php echo $coupty_slug; ?>" ng-model="coup<?php echo str_ireplace('-','',$coupty_slug); ?>" ng-checked="coup<?php echo str_ireplace('-','',$coupty_slug); ?>" title="<?php echo $coupty_slug; ?>"/> <label for="coup-<?php echo $coupty_slug; ?>"><?php echo $coupty_name; ?></label></span><br class="smethng" />
+                <span class="ct_<?php echo $coupty_slug; ?>"><div class="boxx"></div><input type="checkbox" name="ct" value="<?php echo $coupty_slug; ?>" id="coup-<?php echo $coupty_slug; ?>" ng-model="coup<?php echo str_ireplace('-','',$coupty_slug); ?>" ng-checked="coup<?php echo str_ireplace('-','',$coupty_slug); ?>" title="<?php echo $coupty_slug; ?>"/> <label for="coup-<?php echo $coupty_slug; ?>"><?php echo $coupty_name; ?></label></span><br class="smethng" />
             <?php
             }
             ?>
@@ -124,7 +124,7 @@
             $discy_slug = $discy_row['discount_type'];
             $discy_name = str_ireplace('-',' ',ucwords($discy_slug));
         ?>
-            <span><input type="checkbox" name="dt" value="<?php echo $discy_slug; ?>" id="dis-<?php echo $discy_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$discy_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$discy_slug); ?>" title="<?php echo $discy_slug; ?>"/> <label for="dis-<?php echo $discy_slug; ?>"><?php echo $discy_name; ?></label></span><br class="smethng" />
+            <span class="ct_<?php echo $discy_slug; ?>"><div class="boxx"></div><input type="checkbox" name="dt" value="<?php echo $discy_slug; ?>" id="dis-<?php echo $discy_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$discy_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$discy_slug); ?>" title="<?php echo $discy_slug; ?>"/> <label for="dis-<?php echo $discy_slug; ?>"><?php echo $discy_name; ?></label></span><br class="smethng" />
         <?php
         }
         ?>
@@ -166,7 +166,7 @@
             $cat_slug = $cat_row['slug'];
             $cat_name = str_ireplace('-',' ',ucwords($cat_slug));
         ?>
-            <span><input type="checkbox" name="cat" value="<?php echo $cat_slug; ?>" id="dis-<?php echo $cat_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$cat_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$cat_slug); ?>" title="<?php echo $cat_slug; ?>"/> <label for="dis-<?php echo $cat_slug; ?>"><?php echo $cat_name; ?></label></span><br class="smethng" />
+            <span class="st<?php echo $cat_slug; ?>"><div class="boxx"></div><input type="checkbox" name="cat" value="<?php echo $cat_slug; ?>" id="dis-<?php echo $cat_slug; ?>" ng-model="dis<?php echo str_ireplace('-','',$cat_slug); ?>" ng-checked="dis<?php echo str_ireplace('-','',$cat_slug); ?>" title="<?php echo $cat_slug; ?>"/> <label for="dis-<?php echo $cat_slug; ?>"><?php echo $cat_name; ?></label></span><br class="smethng" />
         <?php
         }
         ?>
