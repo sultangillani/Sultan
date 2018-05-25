@@ -525,6 +525,7 @@
                                
                                 $(this).click(function(){
                                     
+                                    
                                     if ($(this).attr('name') == 'ct') { //CT
                                         var ri = $(this).val();
                                         var ind = ct.indexOf(ri);
@@ -550,7 +551,9 @@
                                             cat.splice(ind,1);
                                         }
                                     }
-                                        
+                                    
+                                    $('.overlayyy').css('display','block');
+                                    
                                     pathname = pathname + '/filter.php';
                                     $.ajax({
                                         method: 'POST',
@@ -566,6 +569,9 @@
                             });
                             
                             $('.reset').click(function(){
+                                
+                                $('.overlayyy').css('display','block');
+                                
                                 ct = [];
                                 dt= [];
                                 cat = [];
@@ -585,6 +591,9 @@
                             });
                             
                             $('.next_btn').click(function(){
+                                
+                                $('.overlayyy').css('display','block');
+                                
                                 var page_id = <?php echo $page_id; ?>;
                                 var total_posts = <?php echo $all_posts; ?>;
                                 page_id = page_id + 1;
@@ -600,6 +609,9 @@
                             });
                             
                             $('.prev_btn').click(function(){
+                                
+                                $('.overlayyy').css('display','block');
+                                
                                 var page_id = <?php echo $page_id; ?>;
                                 var total_posts = <?php echo $all_posts; ?>;
                                 page_id = page_id - 1;

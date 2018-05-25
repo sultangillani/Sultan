@@ -1517,6 +1517,9 @@ function populer(){
             });
             
             $('.next_btn').click(function(){
+                
+                $('.overlayyy').css('display','block');
+                
                 var page_id = <?php echo $page_id; ?>;
                 var total_posts = <?php echo $all_posts; ?>;
                 page_id = page_id + 1;
@@ -1533,6 +1536,9 @@ function populer(){
             });
             
             $('.prev_btn').click(function(){
+                
+                $('.overlayyy').css('display','block');
+                
                 var page_id = <?php echo $page_id; ?>;
                 var total_posts = <?php echo $all_posts; ?>;
                 page_id = page_id - 1;
@@ -2167,6 +2173,9 @@ function coupons_category(){
         });
         
         $('.next_btn').click(function(){
+            
+            $('.overlayyy').css('display','block');
+            
             var page_id = <?php echo $page_id; ?>;
             var total_posts = <?php echo $all_posts; ?>;
             page_id = page_id + 1;
@@ -2183,6 +2192,9 @@ function coupons_category(){
         });
         
         $('.prev_btn').click(function(){
+            
+            $('.overlayyy').css('display','block');
+            
             var page_id = <?php echo $page_id; ?>;
             var total_posts = <?php echo $all_posts; ?>;
             page_id = page_id - 1;
