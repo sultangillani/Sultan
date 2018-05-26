@@ -167,3 +167,13 @@
         }
     ?>
 </div>
+
+<div class="row small_clepp">
+    
+    <div class="col-xs-12 clear text-center">
+        <button type="button" class="reset">Clear</button>
+    </div><!---clear--->
+    
+</div>
+
+<div style="padding-bottom: 75px;"></div>

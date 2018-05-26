@@ -330,7 +330,7 @@ function populer(){
                                             <span><?php echo $result; ?> Viewed</span>
                                         <?php } ?>
                                     </div>
-                                    <div class="col-xs-4 text-right">
+                                    <div class="col-xs-4 buttler">
                                         <span data-toggle="modal" data-target="#copon_<?php echo $scq_id;?>" style="display:block;"><a href="<?php echo $scq_guid;?>" target="_blank" class="btn btn-primary gd" id="gd_<?php echo $scq_id; ?>" data="<?php echo $scq_code; ?>" ><?php echo $button_name;?></a></span>
                                     </div>
                                 </div>
@@ -726,7 +726,7 @@ function populer(){
                                             <span><?php echo $result; ?> Viewed</span>
                                         <?php } ?>
                                     </div>
-                                    <div class="col-xs-4 text-right">
+                                    <div class="col-xs-4 buttler">
                                         <span data-toggle="modal" data-target="#copone_<?php echo $scq_id;?>" style="display:block;"><a href="<?php echo $scq_guid;?>" target="_blank" class="btn btn-primary gd" id="gd_<?php echo $scq_id; ?>" data="<?php echo $scq_code; ?>" ><?php echo $button_name;?></a></span>
                                     </div>
                                 </div>
@@ -1122,7 +1122,7 @@ function populer(){
                                                     <span><?php echo $result; ?> Viewed</span>
                                                 <?php } ?>
                                             </div>
-                                            <div class="col-xs-4 text-right">
+                                            <div class="col-xs-4 buttler">
                                                 <span data-toggle="modal" data-target="#coponer_<?php echo $scq_id;?>" style="display:block;"><a href="<?php echo $scq_guid;?>" target="_blank" class="btn btn-primary gd" id="gd_<?php echo $scq_id; ?>" data="<?php echo $scq_code; ?>" ><?php echo $button_name;?></a></span>
                                             </div>
                                         </div>
@@ -2085,7 +2085,7 @@ function coupons_category(){
                                         <span><?php echo $result; ?> Viewed</span>
                                     <?php } ?>
                                 </div>
-                                <div class="col-xs-4 text-right">
+                                <div class="col-xs-4 buttler">
                                     <span data-toggle="modal" data-target="#copon_<?php echo $scq_id;?>" style="display:block;"><a href="<?php echo $scq_guid;?>" target="_blank" class="btn btn-primary gd" id="gd_<?php echo $scq_id; ?>" data="<?php echo $scq_code; ?>" ><?php echo $button_name;?></a></span>
                                 </div>
                             </div>
@@ -2702,7 +2702,7 @@ function search_page(){
                                     <span><?php echo $result; ?> Viewed</span>
                                 <?php } ?>
                             </div>
-                            <div class="col-xs-4 text-right">
+                            <div class="col-xs-4 buttler">
                                 <span data-toggle="modal" data-target="#copon_<?php echo $search_post_id;?>" style="display:block;"><a href="<?php echo $search_post_guid;?>" target="_blank" class="btn btn-primary gd"  id="gd_<?php echo $search_post_id; ?>" data="<?php echo $search_post_code; ?>" ><?php echo $button_name;?></a></span>
                             </div>
                         </div>

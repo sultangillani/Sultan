@@ -1008,7 +1008,8 @@ $background_color_1: #cfcfcf;
           margin-top: 5px;
           
           @include mQ(740px){
-            display: none;
+            padding: 10px 18px;
+            width: auto;
           }
           
           &:hover{
@@ -2185,7 +2186,8 @@ $background_color_1: #cfcfcf;
             margin-top: 5px;
             
             @include mQ(740px){
-              display: none;
+              padding: 10px 18px;
+              width: auto;
             }
             
             &:hover{
@@ -3189,7 +3191,8 @@ footer{
           margin-top: 5px;
           
           @include mQ(740px){
-            display: none;
+            padding: 10px 18px;
+            width: auto;
           }
           
           &:hover{
@@ -4311,6 +4314,12 @@ div.boxx{
   vertical-align: -webkit-baseline-middle;
 }
 
+.buttler{
+  width: 100%;
+  text-align: left;
+  
+  
+}
 
 
 //03346537306
