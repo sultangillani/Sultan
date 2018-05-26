@@ -2978,7 +2978,10 @@ div.boxx {
   vertical-align: -webkit-baseline-middle; }
 
 .buttler {
-  width: 100%;
-  text-align: left; }
+  text-align: right; }
+  @media only screen and (max-width: 740px) {
+    .buttler {
+      width: 100%;
+      text-align: left; } }
 
 /*# sourceMappingURL=style.css.map */

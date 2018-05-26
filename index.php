@@ -45,6 +45,13 @@ else if($url[0] == 'coupons-category'){
     }else{
         include_once 'search.php';
     }
+}else if($url[0] == 'tags'){
+    if($url[1] == ''){
+        $home_url = path_url('/retail_pro');
+        header('Location: '.$home_url);
+    }else{
+        include_once 'tags.php';
+    }
 }
 
 

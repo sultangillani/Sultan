@@ -24,7 +24,7 @@
 ?>
 </head>
 <?php
-    //error_reporting(0);
+    error_reporting(0);
 ?>
 <body ng-app="myapp" ng-controller="usercontroller">
     <div class="overlayyy"></div>

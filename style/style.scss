@@ -4315,9 +4315,12 @@ div.boxx{
 }
 
 .buttler{
-  width: 100%;
-  text-align: left;
+  text-align: right;
   
+  @include mQ(740px){
+    width: 100%;
+    text-align: left;
+  }
   
 }
 
