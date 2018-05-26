@@ -399,7 +399,7 @@
                                                         ?>
                                                         <div role="tabpanel" class="tab-pane" id="exclusions_<?php echo $scq_id;?>">
                                                             <?php
-                                                                $tags_query = "SELECT `wp_terms`.`term_id`,`wp_term_taxonomy`.`term_id`,`wp_terms`.`name`,`wp_term_taxonomy`.`taxonomy`,`wp_term_relationships`.`object_id` FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_tag' AND `wp_term_relationships`.`object_id` = $scq_id";
+                                                                $tags_query = "SELECT `wp_terms`.*,`wp_term_taxonomy`.*,`wp_term_relationships`.* FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_tag' AND `wp_term_relationships`.`object_id` = $scq_id";
                                                                 $tags_result = mysqli_query($conn,$tags_query);
                                                                 if(mysqli_num_rows($tags_result) > 0){
                                                             ?>
@@ -408,15 +408,16 @@
                                                                     $i=1;
                                                                     while($tags_row = mysqli_fetch_array($tags_result)){
                                                                         $tags_name = $tags_row['name'];
+                                                                        $tags_slug = $tags_row['slug'];
                                                                         $tags_id = $tags_row['term_id'];
                                                                         if($i < mysqli_num_rows($tags_result)){
                                                                         ?>
-                                                                            <a href="http://localhost/series/retail_pro/tags.php?tag=<?php echo $tags_id; ?>"><?php echo $tags_name; ?></a>,
+                                                                            <a href="<?php echo path_url('/retail_pro');?>/tags/<?php echo $tags_slug; ?>"><?php echo $tags_name; ?></a>,
                                                                         <?php
                                                                             $i++;
                                                                         }else{
                                                                         ?>
-                                                                            <a href="http://localhost/series/retail_pro/tags.php?tag=<?php echo $tags_id; ?>"><?php echo $tags_name; ?></a>
+                                                                            <a href="<?php echo path_url('/retail_pro');?>/tags/<?php echo $tags_slug; ?>"><?php echo $tags_name; ?></a>
                                                                         <?php
                                                                         }
                                                                     }
@@ -724,7 +725,7 @@
                                             
                                             <div class="row tabsi">
                                                 <?php
-                                                    $tags_query = "SELECT `wp_terms`.`term_id`,`wp_term_taxonomy`.`term_id`,`wp_terms`.`name`,`wp_term_taxonomy`.`taxonomy`,`wp_term_relationships`.`object_id` FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_tag' AND `wp_term_relationships`.`object_id` = $scq_id";
+                                                    $tags_query = "SELECT `wp_terms`.*,`wp_term_taxonomy`.*,`wp_term_relationships`.* FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_tag' AND `wp_term_relationships`.`object_id` = $scq_id";
                                                     $tags_result = mysqli_query($conn,$tags_query);
                                                 ?>
                                                 <div class="col-xs-12">
@@ -760,15 +761,16 @@
                                                                     $i=1;
                                                                     while($tags_row = mysqli_fetch_array($tags_result)){
                                                                         $tags_name = $tags_row['name'];
+                                                                        $tags_slug = $tags_row['slug'];
                                                                         $tags_id = $tags_row['term_id'];
                                                                         if($i < mysqli_num_rows($tags_result)){
                                                                         ?>
-                                                                            <a href="http://localhost/series/retail_pro/tags.php?tag=<?php echo $tags_id; ?>"><?php echo $tags_name; ?></a>,
+                                                                            <a href="<?php echo path_url('/retail_pro');?>/tags/<?php echo $tags_slug; ?>"><?php echo $tags_name; ?></a>,
                                                                         <?php
                                                                             $i++;
                                                                         }else{
                                                                         ?>
-                                                                            <a href="http://localhost/series/retail_pro/tags.php?tag=<?php echo $tags_id; ?>"><?php echo $tags_name; ?></a>
+                                                                            <a href="<?php echo path_url('/retail_pro');?>/tags/<?php echo $tags_slug; ?>"><?php echo $tags_name; ?></a>
                                                                         <?php
                                                                         }
                                                                     }
@@ -1075,7 +1077,7 @@
                                                     
                                                     <div class="row tabsi">
                                                         <?php
-                                                            $tags_query = "SELECT `wp_terms`.`term_id`,`wp_term_taxonomy`.`term_id`,`wp_terms`.`name`,`wp_term_taxonomy`.`taxonomy`,`wp_term_relationships`.`object_id` FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_tag' AND `wp_term_relationships`.`object_id` = $scq_id";
+                                                            $tags_query = "SELECT `wp_terms`.*,`wp_term_taxonomy`.*,`wp_term_relationships`.* FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_tag' AND `wp_term_relationships`.`object_id` = $scq_id";
                                                             $tags_result = mysqli_query($conn,$tags_query);
                                                         ?>
                                                         <div class="col-xs-12">
@@ -1102,7 +1104,7 @@
                                                                 ?>
                                                                 <div role="tabpanel" class="tab-pane" id="exclusionsss_<?php echo $scq_id;?>">
                                                                     <?php
-                                                                        $tags_query = "SELECT `wp_terms`.`term_id`,`wp_term_taxonomy`.`term_id`,`wp_terms`.`name`,`wp_term_taxonomy`.`taxonomy`,`wp_term_relationships`.`object_id` FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_tag' AND `wp_term_relationships`.`object_id` = $scq_id";
+                                                                        $tags_query = "SELECT `wp_terms`.*,`wp_term_taxonomy`.*,`wp_term_relationships`.* FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_tag' AND `wp_term_relationships`.`object_id` = $scq_id";
                                                                         $tags_result = mysqli_query($conn,$tags_query);
                                                                         if(mysqli_num_rows($tags_result) > 0){
                                                                     ?>
@@ -1111,15 +1113,16 @@
                                                                             $i=1;
                                                                             while($tags_row = mysqli_fetch_array($tags_result)){
                                                                                 $tags_name = $tags_row['name'];
+                                                                                $tags_slug = $tags_row['slug'];
                                                                                 $tags_id = $tags_row['term_id'];
                                                                                 if($i < mysqli_num_rows($tags_result)){
                                                                                 ?>
-                                                                                    <a href="http://localhost/series/retail_pro/tags.php?tag=<?php echo $tags_id; ?>"><?php echo $tags_name; ?></a>,
+                                                                                    <a href="<?php echo path_url('/retail_pro');?>/tags/<?php echo $tags_slug; ?>"><?php echo $tags_name; ?></a>,
                                                                                 <?php
                                                                                     $i++;
                                                                                 }else{
                                                                                 ?>
-                                                                                    <a href="http://localhost/series/retail_pro/tags.php?tag=<?php echo $tags_id; ?>"><?php echo $tags_name; ?></a>
+                                                                                    <a href="<?php echo path_url('/retail_pro');?>/tags/<?php echo $tags_slug; ?>"><?php echo $tags_name; ?></a>
                                                                                 <?php
                                                                                 }
                                                                             }
