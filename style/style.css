@@ -2984,4 +2984,13 @@ div.boxx {
       width: 100%;
       text-align: left; } }
 
+.single_coupon_all .post-one {
+  padding: 20px !important; }
+  .single_coupon_all .post-one .post-mid {
+    margin-bottom: 15px; }
+    .single_coupon_all .post-one .post-mid .post-mid-one .to h3 {
+      margin-top: 0px !important; }
+    .single_coupon_all .post-one .post-mid .post-mid-one .r {
+      margin-top: 8px; }
+
 /*# sourceMappingURL=style.css.map */

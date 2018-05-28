@@ -1,8 +1,370 @@
-<?php
-    include_once 'inc/header.php';
-?>
+<?php include_once 'inc/header.php'; ?>
 
-
-<?php
-    include_once 'inc/footer.php';
-?>
+<section class="coupons_section_one single_coupon_all">
+    <div id="conte" class="container">
+        <div class="col-sm-9 main-cont main-containerrr">
+            <section class="top-offers">
+                
+                <?php
+                    $single_coupon_query = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_term_taxonomy`.`taxonomy` IN ('stores','coupon_tag','coupon_category') AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `all_posts`.`ID` = `wp_term_relationships`.`object_id` AND `all_posts`.`post_name` IN ('$url[1]') GROUP BY `all_posts`.`post_name`";
+                    $single_coupon_result = mysqli_query($conn,$single_coupon_query);
+                    if(mysqli_num_rows($single_coupon_result) > 0){
+                        while($single_coupon_row = mysqli_fetch_assoc($single_coupon_result)){
+                            $single_coupon_id = $single_coupon_row['ID'];
+                            $single_coupon_title = $single_coupon_row['post_title'];
+                            $single_coupon_post_name = $single_coupon_row['post_name'];
+                            $single_coupon_content = $single_coupon_row['post_content'];
+                            //Meta Value
+                            $cat_meta_query = "SELECT `wp_term_relationships`.*,`wp_term_taxonomy`.*,`wp_clpr_storesmeta`.* FROM `wp_term_relationships`,`wp_term_taxonomy`,`wp_clpr_storesmeta` WHERE `object_id` = $single_coupon_id AND `wp_term_taxonomy`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'stores' AND `wp_clpr_storesmeta`.`stores_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_clpr_storesmeta`.`meta_key` = 'clpr_store_image_id'";
+                            $cat_meta_result = mysqli_query($conn,$cat_meta_query);
+                            if(mysqli_num_rows($cat_meta_result) > 0){
+                                $cat_meta_row = mysqli_fetch_assoc($cat_meta_result);
+                                $single_coupon_meta = $cat_meta_row['meta_value'];
+                            }
+                            
+                            $single_coupon_sel_image = $single_coupon_row['select_img'];
+                            $single_coupon_guid = $single_coupon_row['guid'];
+                            $single_coupon_featured = $single_coupon_row['post_featured_image'];
+                            $single_coupon_hits = $single_coupon_row['hits'];
+                            $single_coupon_expire = $single_coupon_row['expire_date'];
+                            $single_coupon_code = $single_coupon_row['coupon_code'];
+                            $single_coupon_code_type = $single_coupon_row['coupon_code_type'];
+                            $single_coupon_coupon_type = ucwords(str_ireplace(array('-'),array(' '),$single_coupon_row['coupon_type']));
+                            $single_coupon_coupon_type_color = $single_coupon_row['coupon_type_color'];
+                            $single_coupon_btn = $single_coupon_row['btn_name'];
+                            
+                            if($single_coupon_btn == ''){
+                                $button_name = 'Get Deal';
+                            }else{
+                                $button_name = $single_coupon_btn;
+                            }
+                            
+                            ?>
+                            <div class="post-contain-one">
+                                <div class="row post-one poco_<?php echo $single_coupon_id;?>">
+                                
+                                    <div class="col-xs-12 post-mid">
+                                        
+                                        <div class="row post-mid-one">
+                                            <div class="col-xs-10 to">
+                                                <h3><?php echo $single_coupon_title?></h3>
+                                            </div>
+                                            <div class="col-xs-2 text-right r">
+                                                <span class="rate"><i class="fa fa-star-o" aria-hidden="true"></i> <u>Save</u></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-xs-2 post-img-one">
+                                        
+                                        <?php
+                                            if($single_coupon_sel_image == 'featured_image'){
+                                                //Second condition
+                                                if(!empty($single_coupon_featured)){
+                                                    ?>
+                                                        <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $single_coupon_post_name;?>" target="_blank"><img src="<?php echo $single_coupon_featured;?>" alt="4" class="img-responsive"/></a>
+                                                    <?php
+                                                }else{
+                                                    $sub_sql = "SELECT `all_posts`.* FROM `all_posts` WHERE `all_posts`.`post_status` IN ('publish','inherit') AND `all_posts`.`ID` = $single_coupon_meta";
+                                                    $sub_sql_query = mysqli_query($conn,$sub_sql);
+                                                    $sub_sql_row = mysqli_fetch_array($sub_sql_query);
+                                                    $store_img_url = $sub_sql_row['guid'];
+                                                    ?>
+                                                        <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $single_coupon_post_name;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive"/></a>
+                                                    <?php
+                                                }
+                                                
+                                            }else if($single_coupon_sel_image == 'store_image'){
+                                                $sub_sql = "SELECT `all_posts`.* FROM `all_posts` WHERE `all_posts`.`post_status` IN ('publish','inherit') AND `all_posts`.`ID` = $single_coupon_meta";
+                                                $sub_sql_query = mysqli_query($conn,$sub_sql);
+                                                $sub_sql_row = mysqli_fetch_array($sub_sql_query);
+                                                $store_img_url = $sub_sql_row['guid'];
+                                                ?>
+                                                    <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $single_coupon_post_name;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive"/></a>
+                                                <?php
+                                            }
+                                        ?>
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <span style="color: <?php echo $single_coupon_coupon_type_color; ?>; font-weight:600;"><?php echo $single_coupon_coupon_type; ?></span>
+                                        <?php
+                                        //coupont-type Values
+                                        $coupon_type_query = "SELECT `wp_terms`.*,`wp_term_taxonomy`.*,`wp_term_relationships`.*,`all_posts`.* FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships`,`all_posts` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` IN('coupon_type','stores') AND `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `all_posts`.`ID` = $single_coupon_id";
+                                        $coupon_type_result = mysqli_query($conn,$coupon_type_query);
+                                        if(mysqli_num_rows($coupon_type_result) > 0){
+                                            while($coupon_type_row = mysqli_fetch_array($coupon_type_result)){
+                                                $ct_tax = $coupon_type_row['taxonomy'];
+                                                $ct_name = $coupon_type_row['name'];
+                                                if($ct_tax == 'stores'){
+                                                    ?>
+                                                        <span> <i>&#x2022;</i> <?php echo $ct_name; ?></span>
+                                                    <?php
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                        
+                                        
+                                        <div class="row post-mid-one">
+                                            <div class="col-xs-8 t">
+                                               
+                                                <?php
+                                                if ($single_coupon_hits > 999 && $single_coupon_hits <= 999999) {
+                                                    $result = floor($single_coupon_hits / 1000) . 'K';
+                                                } elseif ($single_coupon_hits > 999999) {
+                                                    $result = floor($single_coupon_hits / 1000000) . 'M';
+                                                } else {
+                                                    $result = $single_coupon_hits;
+                                                }
+                                                /*
+                                                    display: block;
+                                                    width: 90%;
+                                                    padding: 0;
+                                                    height: auto;
+                                                    background: none;
+                                                    border: 0;
+                                                    margin: 0 auto;
+                                                */
+                                                ?>
+                                                <?php if($single_coupon_hits > 0){?>
+                                                    <span><?php echo $result; ?> Viewed</span>
+                                                <?php } ?>
+                                            </div>
+                                            <div class="col-xs-4 buttler">
+                                                <span data-toggle="modal" data-target="#copon_<?php echo $single_coupon_id;?>" style="display:block;"><a href="<?php echo $single_coupon_guid;?>" target="_blank" class="btn btn-primary gd"  id="gd_<?php echo $single_coupon_id; ?>" data="<?php echo $single_coupon_code; ?>" ><?php echo $button_name;?></a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div><!--poco-->
+                                
+                                <!-- Modal  tabindex="-1" -->
+                                <div class="modal fade" id="copon_<?php echo $single_coupon_id;?>">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel"><?php echo $single_coupon_title; ?></h4>
+                                      </div>
+                                      <div class="modal-body row">
+                                        
+                                        <div class="col-sm-2 col-xs-3 text-center mod_img">
+                                            <?php
+                                            if($single_coupon_sel_image == 'featured_image'){
+                                                //Second condition
+                                                if(!empty($single_coupon_featured)){
+                                                    ?>
+                                                        <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $single_coupon_post_name;?>" target="_blank"><img src="<?php echo $single_coupon_featured;?>" alt="4" class="img-responsive"/></a>
+                                                    <?php
+                                                }else{
+                                                    $sub_sql = "SELECT `all_posts`.* FROM `all_posts` WHERE `all_posts`.`post_status` IN ('publish','inherit') AND `all_posts`.`ID` = $single_coupon_meta";
+                                                    $sub_sql_query = mysqli_query($conn,$sub_sql);
+                                                    $sub_sql_row = mysqli_fetch_array($sub_sql_query);
+                                                    $store_img_url = $sub_sql_row['guid'];
+                                                    ?>
+                                                        <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $single_coupon_post_name;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive"/></a>
+                                                    <?php
+                                                }
+                                                
+                                            }else if($single_coupon_sel_image == 'store_image'){
+                                                $sub_sql = "SELECT `all_posts`.* FROM `all_posts` WHERE `all_posts`.`post_status` IN ('publish','inherit') AND `all_posts`.`ID` = $single_coupon_meta";
+                                                $sub_sql_query = mysqli_query($conn,$sub_sql);
+                                                $sub_sql_row = mysqli_fetch_array($sub_sql_query);
+                                                $store_img_url = $sub_sql_row['guid'];
+                                                ?>
+                                                    <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $single_coupon_post_name;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive"/></a>
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+                                        <div class="col-sm-7 col-xs-5 mod_des">
+                                            <?php echo excerpt($single_coupon_content,25);?>
+                                        </div>
+                                        <div class="col-sm-3 col-xs-4 mod_code">
+                                            <?php
+                                            //SELECT * FROM `all_posts` WHERE `coupon_code` NOT LIKE '%Coupon%' AND `coupon_code` NOT LIKE '%Deal%' AND `coupon_code` != ''
+                                            if($single_coupon_code_type == 'real_code'){
+                                            ?>
+                                                <input type="text" disabled="disabled" class="form-control codee_<?php echo $single_coupon_id; ?>" value="<?php echo $single_coupon_code; ?>"/>
+                                            <?php
+                                            }else if($single_coupon_code == ''){
+                                                echo "<span>No Coupon Code Required</span>";
+                                            }else{
+                                                echo "<span>$single_coupon_code</span>";
+                                            }
+                                            ?>
+                                            
+                                        </div>
+                                        
+                                      </div>
+                                      
+                                       <?php
+                                            if($single_coupon_code != 'No Coupon Code Required' && $single_coupon_code != 'Deal Activated' && $single_coupon_code != 'Coupon Activated'){
+                                                ?>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-primary copy_<?php echo $single_coupon_id; ?>">Copy Code</button>
+                                                    <script type="text/javascript">
+                                                        $(document).ready(function(){
+                                                            function copyToClipboard(element) {
+                                                                var $temp = $("<input>");
+                                                                $("body").append($temp);
+                                                                $temp.val($(element).val()).select();
+                                                                document.execCommand("copy");
+                                                                $temp.remove();
+                                                            }
+                                                            $('.copy_<?php echo $single_coupon_id; ?>').click(function(){
+                                                                copyToClipboard('.codee_<?php echo $single_coupon_id; ?>');
+                                                            });
+                                                        });
+                                                        
+                                                    </script>
+                                                </div>
+                                                <?php
+                                            }
+                                        ?>
+                                        
+                                    </div>
+                                  </div>
+                                </div>
+                                <!--end of modal-->
+                                
+                                <div class="row post-one-details">
+                                    <div class="col-xs-12">
+                                        <a class="tabsi_tog">Show Details <i class="fa fa-chevron-up chvrn"></i></a>
+                                        
+                                        <div class="row tabsi">
+                                            <?php
+                                                $tags_query = "SELECT `wp_terms`.`term_id`,`wp_term_taxonomy`.`term_id`,`wp_terms`.`name`,`wp_term_taxonomy`.`taxonomy`,`wp_term_relationships`.`object_id` FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_tag' AND `wp_term_relationships`.`object_id` = $single_coupon_id";
+                                                $tags_result = mysqli_query($conn,$tags_query);
+                                            ?>
+                                            <div class="col-xs-12">
+                                                <ul class="nav nav-tabs" role="tablist">
+                                                    <?php
+                                                        if(mysqli_num_rows($tags_result) > 0){
+                                                    ?>
+                                                    <li role="presentation"><a href="#exclusions_<?php echo $single_coupon_id;?>" aria-controls="exclusions_<?php echo $single_coupon_id;?>" role="tab" data-toggle="tab">Exclusions</a></li>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                    <li role="presentation"><a href="#details_<?php echo $single_coupon_id;?>" aria-controls="details_<?php echo $single_coupon_id;?>" role="tab" data-toggle="tab">Details</a></li>
+                                                    <?php
+                                                    $comment_query_count = "SELECT * FROM `wp_comments` WHERE `comment_post_ID` = $single_coupon_id AND `comment_approved` = 'approved' ORDER BY `comment_ID` DESC";
+                                                    $comment_result_count = mysqli_query($conn,$comment_query_count);
+                                                    ?>
+                                                    <li role="presentation"><a href="#comments_<?php echo $single_coupon_id;?>" aria-controls="comments_<?php echo $single_coupon_id;?>" role="tab" data-toggle="tab"><?php if(mysqli_num_rows($comment_result_count) != 0){echo mysqli_num_rows($comment_result_count);}?> Comments</a></li>
+                                                </ul>
+                                                
+                                                <!-- Tab panes -->
+                                                <div class="tab-content">
+                                                    <?php
+                                                    if(mysqli_num_rows($tags_result) > 0){
+                                                    ?>
+                                                    <div role="tabpanel" class="tab-pane" id="exclusions_<?php echo $single_coupon_id;?>">
+                                                        <?php
+                                                            $tags_query = "SELECT `wp_terms`.*,`wp_term_taxonomy`.*,`wp_term_relationships`.* FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_tag' AND `wp_term_relationships`.`object_id` = $single_coupon_id";
+                                                            $tags_result = mysqli_query($conn,$tags_query);
+                                                            if(mysqli_num_rows($tags_result) > 0){
+                                                        ?>
+                                                                <p class="store_tags"><strong>Tags:</strong>
+                                                                <?php
+                                                                $i=1;
+                                                                while($tags_row = mysqli_fetch_array($tags_result)){
+                                                                    $tags_name = $tags_row['name'];
+                                                                    $tags_slug = $tags_row['slug'];
+                                                                    $tags_id = $tags_row['term_id'];
+                                                                    if($i < mysqli_num_rows($tags_result)){
+                                                                    ?>
+                                                                        <a href="<?php echo path_url('/retail_pro');?>/tags/<?php echo $tags_slug; ?>"><?php echo $tags_name; ?></a>,
+                                                                    <?php
+                                                                        $i++;
+                                                                    }else{
+                                                                    ?>
+                                                                        <a href="<?php echo path_url('/retail_pro');?>/tags/<?php echo $tags_slug; ?>"><?php echo $tags_name; ?></a>
+                                                                    <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                                </p>
+                                                        <?php
+                                                            }
+                                                        ?>  
+                                                    </div>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                    <div role="tabpanel" class="tab-pane" id="details_<?php echo $single_coupon_id;?>">
+                                                        <p><strong>Expires:</strong>&nbsp;&nbsp;<?php echo date_format(date_create($single_coupon_expire)," d | M | Y");?></p>
+                                                        <p><strong>Details:</strong>&nbsp;<?php echo $single_coupon_content; ?></p>    
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane" id="comments_<?php echo $single_coupon_id;?>">
+                                                        <?php
+                                                            $comment_query = "SELECT * FROM `wp_comments` WHERE `comment_post_ID` = $single_coupon_id AND `comment_approved` = 'approved' ORDER BY `comment_ID` DESC";
+                                                            $comment_result = mysqli_query($conn,$comment_query);
+                                                        ?>
+                                                        <div class="msg"></div>
+                                                        <div class="comment-box">
+                                                            
+                                                            <form action="comment.php" method="post">
+                                                                
+                                                                <div class="form-group">
+                                                                    <label for="firstname">First Name(optional)</label>
+                                                                    <input type="text" class="form-control firstname" id="firstname" name="firstname" placeholder="First Name(optional)" value="<?php echo (isset($fname) && $com_post_id == $single_coupon_id ? $fname : '');?>"/>
+                                                                    <span class="comment_error"></span>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="add_comment">Add a Comment*</label>
+                                                                    <textarea class="form-control add_comment" rows="3" id="add-comment" name="add_comment" placeholder="Add a Comment..."><?php echo (isset($adcom) && $com_post_id == $single_coupon_id ? $adcom : '');?></textarea>
+                                                                    <span class="comment_error"></span>
+                                                                </div>
+                                                                <input type="hidden" value="<?php echo $single_coupon_id; ?>" name="com_post_id" class="com_post_id" id="<?php echo path_url('/retail_pro');?>"/>
+                                                                <input type="button" name="com_submit" value="Post Comment" class="com-sub"/>
+                                                            </form>
+                                                        </div>
+                                                        <div class="client-comments">
+                                                            <?php
+                                                                if(mysqli_num_rows($comment_result) > 0){
+                                                                    while($comment_row = mysqli_fetch_array($comment_result)){
+                                                                        $comment_id = $comment_row['comment_ID'];
+                                                                        $comment_author = $comment_row['comment_author'];
+                                                                        $comment_content = $comment_row['comment_content'];
+                                                                        ?>
+                                                                            <div class="comm row">
+                                                                                <div class="col-xs-1 icon">
+                                                                                    <i class="fa fa-comment"></i>
+                                                                                </div>
+                                                                                
+                                                                                <div class="col-xs-11 com-right comment_<?php echo $comment_id; ?>">
+                                                                                    <div class="com-text"><?php echo $comment_content; ?></div>
+                                                                                    <span class="by">by <u><?php echo $comment_author; ?></u></span>
+                                                                                </div>
+                                                                            </div>
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                            ?>
+                                                        </div>
+                                                        
+                                                        <a href="" class="all_comm_bt" id="show_comm">Show All Comments</a>
+                                                        <a href="" class="all_comm_bt" id="hide_comm">Show Less Comments</a>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!---pos_conatain_one-->
+                            <?php
+                        }
+                    }
+                ?>
+                
+            </section>
+        </div>
+        <div class="col-sm-3 single_coupon_sidebar">
+            
+        </div>
+    </div>
+</section>
+<?php include_once 'inc/footer.php'; ?>
