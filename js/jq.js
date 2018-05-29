@@ -177,19 +177,7 @@ $(document).ready(function(){
             });
         }
     });
-    
-    $('.rate i').click(function(){
-        
-        $(this).toggleClass('star');
-        /*if (!$(this).hasClass('act')) {
-            $(this).addClass('act');
-        }else{
-            $(this).removeClass('act');
-            $(this).addClass('fa-star-o');
-            $(this).css({'color':'#c5c5c5'});
-        }*/
-    });
-    
+
     $('.rate i').mouseenter(function(){
         $(this).removeClass('fa-star-o');
         $(this).addClass('fa-star');
