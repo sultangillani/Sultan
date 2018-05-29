@@ -39,7 +39,6 @@
                             }else{
                                 $button_name = $single_coupon_btn;
                             }
-                            
                             $ipadrress = get_client_ip();
                             ?>
                             <!---title--->
@@ -108,11 +107,28 @@
                                 </div>
                                 
                                 <div class="single_coupon_info col-xs-12">
-                                    <p><i class="fa fa-calendar-times-o"></i>&nbsp;<?php echo date_format(date_create($single_coupon_expire)," d-M-Y");?></p>
+                                    <?php
+                                        if ($single_coupon_hits > 999 && $single_coupon_hits <= 999999) {
+                                            $result = floor($single_coupon_hits / 1000) . 'K';
+                                        } elseif ($single_coupon_hits > 999999) {
+                                            $result = floor($single_coupon_hits / 1000000) . 'M';
+                                        } else {
+                                            $result = $single_coupon_hits;
+                                        }
+                                    ?>
+                                    
+                                    <p class="fir" ><i class="fa fa-calendar-times-o"></i>&nbsp;<?php echo date_format(date_create($single_coupon_expire)," d-M-Y");?></p>
+                                    
+                                    <p>
+                                    <?php if($single_coupon_hits > 0){ ?>
+                                        <i class="fa fa-eye"></i>&nbsp; <?php echo $result; ?> Views
+                                    <?php } ?>
+                                    </p>
+
                                 </div>
                                 
                                 <div class="col-xs-12 buttler pull-right">
-                                    <span data-toggle="modal" data-target="#coponer_<?php echo $single_coupon_id;?>" style="display:block;"><a href="<?php echo $single_coupon_guid;?>" target="_blank" class="btn btn-primary gd" id="gd_<?php echo $single_coupon_id; ?>" data="<?php echo $single_coupon_code; ?>"><?php echo $button_name;?></a></span>
+                                    <span data-toggle="modal" data-target="#coponer_<?php echo $single_coupon_id;?>"><a href="<?php echo $single_coupon_guid;?>" target="_blank" class="btn btn-primary gd" id="gd_<?php echo $single_coupon_id; ?>" data="<?php echo $single_coupon_code; ?>"><?php echo $button_name;?></a></span>
                                 </div>
                             </div>
                             

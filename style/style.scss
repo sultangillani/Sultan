@@ -4370,7 +4370,7 @@ div.boxx{
           
           img{
             
-            border: 1px solid #d9dadb;
+            border: 0px solid #d9dadb;
             
           }
           
@@ -4405,10 +4405,18 @@ div.boxx{
     padding: 10px 16px;
     font-size: 13px;
     
+    
     p{
+      display: inline-block;
+      margin-left: 10px;
+      
       i{
         font-size: 16px;
       }
+    }
+    
+    .fir{
+      margin-left: 0px;
     }
   }
   
@@ -4418,30 +4426,35 @@ div.boxx{
     padding-bottom: 15px;
     margin-top: 10px;
     
-    .gd{
+    span{
+      display: inline-block;
       width: 200px;
-      font-size: 13px;
-      font-weight: 600;
-      line-height: 1;
-      text-align: center;
-      cursor: pointer;
-      -webkit-appearance: none;
-      -webkit-font-smoothing: antialiased;
-      padding: 10px;
-      transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, fill 0.5s ease;
-      background: #24b7e3;
-      text-decoration: none;
-      border-width: 1px;
-      border-style: solid;
-      border-color: #24b7e3;
-      border-image: initial;
-      @include border-radius(2px);
-      margin-top: 5px;
       
-      &:hover{
-        background: #fff;
+      .gd{
+        width: 200px;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1;
+        text-align: center;
+        cursor: pointer;
+        -webkit-appearance: none;
+        -webkit-font-smoothing: antialiased;
+        padding: 10px;
+        transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, fill 0.5s ease;
+        background: #24b7e3;
+        text-decoration: none;
+        border-width: 1px;
+        border-style: solid;
         border-color: #24b7e3;
-        color: #24b7e3;
+        border-image: initial;
+        @include border-radius(2px);
+        margin-top: 5px;
+        
+        &:hover{
+          background: #fff;
+          border-color: #24b7e3;
+          color: #24b7e3;
+        }
       }
     }
   }

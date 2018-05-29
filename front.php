@@ -19,6 +19,7 @@
                         </div>
                     </div><!--media-->
                 </div><!--rgba-->
+                
             </div>
             
             <div class="col-sm-4 col-xs-6 fries" style="background: url(img/center.jpg) no-repeat;">
@@ -255,7 +256,7 @@
                                         //Second condition
                                         if(!empty($to_featured)){
                                             ?>
-                                                <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $sql_post_name;?>" target="_blank"><img src="<?php echo $to_featured;?>" alt="4" class="img-responsive"/></a>
+                                                <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $to_post_name;?>" target="_blank"><img src="<?php echo $to_featured;?>" alt="4" class="img-responsive"/></a>
                                             <?php
                                         }else{
                                             $sub_sql = "SELECT `all_posts`.* FROM `all_posts` WHERE `all_posts`.`post_status` IN ('publish','inherit') AND `all_posts`.`ID` = $to_meta";
@@ -263,7 +264,7 @@
                                             $sub_sql_row = mysqli_fetch_array($sub_sql_query);
                                             $store_img_url = $sub_sql_row['guid'];
                                             ?>
-                                                <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $sql_post_name;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive"/></a>
+                                                <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $to_post_name;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive"/></a>
                                             <?php
                                         }
                                         
@@ -273,7 +274,7 @@
                                         $sub_sql_row = mysqli_fetch_array($sub_sql_query);
                                         $store_img_url = $sub_sql_row['guid'];
                                         ?>
-                                            <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $sql_post_name;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive"/></a>
+                                            <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $to_post_name;?>" target="_blank"><img src="<?php echo $store_img_url;?>" alt="4" class="img-responsive"/></a>
                                         <?php
                                     }
                                 ?>
@@ -315,7 +316,7 @@
                                 <div class="row post-mid-one">
                                     <div class="col-xs-8 t">
                                         <h3>
-                                            <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $sql_post_name;?>" target="_blank" class="post-one-title"><?php echo $to_title?></a>
+                                            <a href="<?php echo path_url('/retail_pro');?>/coupon/<?php echo $to_post_name;?>" target="_blank" class="post-one-title"><?php echo $to_title?></a>
                                         </h3>
                                         <br />
                                         

@@ -309,22 +309,13 @@ function populer(){
                                         <br />
                                         
                                         <?php
-                                        if ($scq_hits > 999 && $scq_hits <= 999999) {
-                                            $result = floor($scq_hits / 1000) . 'K';
-                                        } elseif ($scq_hits > 999999) {
-                                            $result = floor($scq_hits / 1000000) . 'M';
-                                        } else {
-                                            $result = $scq_hits;
-                                        }
-                                        /*
-                                            display: block;
-                                            width: 90%;
-                                            padding: 0;
-                                            height: auto;
-                                            background: none;
-                                            border: 0;
-                                            margin: 0 auto;
-                                        */
+                                            if ($scq_hits > 999 && $scq_hits <= 999999) {
+                                                $result = floor($scq_hits / 1000) . 'K';
+                                            } elseif ($scq_hits > 999999) {
+                                                $result = floor($scq_hits / 1000000) . 'M';
+                                            } else {
+                                                $result = $scq_hits;
+                                            }
                                         ?>
                                         <?php if($scq_hits > 0){?>
                                             <span><?php echo $result; ?> Viewed</span>

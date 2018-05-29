@@ -3015,7 +3015,7 @@ div.boxx {
       .single_coupon_all .single_coupon .single_coupon_content .single_coupon_img a {
         display: block; }
         .single_coupon_all .single_coupon .single_coupon_content .single_coupon_img a img {
-          border: 1px solid #d9dadb; }
+          border: 0px solid #d9dadb; }
 .single_coupon_all .single_coupon_text {
   display: inline-block; }
   .single_coupon_all .single_coupon_text p {
@@ -3027,38 +3027,46 @@ div.boxx {
   background: #ececec;
   padding: 10px 16px;
   font-size: 13px; }
-  .single_coupon_all .single_coupon_info p i {
-    font-size: 16px; }
+  .single_coupon_all .single_coupon_info p {
+    display: inline-block;
+    margin-left: 10px; }
+    .single_coupon_all .single_coupon_info p i {
+      font-size: 16px; }
+  .single_coupon_all .single_coupon_info .fir {
+    margin-left: 0px; }
 .single_coupon_all .buttler {
   text-align: right;
   padding: 0px 15px;
   padding-bottom: 15px;
   margin-top: 10px; }
-  .single_coupon_all .buttler .gd {
-    width: 200px;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1;
-    text-align: center;
-    cursor: pointer;
-    -webkit-appearance: none;
-    -webkit-font-smoothing: antialiased;
-    padding: 10px;
-    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, fill 0.5s ease;
-    background: #24b7e3;
-    text-decoration: none;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #24b7e3;
-    border-image: initial;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    border-radius: 2px;
-    margin-top: 5px; }
-    .single_coupon_all .buttler .gd:hover {
-      background: #fff;
+  .single_coupon_all .buttler span {
+    display: inline-block;
+    width: 200px; }
+    .single_coupon_all .buttler span .gd {
+      width: 200px;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1;
+      text-align: center;
+      cursor: pointer;
+      -webkit-appearance: none;
+      -webkit-font-smoothing: antialiased;
+      padding: 10px;
+      transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, fill 0.5s ease;
+      background: #24b7e3;
+      text-decoration: none;
+      border-width: 1px;
+      border-style: solid;
       border-color: #24b7e3;
-      color: #24b7e3; }
+      border-image: initial;
+      -webkit-border-radius: 2px;
+      -moz-border-radius: 2px;
+      -ms-border-radius: 2px;
+      border-radius: 2px;
+      margin-top: 5px; }
+      .single_coupon_all .buttler span .gd:hover {
+        background: #fff;
+        border-color: #24b7e3;
+        color: #24b7e3; }
 
 /*# sourceMappingURL=style.css.map */
