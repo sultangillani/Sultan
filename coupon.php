@@ -27,21 +27,25 @@
                             $single_coupon_featured = $single_coupon_row['post_featured_image'];
                             $single_coupon_hits = $single_coupon_row['hits'];
                             $single_coupon_expire = $single_coupon_row['expire_date'];
-                            
+                            $single_coupon_store = $single_coupon_row['name'];
+                            $single_coupon_store_slug = $single_coupon_row['slug'];
                             $single_coupon_code = $single_coupon_row['coupon_code'];
                             $single_coupon_code_type = $single_coupon_row['coupon_code_type'];
                             $single_coupon_coupon_type = ucwords(str_ireplace(array('-'),array(' '),$single_coupon_row['coupon_type']));
                             $single_coupon_coupon_type_color = $single_coupon_row['coupon_type_color'];
                             $single_coupon_btn = $single_coupon_row['btn_name'];
-                            
                             if($single_coupon_btn == ''){
                                 $button_name = 'Get Deal';
                             }else{
                                 $button_name = $single_coupon_btn;
                             }
+                            
                             $ipadrress = get_client_ip();
+                            
                             ?>
+                            
                             <!---title--->
+                            
                             <div class="row single_coupon">
                                 <div class="single_coupon_title col-xs-12">
                                     <h3 class="col-xs-10"><?php echo $single_coupon_title; ?></h3>
@@ -120,19 +124,39 @@
                                     <p class="fir" ><i class="fa fa-calendar-times-o"></i>&nbsp;<?php echo date_format(date_create($single_coupon_expire)," d-M-Y");?></p>
                                     
                                     <p>
-                                    <?php if($single_coupon_hits > 0){ ?>
-                                        <i class="fa fa-eye"></i>&nbsp; <?php echo $result; ?> Views
-                                    <?php } ?>
+                                        <?php if($single_coupon_hits > 0){ ?>
+                                            <i class="fa fa-eye"></i>&nbsp; <?php echo $result; ?> Views
+                                        <?php } ?>
                                     </p>
-
+                                    <p>
+                                        <i class="fa fa-home"></i>&nbsp; <a href="<?php echo path_url('/retail_pro');?>/stores/<?php echo $single_coupon_store_slug; ?>" target="_blank" ><?php echo $single_coupon_store; ?></a>
+                                    </p>
                                 </div>
                                 
                                 <div class="col-xs-12 buttler pull-right">
                                     <span data-toggle="modal" data-target="#coponer_<?php echo $single_coupon_id;?>"><a href="<?php echo $single_coupon_guid;?>" target="_blank" class="btn btn-primary gd" id="gd_<?php echo $single_coupon_id; ?>" data="<?php echo $single_coupon_code; ?>"><?php echo $button_name;?></a></span>
                                 </div>
                             </div>
+                            <br />
+                            <div class="row single_coupon">
+                                <div class="single_coupon_title col-xs-12">
+                                    <h3 class="col-xs-12">Related Information</h3>
+                                </div>
+                                <hr />
+                                
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <b>Tags: </b>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
                             
                             <!-- Modal  tabindex="-1" -->
+                           
                             <div class="modal fade" id="coponer_<?php echo $single_coupon_id;?>">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -195,6 +219,7 @@
                                          <?php
                                               if($single_coupon_code != 'No Coupon Code Required' && $single_coupon_code != 'Deal Activated' && $single_coupon_code != 'Coupon Activated'){
                                                   ?>
+                                                  
                                                   <div class="modal-footer">
                                                       <button class="btn btn-primary copy_<?php echo $single_coupon_id; ?>">Copy Code</button>
                                                       <script type="text/javascript">
@@ -220,6 +245,7 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <!--end of modal-->
                             
                             <script type="text/javascript">

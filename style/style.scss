@@ -118,6 +118,7 @@ hr {
   border-top: 1px solid #f1f1f1;
   margin: 1em 0;
   padding: 0;
+  clear: both;
 }
 
 input, select {
@@ -4408,10 +4409,19 @@ div.boxx{
     
     p{
       display: inline-block;
-      margin-left: 10px;
+      margin-left: 20px;
       
       i{
         font-size: 16px;
+      }
+      a{
+        color: #4a4a4a;
+        text-decoration: none;
+        
+        &:hover{
+          color: #602d6c;
+          font-weight: 600;
+        }
       }
     }
     

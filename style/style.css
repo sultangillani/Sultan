@@ -94,7 +94,8 @@ hr {
   border: 0;
   border-top: 1px solid #f1f1f1;
   margin: 1em 0;
-  padding: 0; }
+  padding: 0;
+  clear: both; }
 
 input, select {
   vertical-align: middle; }
@@ -3029,9 +3030,15 @@ div.boxx {
   font-size: 13px; }
   .single_coupon_all .single_coupon_info p {
     display: inline-block;
-    margin-left: 10px; }
+    margin-left: 20px; }
     .single_coupon_all .single_coupon_info p i {
       font-size: 16px; }
+    .single_coupon_all .single_coupon_info p a {
+      color: #4a4a4a;
+      text-decoration: none; }
+      .single_coupon_all .single_coupon_info p a:hover {
+        color: #602d6c;
+        font-weight: 600; }
   .single_coupon_all .single_coupon_info .fir {
     margin-left: 0px; }
 .single_coupon_all .buttler {
