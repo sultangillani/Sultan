@@ -140,13 +140,40 @@
                             <br />
                             <div class="row single_coupon">
                                 <div class="single_coupon_title col-xs-12">
-                                    <h3 class="col-xs-12">Related Information</h3>
+                                    <h3 class="col-xs-12 rinf">Related Information</h3>
                                 </div>
                                 <hr />
                                 
-                                <div class="row">
+                                <div class="row single_post_tags">
                                     <div class="col-xs-12">
-                                        <b>Tags: </b>
+                                        <?php
+                                            $tags_query = "SELECT `wp_terms`.*,`wp_term_taxonomy`.*,`wp_term_relationships`.* FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_tag' AND `wp_term_relationships`.`object_id` = $single_coupon_id";
+                                            $tags_result = mysqli_query($conn,$tags_query);
+                                            if(mysqli_num_rows($tags_result) > 0){
+                                                ?>
+                                                <p class="store_tags"><strong>Tags: </strong><br />
+                                                <?php
+                                                $i=1;
+                                                while($tags_row = mysqli_fetch_array($tags_result)){
+                                                    $tags_name = $tags_row['name'];
+                                                    $tags_slug = $tags_row['slug'];
+                                                    $tags_id = $tags_row['term_id'];
+                                                    if($i < mysqli_num_rows($tags_result)){
+                                                    ?>
+                                                        <a href="<?php echo path_url('/retail_pro');?>/tags/<?php echo $tags_slug; ?>"><?php echo $tags_name; ?></a>,
+                                                    <?php
+                                                        $i++;
+                                                    }else{
+                                                    ?>
+                                                        <a href="<?php echo path_url('/retail_pro');?>/tags/<?php echo $tags_slug; ?>"><?php echo $tags_name; ?></a>
+                                                    <?php
+                                                    }
+                                                }
+                                                ?>
+                                                </p>
+                                            <?php
+                                            }
+                                        ?>  
                                     </div>
                                     <div class="col-xs-12">
                                         

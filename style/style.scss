@@ -4335,6 +4335,10 @@ div.boxx{
     border: 1px solid #d9dadb;
     @include border-radius(3px);
     
+    hr{
+      margin: 15px 8px;;
+    }
+    
     .single_coupon_title{
       text-align: left;
       padding: 15px;
@@ -4343,6 +4347,10 @@ div.boxx{
         text-align: left;
         font-size: 23px !important;
         padding: 0px !important;
+      }
+      
+      h3.rinf{
+        margin-bottom: 0px;
       }
       
       .rate{
@@ -4468,7 +4476,10 @@ div.boxx{
       }
     }
   }
- 
+  
+  .single_post_tags{
+    padding-bottom: 15px;
+  }
 }
 
 

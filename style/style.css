@@ -2994,6 +2994,8 @@ div.boxx {
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   border-radius: 3px; }
+  .single_coupon_all .single_coupon hr {
+    margin: 15px 8px; }
   .single_coupon_all .single_coupon .single_coupon_title {
     text-align: left;
     padding: 15px; }
@@ -3001,6 +3003,8 @@ div.boxx {
       text-align: left;
       font-size: 23px !important;
       padding: 0px !important; }
+    .single_coupon_all .single_coupon .single_coupon_title h3.rinf {
+      margin-bottom: 0px; }
     .single_coupon_all .single_coupon .single_coupon_title .rate {
       text-align: right; }
       .single_coupon_all .single_coupon .single_coupon_title .rate i {
@@ -3075,5 +3079,7 @@ div.boxx {
         background: #fff;
         border-color: #24b7e3;
         color: #24b7e3; }
+.single_coupon_all .single_post_tags {
+  padding-bottom: 15px; }
 
 /*# sourceMappingURL=style.css.map */
