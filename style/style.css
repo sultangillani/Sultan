@@ -3081,5 +3081,13 @@ div.boxx {
         color: #24b7e3; }
 .single_coupon_all .single_post_tags {
   padding-bottom: 15px; }
+  .single_coupon_all .single_post_tags i.fa {
+    font-size: 19px;
+    position: relative;
+    top: 1px; }
+  .single_coupon_all .single_post_tags p a {
+    line-height: 25px; }
+.single_coupon_all .store_category {
+  margin-bottom: 20px; }
 
 /*# sourceMappingURL=style.css.map */

@@ -4479,6 +4479,23 @@ div.boxx{
   
   .single_post_tags{
     padding-bottom: 15px;
+      
+      
+      i.fa{
+        font-size: 19px;
+        position: relative;
+        top: 1px;
+      }
+      
+      p{
+        a{
+          line-height: 25px;
+        }
+      }
+    
+  }
+  .store_category{
+    margin-bottom: 20px;
   }
 }
 
