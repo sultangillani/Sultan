@@ -700,7 +700,7 @@ $(document).ready(function(){
         
     });
     
-    $('.post-one-details').each(function(){
+    $('.post-one-details, .single_coupon').each(function(){
         var com_len = $(this).find('.comm').length;
         $(this).find('.comm:eq(4)').nextAll('.comm').hide();
         $(this).find('#hide_comm').hide();

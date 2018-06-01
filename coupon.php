@@ -151,7 +151,7 @@
                                             $category_result = mysqli_query($conn,$category_query);
                                             if(mysqli_num_rows($category_result) > 0){
                                                 ?>
-                                                <p><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<strong>Category: </strong>&nbsp;&nbsp;
+                                                <p><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<strong>Categories: </strong>&nbsp;
                                                 <?php
                                                 $i=1;
                                                 while($category_row = mysqli_fetch_array($category_result)){
@@ -182,7 +182,7 @@
                                             $tags_result = mysqli_query($conn,$tags_query);
                                             if(mysqli_num_rows($tags_result) > 0){
                                                 ?>
-                                                <p class="store_tags"><i class="fa fa-tags"></i>&nbsp;&nbsp;<strong>Tags: </strong>&nbsp;&nbsp;
+                                                <p class="store_tags"><i class="fa fa-tags"></i>&nbsp;&nbsp;<strong>Tags: </strong>&nbsp;
                                                 <?php
                                                 $i=1;
                                                 while($tags_row = mysqli_fetch_array($tags_result)){
@@ -209,6 +209,74 @@
                                     
                                 </div>
                                 
+                            </div>
+                            
+                            <br />
+                            
+                            <div class="row single_coupon">
+                                <div class="single_coupon_title col-xs-12">
+                                    <h3 class="col-xs-12 rinf">Reviews</h3>
+                                </div>
+                                <hr />
+                                <?php
+                                    $comment_query = "SELECT * FROM `wp_comments` WHERE `comment_post_ID` = $single_coupon_id AND `comment_approved` = 'approved' ORDER BY `comment_ID` DESC";
+                                    $comment_result = mysqli_query($conn,$comment_query);
+                                ?>
+                                
+                                <div class="client-comments">
+                                    <?php
+                                        if(mysqli_num_rows($comment_result) > 0){
+                                            while($comment_row = mysqli_fetch_array($comment_result)){
+                                                $comment_id = $comment_row['comment_ID'];
+                                                $comment_author = $comment_row['comment_author'];
+                                                $comment_content = $comment_row['comment_content'];
+                                                ?>
+                                                    <div class="comm row">
+                                                        <div class="col-xs-1 icon">
+                                                            <i class="fa fa-comment"></i>
+                                                        </div>
+                                                        
+                                                        <div class="col-xs-11 com-right comment_<?php echo $comment_id; ?>">
+                                                            <div class="com-text"><?php echo $comment_content; ?></div>
+                                                            <span class="by">by <u><?php echo $comment_author; ?></u></span>
+                                                        </div>
+                                                    </div>
+                                                <?php
+                                            }
+                                        }
+                                    ?>
+                                </div>
+                                
+                                <a href="" class="all_comm_bt" id="show_comm">Show All Comments</a>
+                                <a href="" class="all_comm_bt" id="hide_comm">Show Less Comments</a>
+                                
+                            </div>
+                            <br />
+                            <div class="row single_coupon">
+                                <div class="single_coupon_title col-xs-12">
+                                    <h3 class="col-xs-12 rinf">Post a Comment</h3>
+                                </div>
+                                <hr />
+                                
+                                <div class="msg"></div>
+                                <div class="comment-box">
+                                    
+                                    <form action="comment.php" method="post">
+                                        
+                                        <div class="form-group">
+                                            <label for="firstname">First Name(optional)</label>
+                                            <input type="text" class="form-control firstname" id="firstname" name="firstname" placeholder="First Name(optional)" value="<?php echo (isset($fname) && $com_post_id == $single_coupon_id ? $fname : '');?>"/>
+                                            <span class="comment_error"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="add_comment">Add a Comment*</label>
+                                            <textarea class="form-control add_comment" rows="3" id="add-comment" name="add_comment" placeholder="Add a Comment..."><?php echo (isset($adcom) && $com_post_id == $single_coupon_id ? $adcom : '');?></textarea>
+                                            <span class="comment_error"></span>
+                                        </div>
+                                        <input type="hidden" value="<?php echo $single_coupon_id; ?>" name="com_post_id" class="com_post_id" id="<?php echo path_url('/retail_pro');?>"/>
+                                        <input type="button" name="com_submit" value="Post Comment" class="com-sub"/>
+                                    </form>
+                                </div>
                             </div>
                             
                             <!-- Modal  tabindex="-1" -->
