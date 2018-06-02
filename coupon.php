@@ -6,6 +6,7 @@
             <section class="top-offers">
                 
                 <?php
+                    $cat_arr = [];
                     $single_coupon_query = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_term_taxonomy`.`taxonomy` IN ('stores','coupon_tag','coupon_category') AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `all_posts`.`ID` = `wp_term_relationships`.`object_id` AND `all_posts`.`post_name` IN ('$url[1]') GROUP BY `all_posts`.`post_name`";
                     $single_coupon_result = mysqli_query($conn,$single_coupon_query);
                     if(mysqli_num_rows($single_coupon_result) > 0){
@@ -147,6 +148,7 @@
                                 <div class="row single_post_tags">
                                     <div class="col-xs-12 store_category">
                                         <?php
+                                           
                                             $category_query = "SELECT `wp_terms`.*,`wp_term_taxonomy`.*,`wp_term_relationships`.* FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` = 'coupon_category' AND `wp_term_relationships`.`object_id` = $single_coupon_id";
                                             $category_result = mysqli_query($conn,$category_query);
                                             if(mysqli_num_rows($category_result) > 0){
@@ -158,6 +160,7 @@
                                                     $category_name = $category_row['name'];
                                                     $category_slug = $category_row['slug'];
                                                     $category_id = $category_row['term_id'];
+                                                    array_push($cat_arr,$category_slug);
                                                     if($i < mysqli_num_rows($category_result)){
                                                     ?>
                                                         <a href="<?php echo path_url('/retail_pro');?>/coupons-category/<?php echo $category_slug; ?>"><?php echo $category_name; ?></a>,
@@ -212,46 +215,49 @@
                             </div>
                             
                             <br />
-                            
-                            <div class="row single_coupon">
-                                <div class="single_coupon_title col-xs-12">
-                                    <h3 class="col-xs-12 rinf">Reviews</h3>
-                                </div>
-                                <hr />
-                                <?php
-                                    $comment_query = "SELECT * FROM `wp_comments` WHERE `comment_post_ID` = $single_coupon_id AND `comment_approved` = 'approved' ORDER BY `comment_ID` DESC";
-                                    $comment_result = mysqli_query($conn,$comment_query);
+                            <?php
+                                $comment_query = "SELECT * FROM `wp_comments` WHERE `comment_post_ID` = $single_coupon_id AND `comment_approved` = 'approved' ORDER BY `comment_ID` DESC";
+                                $comment_result = mysqli_query($conn,$comment_query);
+                                if(mysqli_num_rows($comment_result) > 0){
                                 ?>
-                                
-                                <div class="client-comments">
+                                    <div class="row single_coupon">
+                                        <div class="single_coupon_title col-xs-12">
+                                            <h3 class="col-xs-12 rinf">Reviews</h3>
+                                        </div>
+                                        <hr />
+                                        
+                                        
+                                        <div class="client-comments">
+                                            <?php
+                                                
+                                                while($comment_row = mysqli_fetch_array($comment_result)){
+                                                    $comment_id = $comment_row['comment_ID'];
+                                                    $comment_author = $comment_row['comment_author'];
+                                                    $comment_content = $comment_row['comment_content'];
+                                                    ?>
+                                                        <div class="comm row">
+                                                            <div class="col-xs-1 icon">
+                                                                <i class="fa fa-comment"></i>
+                                                            </div>
+                                                            
+                                                            <div class="col-xs-11 com-right comment_<?php echo $comment_id; ?>">
+                                                                <div class="com-text"><?php echo $comment_content; ?></div>
+                                                                <span class="by">by <u><?php echo $comment_author; ?></u></span>
+                                                            </div>
+                                                        </div>
+                                                    <?php
+                                                }
+                                            ?>
+                                        </div>
+                                        
+                                        <a href="" class="all_comm_bt" id="show_comm">Show All Comments</a>
+                                        <a href="" class="all_comm_bt" id="hide_comm">Show Less Comments</a>
+                                        
+                                    </div>
+                                    <br />
                                     <?php
-                                        if(mysqli_num_rows($comment_result) > 0){
-                                            while($comment_row = mysqli_fetch_array($comment_result)){
-                                                $comment_id = $comment_row['comment_ID'];
-                                                $comment_author = $comment_row['comment_author'];
-                                                $comment_content = $comment_row['comment_content'];
-                                                ?>
-                                                    <div class="comm row">
-                                                        <div class="col-xs-1 icon">
-                                                            <i class="fa fa-comment"></i>
-                                                        </div>
-                                                        
-                                                        <div class="col-xs-11 com-right comment_<?php echo $comment_id; ?>">
-                                                            <div class="com-text"><?php echo $comment_content; ?></div>
-                                                            <span class="by">by <u><?php echo $comment_author; ?></u></span>
-                                                        </div>
-                                                    </div>
-                                                <?php
-                                            }
-                                        }
-                                    ?>
-                                </div>
-                                
-                                <a href="" class="all_comm_bt" id="show_comm">Show All Comments</a>
-                                <a href="" class="all_comm_bt" id="hide_comm">Show Less Comments</a>
-                                
-                            </div>
-                            <br />
+                                }
+                            ?>
                             <div class="row single_coupon">
                                 <div class="single_coupon_title col-xs-12">
                                     <h3 class="col-xs-12 rinf">Post a Comment</h3>
@@ -403,6 +409,55 @@
             </section>
         </div>
         <div class="col-sm-3 single_coupon_sidebar">
+            
+            <div class="widget_area_one">
+                <h5>Related Stores</h5>
+                <hr />
+                <?php
+                    $cat_arr_slug = implode(',', $cat_arr);
+                    $cat_arr_slug = str_replace(',',"','",$cat_arr_slug);
+                    $coupon_cat_stores_arr = [];
+                    $coupon_cat_stores = "SELECT `all_posts`.*,`wp_terms`.*,`wp_term_taxonomy`.* FROM `all_posts`,`wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_term_taxonomy`.`taxonomy` IN ('stores','coupon_tag','coupon_category') AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `all_posts`.`ID` = `wp_term_relationships`.`object_id` AND `wp_terms`.`slug` IN ('$cat_arr_slug')";
+                    $coupon_cat_stores_query = mysqli_query($conn,$coupon_cat_stores);
+                    if(mysqli_num_rows($coupon_cat_stores_query) > 0){
+                        while($coupon_cat_stores_row = mysqli_fetch_assoc($coupon_cat_stores_query)){
+                            $coupon_cat_id = $coupon_cat_stores_row['ID'];
+                            $coupon_cat_tax = $coupon_cat_stores_row['taxonomy'];
+                            
+                            if($coupon_cat_tax == 'coupon_category'){
+                                array_push($coupon_cat_stores_arr, $coupon_cat_id);
+                            }
+                        }
+                    }
+                    if(!empty($coupon_cat_stores_arr)){
+                        $coupon_store_ids = array_unique($coupon_cat_stores_arr);
+                        $coupon_store_ids = implode(',',$coupon_store_ids);
+                        $coupon_store_sql = "SELECT `all_posts`.*,`wp_term_relationships`.*,`wp_terms`.*, `wp_term_taxonomy`.* FROM `all_posts`,`wp_term_relationships`,`wp_terms`,`wp_term_taxonomy` WHERE `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `wp_term_relationships`.`term_taxonomy_id` = `wp_terms`.`term_id` AND `all_posts`.`post_status` = 'publish' AND `wp_term_taxonomy`.`term_id` = `wp_terms`.`term_id` AND `wp_term_taxonomy`.`taxonomy` = 'stores' AND `wp_term_relationships`.`object_id` IN ($coupon_store_ids) GROUP BY `wp_terms`.`slug` ORDER BY `wp_term_taxonomy`.`count` DESC LIMIT 0,5";
+                        $coupon_store_query = mysqli_query($conn,$coupon_store_sql);
+                        if(mysqli_num_rows($coupon_store_query) > 0){
+                    ?>
+                            <ul class="">
+                               <?php
+                                    while($coupon_store_row = mysqli_fetch_array($coupon_store_query)){
+                                        $coupon_store_term_id = $coupon_store_row['term_id'];
+                                        $coupon_store_slug = $coupon_store_row['slug'];
+                                        $coupon_store_name = $coupon_store_row['name'];
+                                    ?>
+                                        <li class="store_no_<?php echo $coupon_store_slug; ?>"><i class="fa fa-chevron-right"></i>&nbsp;&nbsp;<a href="<?php echo path_url('/retail_pro');?>/stores/<?php echo $coupon_store_slug;?>"><?php echo $coupon_store_name; ?></a></li>
+                                        
+                                    <?php
+                                    }
+                                ?>
+                            </ul>
+                    <?php
+                        }
+                    }
+                ?>
+            </div>
+            
+            <div class="widget_area_one">
+                
+            </div>
             
         </div>
     </div>
