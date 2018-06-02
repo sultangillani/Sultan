@@ -4365,6 +4365,14 @@ div.boxx{
         text-align: left;
         font-size: 23px !important;
         padding: 0px !important;
+        
+        @include mQ(640px){
+          font-size: 20px !important;
+        }
+        
+        @include mQ(430px){
+          font-size: 16px !important;
+        }
       }
       
       h3.rinf{
@@ -4381,24 +4389,38 @@ div.boxx{
         u{
           text-decoration: none;
           color: #c5c6c7;
+          @include mQ(530px){
+            display: none;
+          }
+          
         }
+        
       }
+      
     }
     
     
     .single_coupon_content{
       padding-bottom: 15px;
+      @include mQ(640px){
+        text-align: center;
+      }
       
       .single_coupon_img{
         padding: 0px;
+        @include mQ(640px){
+          width: 100%;
+        }
         
         a{
           display: block;
+          @include mQ(640px){
+            width: 120px;
+            margin: 0 auto;
+          }
           
           img{
-            
             border: 0px solid #d9dadb;
-            
           }
           
         }
@@ -4410,6 +4432,10 @@ div.boxx{
   
   .single_coupon_text{
     display: inline-block;
+    @include mQ(640px){
+      width: 100%;
+      margin-top: 15px;
+    }
     
     p{
       color: #4a4a4a;
@@ -4437,6 +4463,11 @@ div.boxx{
       display: inline-block;
       margin-left: 20px;
       
+      @include mQ(640px){
+        width: 100%;
+        line-height: 2;
+      }
+      
       i{
         font-size: 16px;
       }
@@ -4453,6 +4484,9 @@ div.boxx{
     
     .fir{
       margin-left: 0px;
+      @include mQ(640px){
+        margin-left: 20px;
+      }
     }
   }
   
@@ -4630,7 +4664,12 @@ div.boxx{
 .single_coupon_sidebar{
   margin-top: 30px;
   margin-bottom: 30px;
+  padding: 0px;
   
+  @include mQ(899px){
+    width: 100%;
+    margin-top: 0px;
+  }
   hr{
     margin: 7px 0px;  
   }

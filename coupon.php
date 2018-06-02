@@ -124,11 +124,13 @@
                                     
                                     <p class="fir" ><i class="fa fa-calendar-times-o"></i>&nbsp;<?php echo date_format(date_create($single_coupon_expire)," d-M-Y");?></p>
                                     
+                                   
+                                    <?php if($single_coupon_hits > 0){ ?>
                                     <p>
-                                        <?php if($single_coupon_hits > 0){ ?>
-                                            <i class="fa fa-eye"></i>&nbsp; <?php echo $result; ?> Views
-                                        <?php } ?>
+                                        <i class="fa fa-eye"></i>&nbsp; <?php echo $result; ?> Views
                                     </p>
+                                    <?php } ?>
+                                    
                                     <p>
                                         <i class="fa fa-home"></i>&nbsp; <a href="<?php echo path_url('/retail_pro');?>/stores/<?php echo $single_coupon_store_slug; ?>" target="_blank" ><?php echo $single_coupon_store; ?></a>
                                     </p>
@@ -454,7 +456,7 @@
                     }
                 ?>
             </div>
-            
+            <br />
             <div class="widget_area_one">
                 
             </div>

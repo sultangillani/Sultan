@@ -3019,6 +3019,12 @@ div.boxx {
       text-align: left;
       font-size: 23px !important;
       padding: 0px !important; }
+      @media only screen and (max-width: 640px) {
+        .single_coupon_all .single_coupon .single_coupon_title h3 {
+          font-size: 20px !important; } }
+      @media only screen and (max-width: 430px) {
+        .single_coupon_all .single_coupon .single_coupon_title h3 {
+          font-size: 16px !important; } }
     .single_coupon_all .single_coupon .single_coupon_title h3.rinf {
       margin-bottom: 0px; }
     .single_coupon_all .single_coupon .single_coupon_title .rate {
@@ -3029,16 +3035,33 @@ div.boxx {
       .single_coupon_all .single_coupon .single_coupon_title .rate u {
         text-decoration: none;
         color: #c5c6c7; }
+        @media only screen and (max-width: 530px) {
+          .single_coupon_all .single_coupon .single_coupon_title .rate u {
+            display: none; } }
   .single_coupon_all .single_coupon .single_coupon_content {
     padding-bottom: 15px; }
+    @media only screen and (max-width: 640px) {
+      .single_coupon_all .single_coupon .single_coupon_content {
+        text-align: center; } }
     .single_coupon_all .single_coupon .single_coupon_content .single_coupon_img {
       padding: 0px; }
+      @media only screen and (max-width: 640px) {
+        .single_coupon_all .single_coupon .single_coupon_content .single_coupon_img {
+          width: 100%; } }
       .single_coupon_all .single_coupon .single_coupon_content .single_coupon_img a {
         display: block; }
+        @media only screen and (max-width: 640px) {
+          .single_coupon_all .single_coupon .single_coupon_content .single_coupon_img a {
+            width: 120px;
+            margin: 0 auto; } }
         .single_coupon_all .single_coupon .single_coupon_content .single_coupon_img a img {
           border: 0px solid #d9dadb; }
 .single_coupon_all .single_coupon_text {
   display: inline-block; }
+  @media only screen and (max-width: 640px) {
+    .single_coupon_all .single_coupon_text {
+      width: 100%;
+      margin-top: 15px; } }
   .single_coupon_all .single_coupon_text p {
     color: #4a4a4a; }
   .single_coupon_all .single_coupon_text span {
@@ -3051,6 +3074,10 @@ div.boxx {
   .single_coupon_all .single_coupon_info p {
     display: inline-block;
     margin-left: 20px; }
+    @media only screen and (max-width: 640px) {
+      .single_coupon_all .single_coupon_info p {
+        width: 100%;
+        line-height: 2; } }
     .single_coupon_all .single_coupon_info p i {
       font-size: 16px; }
     .single_coupon_all .single_coupon_info p a {
@@ -3061,6 +3088,9 @@ div.boxx {
         font-weight: 600; }
   .single_coupon_all .single_coupon_info .fir {
     margin-left: 0px; }
+    @media only screen and (max-width: 640px) {
+      .single_coupon_all .single_coupon_info .fir {
+        margin-left: 20px; } }
 .single_coupon_all .buttler {
   text-align: right;
   padding: 0px 15px;
@@ -3184,7 +3214,12 @@ div.boxx {
 
 .single_coupon_sidebar {
   margin-top: 30px;
-  margin-bottom: 30px; }
+  margin-bottom: 30px;
+  padding: 0px; }
+  @media only screen and (max-width: 899px) {
+    .single_coupon_sidebar {
+      width: 100%;
+      margin-top: 0px; } }
   .single_coupon_sidebar hr {
     margin: 7px 0px; }
   .single_coupon_sidebar .widget_area_one {
