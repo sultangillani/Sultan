@@ -3222,6 +3222,8 @@ div.boxx {
       margin-top: 0px; } }
   .single_coupon_sidebar hr {
     margin: 7px 0px; }
+  .single_coupon_sidebar .banner a {
+    display: block; }
   .single_coupon_sidebar .widget_area_one {
     background: #fff;
     color: #4a4a4a;

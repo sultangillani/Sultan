@@ -457,9 +457,25 @@
                 ?>
             </div>
             <br />
-            <div class="widget_area_one">
-                
-            </div>
+            
+            <?php
+                $banner = "SELECT * FROM `all_posts` WHERE `post_type` = 'widget_attachment' ORDER BY ID DESC LIMIT 0,5";
+                $banner_query = mysqli_query($conn,$banner);
+                if(mysqli_num_rows($banner_query) > 0){
+                    while($banner_row = mysqli_fetch_assoc($banner_query)){
+                        $banner_name = $banner_row['post_name'];
+                        $banner_guid = $banner_row['guid'];
+                        $banner_post_featured_image = $banner_row['post_featured_image'];
+                        ?>
+                        
+                        <div class="widget_area_one banner">
+                            <a href="<?php echo $banner_guid; ?>"><img src="<?php echo $banner_post_featured_image; ?>" alt="<?php echo $banner_name; ?>" class="img-responsive" /></a>
+                        </div>
+                        <?php
+                    }
+                }
+            ?>
+            
             
         </div>
     </div>
