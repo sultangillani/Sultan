@@ -4677,6 +4677,11 @@ div.boxx{
   .banner{
     a{
       display: block;
+      
+      img{
+        width: 100%;
+        margin: 0 auto;
+      }
     }
   }
   

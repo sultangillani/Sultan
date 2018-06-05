@@ -3224,6 +3224,9 @@ div.boxx {
     margin: 7px 0px; }
   .single_coupon_sidebar .banner a {
     display: block; }
+    .single_coupon_sidebar .banner a img {
+      width: 100%;
+      margin: 0 auto; }
   .single_coupon_sidebar .widget_area_one {
     background: #fff;
     color: #4a4a4a;

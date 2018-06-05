@@ -54,6 +54,15 @@ else if($url[0] == 'coupons-category'){
     }
 }
 
+/*else if($url[0] == 'prac'){
+    if($url[1] == ''){
+        $home_url = path_url('/retail_pro');
+        header('Location: '.$home_url);
+    }else{
+        include_once 'prac.php';
+    }
+}*/
+
 
 
 

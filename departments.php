@@ -10,10 +10,39 @@
             </div>
         </div><!---conte--->
     </div><!---deca_heading--->
-   
     <div class="department_cats">
         <div id="conte" class="container">
-            <div class="row cat_boxes">
+            <?php
+                $department_sql = "SELECT `wp_terms`.*,`wp_term_taxonomy`.*,`wp_term_relationships`.* FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_taxonomy_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` IN ('coupon_category') GROUP BY `wp_terms`.`term_id`";
+                $department_query = mysqli_query($conn,$department_sql);
+                if(mysqli_num_rows($department_query) > 0){
+                    ?>
+                        <div class="row cat_boxes">
+                            <?php
+                            while($department_row = mysqli_fetch_assoc($department_query)){
+                                $department_id = $department_row['term_id'];
+                                $department_name = $department_row['name'];
+                                $department_slug = $department_row['slug'];
+                                $department_tax = $department_row['taxonomy'];
+                                $department_term_icon = $department_row['term_icon'];
+                                $department_term_type = $department_row['term_type'];
+                                ?>
+                                <div class="col-sm-2 col-xs-3 cat cat_<?php echo $department_slug;?>">
+                                    <div class="cat_box">
+                                        <a href="">
+                                            <i class="<?php echo $department_term_icon;?>"></i>
+                                            <span><?php echo $department_name;?></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                            ?>
+                        </div>
+                    <?php
+                }
+            ?>
+            <!---<div class="row cat_boxes">
                 <div class="col-sm-2 col-xs-3 cat">
                     <div class="cat_box">
                         <a href="">
@@ -96,7 +125,7 @@
                 </div>
                 
                 
-            </div>
+            </div>--->
             
             <!---stores--->
             <hr />
