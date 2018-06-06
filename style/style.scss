@@ -3474,6 +3474,28 @@ footer{
   .department_cats{
     margin-top: 0px;
     
+    .load_btn{
+      width: 200px;
+      height: 40px;
+      @include border-radius(4px);
+      background: #24b7e3;
+      border: 1px solid #24b7e3;
+      font-weight: 600;
+      font-size: 16px;
+      color: #fff;
+      text-decoration: none;
+      transition: 0.2s all 0s linear;
+      display: block;
+      margin: 0 auto;
+      margin-top: 30px;
+      
+      &:hover{
+        color: #24b7e3;
+        background: #fff;
+        border: 1px solid #24b7e3;
+      }
+    }
+    
     #conte{
       @include mQ(991px){
         width: 100%;        

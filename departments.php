@@ -39,7 +39,9 @@
                             }
                             ?>
                         </div>
-                        <input type="button" class="btn btn-link load_more_dep" value="Load More"/>
+                        <input type="button" class="btn btn-link load_more_dep load_btn" value="Load More Categories"/>
+                        <input type="button" class="btn btn-link show_less_dep load_btn" value="Show Less Categories"/>
+                        
                     <?php
                 }
             ?>
