@@ -240,6 +240,13 @@
                     $to_expire = $top_offer_row['expire_date'];
                     $to_code = $top_offer_row['coupon_code'];
                     $to_code_type = $top_offer_row['coupon_code_type'];
+                    $to_coupon_type_color = $top_offer_row['coupon_type_color'];
+                    
+                    $to_coupon_type = $top_offer_row['coupon_type'];
+                    $to_coupon_type = ucwords(str_ireplace('-',' ',$to_coupon_type));
+                    
+                    $to_term_name = $top_offer_row['name'];
+                    $to_term_slug = $top_offer_row['slug'];
                     $to_btn = $top_offer_row['btn_name'];
                         
                     if($to_btn == ''){
@@ -283,30 +290,9 @@
                                 
                                 <div class="row post-mid-one">
                                     <div class="col-xs-8 to">
-                                        <?php
-                                        //coupont-type Values
-                                        $coupon_type_query = "SELECT `wp_terms`.*,`wp_term_taxonomy`.*,`wp_term_relationships`.*,`all_posts`.* FROM `wp_terms`,`wp_term_taxonomy`,`wp_term_relationships`,`all_posts` WHERE `wp_terms`.`term_id` = `wp_term_taxonomy`.`term_id` AND `wp_terms`.`term_id` = `wp_term_relationships`.`term_taxonomy_id` AND `wp_term_taxonomy`.`taxonomy` IN('coupon_type','stores') AND `wp_term_relationships`.`object_id` = `all_posts`.`ID` AND `all_posts`.`post_status` = 'publish' AND `all_posts`.`ID` = $to_id";
-                                        $coupon_type_result = mysqli_query($conn,$coupon_type_query);
-                                        if(mysqli_num_rows($coupon_type_result) > 0){
-                                            while($coupon_type_row = mysqli_fetch_array($coupon_type_result)){
-                                                $ct_tax = $coupon_type_row['taxonomy'];
-                                                $ct_name = $coupon_type_row['name'];
-                                                $ct_color = $coupon_type_row['type_color'];
-                                                if($ct_tax == 'coupon_type'){
-                                                    ?>
-                                                        <span style="color: <?php echo $ct_color; ?>; font-weight:600;"><?php echo $ct_name; ?></span>
-                                                    <?php
-                                                }
-                                                if($ct_tax == 'stores'){
-                                                    ?>
-                                                        <span> <i>&#x2022;</i> <?php echo $ct_name; ?></span>
-                                                    <?php
-                                                }
-                                            }
-                                        }
-                                        ?>
                                         
-                                        
+                                        <span style="color: <?php echo $to_coupon_type_color; ?>; font-weight:600;"><?php echo $to_coupon_type; ?></span>
+                                        <span> <i>&#x2022;</i> <?php echo $to_term_name; ?></span>
                                     </div>
                                     <div class="col-xs-4 text-right r">
                                         <span class="rate"><i class="fa fa-star-o" aria-hidden="true"></i> <u>Save</u></span>

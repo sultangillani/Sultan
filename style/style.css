@@ -2482,14 +2482,17 @@ footer {
           text-align: center;
           padding: 15px;
           text-decoration: none;
-          color: #060606; }
+          color: #060606;
+          min-height: 130px; }
           .department_categories .department_cats #conte .cat_boxes .cat_box a i {
             font-size: 35px;
             margin: 10px 0px;
             display: block;
             color: #10b48a; }
           .department_categories .department_cats #conte .cat_boxes .cat_box a span {
-            margin-left: 0px; }
+            margin-left: 0px;
+            margin-top: 5px;
+            display: inline-block; }
     .department_categories .department_cats #conte .store_boxes {
       margin-left: 0px;
       margin-right: 0px; }

@@ -767,5 +767,30 @@ $(document).ready(function(){
     
     
     
-    
+    //Depaements Load More
+    function load_more(elem,end,inc,btn){
+        var start = 0;
+        $(elem).css({'display' : 'none'});
+        for(var start = 0; start < end; start++){
+            var elems = elem + ':eq('+ start +')';
+            $(elems).css({'display' : 'inline-block'});
+            
+            if (start >= $(elem).length) {
+                $(btn).css({'display' : 'none'});
+            }
+        }
+        
+        $(btn).click(function(){
+            end = end + inc;
+            for(var start = 0; start < end; start++){
+                var elems = elem + ':eq('+ start +')';
+                $(elems).css({'display' : 'inline-block'});
+                
+                if (start >= $(elem).length) {
+                    $(btn).css({'display' : 'none'});
+                }
+            }
+        });
+    }
+    load_more('.department_cats .cat_boxes > div.cat',12,12,'.load_more_dep');
 });

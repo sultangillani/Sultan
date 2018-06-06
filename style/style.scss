@@ -3514,6 +3514,7 @@ footer{
             padding: 15px;
             text-decoration: none;
             color: #060606;
+            min-height: 130px;
             
             i{
               font-size: 35px;
@@ -3524,6 +3525,8 @@ footer{
             
             span{
               margin-left: 0px;
+              margin-top: 5px;
+              display: inline-block;
             }
             
           }

@@ -77,7 +77,7 @@
                                     $button_name = $scq_btn;
                                 }
                                 ?>
-                                    <div class="col-xs-4 coupon">
+                                    <div class="col-xs-4 coupon cat_coupr_<?php echo $scq_id; ?>">
                                         <div class="thumbnail">
                                             <span class="rate"><i class="fa fa-star-o" aria-hidden="true"></i></span>
                                             <?php

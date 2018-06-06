@@ -29,7 +29,7 @@
                                 ?>
                                 <div class="col-sm-2 col-xs-3 cat cat_<?php echo $department_slug;?>">
                                     <div class="cat_box">
-                                        <a href="">
+                                        <a href="<?php echo path_url('/retail_pro');?>/coupons-category/<?php echo $department_slug; ?>" target="_blank">
                                             <i class="<?php echo $department_term_icon;?>"></i>
                                             <span><?php echo $department_name;?></span>
                                         </a>
@@ -39,6 +39,7 @@
                             }
                             ?>
                         </div>
+                        <input type="button" class="btn btn-link load_more_dep" value="Load More"/>
                     <?php
                 }
             ?>
