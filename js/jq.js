@@ -807,4 +807,5 @@ $(document).ready(function(){
         });
     }
     load_more('.department_cats .cat_boxes > div.cat',12,12,'.load_more_dep','.show_less_dep');
+    load_more('.department_cats .store_boxes > div.cat',12,12,'.load_more_de','.show_less_de');
 });
