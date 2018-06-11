@@ -84,8 +84,8 @@
                     }
                     ?>
                 </div>
-                <input type="button" class="btn btn-link load_more_de load_btn" value="Load More Categories"/>
-                <input type="button" class="btn btn-link show_less_de load_btn" value="Show Less Categories"/>
+                <input type="button" class="btn btn-link load_more_de load_btn" value="Load More Stores"/>
+                <input type="button" class="btn btn-link show_less_de load_btn" value="Show Less Stores"/>
                 <?php
             }
             ?>

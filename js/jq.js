@@ -767,7 +767,7 @@ $(document).ready(function(){
     
     
     
-    //Depaements Load More
+    //Departments Load More
     function load_more(elem,end,inc,btn,btn_two){
         $(elem).css({'display' : 'none'});
         $(btn_two).css({'display' : 'none'});
@@ -808,4 +808,54 @@ $(document).ready(function(){
     }
     load_more('.department_cats .cat_boxes > div.cat',12,12,'.load_more_dep','.show_less_dep');
     load_more('.department_cats .store_boxes > div.cat',12,12,'.load_more_de','.show_less_de');
+    
+    
+    function nav_show_hide(hand,elem,lay,hideClass){
+        $(elem).hide();
+        $(lay).hide();
+        $(hand).click(function(){
+            if ($(this).hasClass('nav_hide')) {
+                $(this).removeClass('nav_hide');
+                $(this).addClass('nav_show');
+                $(elem).show();
+                $(lay).show();
+            }else{
+                $(this).removeClass('nav_show');
+                $(this).addClass('nav_hide');
+                $(elem).hide();
+                $(lay).hide();
+            }
+            var hand_class = $(this).attr('id');
+            hand_class = '#' + hand_class;
+            
+            $(lay).click(function(){
+                if ($(hand_class).hasClass('nav_show')) {
+                    $(hand_class).removeClass('nav_show');
+                    $(hand_class).addClass('nav_hide');
+                    $(elem).hide();
+                    $(lay).hide();
+                }
+            });
+            
+            
+            $(hideClass).click(function(){
+                var handy = hand.replace('.','');
+                if ($(this).hasClass(handy)) {
+                    
+                }else{
+                    if ($(hand_class).hasClass('nav_show')) {
+                        $(hand_class).removeClass('nav_show');
+                        $(hand_class).addClass('nav_hide');
+                        $(elem).hide();
+                        $(lay).hide();
+                    }
+                }
+            });
+            
+        });
+        
+        
+    }
+    
+    nav_show_hide('.nav_category','.dynamic_category_switch','.overla','.search-with-logo, .navbar-nav li a');
 });

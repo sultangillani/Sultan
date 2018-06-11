@@ -24,7 +24,7 @@
 ?>
 </head>
 <?php
-    //error_reporting(0);
+    error_reporting(0);
 ?>
 <body ng-app="myapp" ng-controller="usercontroller">
     <div class="overlayyy"></div>
@@ -181,8 +181,9 @@
                       <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
-                              <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                              <li><a href="#">Link</a></li>
+                              <li class="active"><a href="#"> Home<span class="sr-only">(current)</span></a></li>
+                              <li><a href="#">Stores</a></li>
+                              <li><a href="#">Categories</a></li>
                             </ul>
                         </div><!-- /.navbar-collapse -->
                     </div><!-- /.container-fluid -->
@@ -198,8 +199,9 @@
                 <div class="tab-content">
                         <div id="home" class="tab-pane fade in active">
                             <ul class="">
-                                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                                <li><a href="#">Link</a></li>
+                                <li class="active"><a href="#"> Home<span class="sr-only">(current)</span></a></li>
+                                <li><a href="#">Stores</a></li>
+                                <li><a href="#">Categories</a></li>
                             </ul>
                                 
                         </div>

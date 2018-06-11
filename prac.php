@@ -181,8 +181,9 @@
                       <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
-                              <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                              <li><a href="#">Link</a></li>
+                              <li class="active"><a href="#"> Home<span class="sr-only">(current)</span></a></li>
+                              <li><a href="#" id="nav_store" class="nav_store nav_hide">Stores</a></li>
+                              <li><a href="#" id="nav_category" class="nav_category nav_hide">Categories</a></li>
                             </ul>
                         </div><!-- /.navbar-collapse -->
                     </div><!-- /.container-fluid -->
@@ -198,8 +199,9 @@
                 <div class="tab-content">
                         <div id="home" class="tab-pane fade in active">
                             <ul class="">
-                                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                                <li><a href="#">Link</a></li>
+                                <li class="active"><a href="#"> Home<span class="sr-only">(current)</span></a></li>
+                                <li><a href="#">Stores</a></li>
+                                <li><a href="#">Categories</a></li>
                             </ul>
                                 
                         </div>
@@ -221,7 +223,7 @@
         </button>
     </header>
 
-<?php
+    <?php
         /*$search_store_array = [];
         if(isset($_POST['search']) && !empty($_POST['search'])){
             $search = mysqli_real_escape_string($conn,htmlentities($_POST['search']));
@@ -236,3 +238,15 @@
             var_dump($search_store_array);
         }*/
     ?>
+    <div class="overla"></div>
+    <div class="container dynamic_category_switch">
+        <div class="dynamic_category row">
+            <div class="sub_side col-xs-4"></div>
+            <div class="sub_shop col-xs-8"></div>
+
+        </div>
+    </div>
+    
+<?php
+    include_once 'inc/footer.php';
+?>
